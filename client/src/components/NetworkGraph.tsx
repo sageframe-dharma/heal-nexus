@@ -94,7 +94,7 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ 
                   pathLength: 1, 
-                  opacity: isConnectedToActive ? 0.6 : isFaded ? 0.05 : 0.15,
+                  opacity: isConnectedToActive ? 0.8 : isFaded ? 0.02 : 0.08,
                   strokeWidth: isConnectedToActive ? 2 : 1
                 }}
                 stroke="currentColor"
@@ -135,7 +135,7 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
         animate={{ 
           scale: activeService ? 1.05 : 1,
         }}
-        transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
+        transition={{ duration: 0 }}
       >
         <div 
           className="overflow-hidden relative w-full h-full"
@@ -146,8 +146,10 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
           {/* 6 Wedge Image Sections - Each with independent opacity */}
           {nodes.map((node, index) => {
             const wedgeAngle = (360 / nodes.length);
-            const startAngle = (wedgeAngle * index) - 90; // Start from top
-            const endAngle = startAngle + wedgeAngle;
+            // Wedge is centered between two adjacent nodes
+            const midpointAngle = (wedgeAngle * index) + (wedgeAngle / 2) - 90;
+            const startAngle = midpointAngle - (wedgeAngle / 2);
+            const endAngle = midpointAngle + (wedgeAngle / 2);
             
             // Create wedge polygon points - from center point in the hex
             const wedgePoints = [
@@ -165,7 +167,7 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
                   clipPath,
                 }}
                 animate={{
-                  opacity: wedgeOpacities[index] || 0.2,
+                  opacity: wedgeOpacities[index] || 0.15,
                 }}
                 transition={{ duration: 0.4, ease: "easeInOut" }}
               >
