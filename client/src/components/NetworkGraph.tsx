@@ -94,7 +94,7 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ 
                   pathLength: 1, 
-                  opacity: isConnectedToActive ? 0.8 : isFaded ? 0.02 : 0.04,
+                  opacity: isConnectedToActive ? 0.8 : isFaded ? 0.02 : 0.08,
                   strokeWidth: isConnectedToActive ? 2 : 1
                 }}
                 stroke="currentColor"
