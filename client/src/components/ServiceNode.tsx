@@ -49,7 +49,7 @@ export function ServiceNode({
       <motion.div
         className={cn(
           "absolute left-1/2 -translate-x-1/2 whitespace-normal pointer-events-none transition-all duration-300",
-          "flex flex-col gap-2"
+          "flex flex-col gap-2 z-50"
         )}
         style={{
           top: index < 3 ? 'auto' : '0', // Top nodes go up, bottom nodes go down
