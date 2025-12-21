@@ -18,7 +18,7 @@ export default function Home() {
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/10">
       
       {/* Background Textures - Parallax-like layers */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-0">
+      <div className="fixed inset-0 pointer-events-none opacity-[0.23] z-0">
          <div 
            className="absolute top-0 right-0 w-1/2 h-full bg-cover bg-center mix-blend-multiply"
            style={{ backgroundImage: `url(${texture3})` }}
