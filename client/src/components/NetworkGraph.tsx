@@ -132,8 +132,8 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
         <div 
           className="overflow-hidden relative"
           style={{
-            width: radius * 1.8,
-            height: radius * 1.8,
+            width: radius * 2,
+            height: radius * 2,
             clipPath: 'polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%)',
           }}
         >
