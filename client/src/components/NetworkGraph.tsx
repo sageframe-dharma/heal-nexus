@@ -133,7 +133,7 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
           marginTop: -radius,
         }}
         animate={{ 
-          scale: activeService ? 1.05 : 1,
+          // No scale animation
         }}
         transition={{ duration: 0 }}
       >
