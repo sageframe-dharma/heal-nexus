@@ -123,17 +123,23 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
 
       {/* Central Hexagon with Image - Wedge-based Animation */}
       <motion.div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-5 pointer-events-none"
+        className="absolute pointer-events-none z-5"
+        style={{
+          left: centerX,
+          top: centerY,
+          width: radius * 2,
+          height: radius * 2,
+          marginLeft: -radius,
+          marginTop: -radius,
+        }}
         animate={{ 
           scale: activeService ? 1.05 : 1,
         }}
         transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
       >
         <div 
-          className="overflow-hidden relative"
+          className="overflow-hidden relative w-full h-full"
           style={{
-            width: radius * 2,
-            height: radius * 2,
             clipPath: 'polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%)',
           }}
         >
@@ -141,19 +147,20 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
           {nodes.map((node, index) => {
             const wedgeAngle = (360 / nodes.length);
             const startAngle = (wedgeAngle * index) - 90; // Start from top
+            const endAngle = startAngle + wedgeAngle;
             
-            // Create wedge polygon points
+            // Create wedge polygon points - from center point in the hex
             const wedgePoints = [
-              [50, 50], // center
+              [50, 50], // center of hex
               [50 + 50 * Math.cos((startAngle) * Math.PI / 180), 50 + 50 * Math.sin((startAngle) * Math.PI / 180)],
-              [50 + 50 * Math.cos((startAngle + wedgeAngle) * Math.PI / 180), 50 + 50 * Math.sin((startAngle + wedgeAngle) * Math.PI / 180)],
+              [50 + 50 * Math.cos((endAngle) * Math.PI / 180), 50 + 50 * Math.sin((endAngle) * Math.PI / 180)],
             ];
             const clipPath = `polygon(${wedgePoints.map(p => `${p[0]}% ${p[1]}%`).join(', ')})`;
             
             return (
               <motion.div
                 key={`wedge-${index}`}
-                className="absolute inset-0 pointer-events-none overflow-hidden"
+                className="absolute inset-0 pointer-events-none"
                 style={{
                   clipPath,
                 }}
