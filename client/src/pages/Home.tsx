@@ -17,8 +17,11 @@ export default function Home() {
       
       {/* Background Texture */}
       <div 
-        className="fixed inset-0 pointer-events-none opacity-[0.07] z-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${texture3})` }}
+        className="fixed inset-0 pointer-events-none opacity-[0.1] z-0 bg-cover bg-center"
+        style={{ 
+          backgroundImage: `url(${texture3})`,
+          transform: 'rotate(180deg)'
+        }}
       />
 
       {/* Main Content */}
