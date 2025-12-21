@@ -10,6 +10,7 @@ interface NetworkGraphProps {
 
 export function NetworkGraph({ services, image }: NetworkGraphProps) {
   const [activeService, setActiveService] = useState<string | null>(null);
+  const [wedgeOpacities, setWedgeOpacities] = useState<number[]>(Array(6).fill(0.2));
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
 
@@ -27,6 +28,18 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Generate random opacities for wedges when service is activated
+  useEffect(() => {
+    if (activeService) {
+      const newOpacities = Array(services.length)
+        .fill(0)
+        .map(() => Math.random() * 0.3 + 0.3); // Random between 0.3 and 0.6
+      setWedgeOpacities(newOpacities);
+    } else {
+      setWedgeOpacities(Array(services.length).fill(0.2));
+    }
+  }, [activeService, services.length]);
 
   // Calculate positions in a circle
   const radius = Math.min(dimensions.width, dimensions.height) / 2.5;
@@ -122,60 +135,39 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
             clipPath: 'polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%)',
           }}
         >
-          {/* Base Image - fills entire hexagon */}
-          <img 
-            src={centralImage}
-            alt="Nancy Turnquist"
-            className="w-full h-full object-cover"
-          />
-          
-          {/* 6 Wedge Overlays - Each responds to corresponding service */}
+          {/* 6 Wedge Image Sections - Each with independent opacity */}
           {nodes.map((node, index) => {
             const wedgeAngle = (360 / nodes.length);
             const startAngle = (wedgeAngle * index) - 90; // Start from top
             
+            // Create wedge polygon points
+            const wedgePoints = [
+              [50, 50], // center
+              [50 + 50 * Math.cos((startAngle) * Math.PI / 180), 50 + 50 * Math.sin((startAngle) * Math.PI / 180)],
+              [50 + 50 * Math.cos((startAngle + wedgeAngle) * Math.PI / 180), 50 + 50 * Math.sin((startAngle + wedgeAngle) * Math.PI / 180)],
+            ];
+            const clipPath = `polygon(${wedgePoints.map(p => `${p[0]}% ${p[1]}%`).join(', ')})`;
+            
             return (
               <motion.div
                 key={`wedge-${index}`}
-                className="absolute inset-0 pointer-events-none mix-blend-darken"
+                className="absolute inset-0 pointer-events-none overflow-hidden"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.5)',
-                  clipPath: `polygon(50% 50%, 50% 0%, ${50 + 50 * Math.cos((startAngle) * Math.PI / 180)}% ${50 + 50 * Math.sin((startAngle) * Math.PI / 180)}%, ${50 + 50 * Math.cos((startAngle + wedgeAngle) * Math.PI / 180)}% ${50 + 50 * Math.sin((startAngle + wedgeAngle) * Math.PI / 180)}%)`,
+                  clipPath,
                 }}
                 animate={{
-                  opacity: 
-                    activeService === node.service
-                      ? 0 // Brighten this wedge
-                      : activeService
-                      ? 0.4 // Dim other wedges
-                      : 0.25, // Light overlay at rest
+                  opacity: wedgeOpacities[index] || 0.2,
                 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              />
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+              >
+                <img 
+                  src={centralImage}
+                  alt="Nancy Turnquist"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
             );
           })}
-          
-          {/* Dynamic Glow Pulse */}
-          <motion.div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'radial-gradient(circle, rgba(0,0,0,0.2) 0%, transparent 70%)',
-            }}
-            animate={{
-              boxShadow: activeService 
-                ? [
-                    '0 0 0 0px rgba(0,0,0,0.3)',
-                    '0 0 30px 2px rgba(0,0,0,0.15)',
-                    '0 0 0 0px rgba(0,0,0,0.3)',
-                  ]
-                : 'none',
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: activeService ? Infinity : 0,
-              ease: 'easeInOut',
-            }}
-          />
         </div>
       </motion.div>
     </div>
