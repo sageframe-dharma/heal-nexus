@@ -130,8 +130,10 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
         transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
       >
         <div 
-          className="w-48 h-48 md:w-56 md:h-56 overflow-hidden relative"
+          className="overflow-hidden relative"
           style={{
+            width: radius * 1.8,
+            height: radius * 1.8,
             clipPath: 'polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%)',
           }}
         >
