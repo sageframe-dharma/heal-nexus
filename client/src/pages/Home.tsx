@@ -1,7 +1,5 @@
 import { NetworkGraph } from "@/components/NetworkGraph";
 import portraitImage from "@assets/generated_images/professional_black_and_white_portrait_of_a_woman_healer.png";
-import texture1 from "@assets/sensativechaos_1766315938144.jpg";
-import texture2 from "@assets/sensativechaos2_1766315938144.jpg";
 import texture3 from "@assets/sensativechaos3_1766315989988.jpg";
 
 const SERVICES = [
@@ -17,17 +15,11 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/10">
       
-      {/* Background Textures - Parallax-like layers */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.23] z-0">
-         <div 
-           className="absolute top-0 right-0 w-1/2 h-full bg-cover bg-center mix-blend-multiply"
-           style={{ backgroundImage: `url(${texture3})` }}
-         />
-         <div 
-           className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-cover bg-center mix-blend-multiply"
-           style={{ backgroundImage: `url(${texture1})` }}
-         />
-      </div>
+      {/* Background Texture */}
+      <div 
+        className="fixed inset-0 pointer-events-none opacity-[0.07] z-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${texture3})` }}
+      />
 
       {/* Main Content */}
       <main className="relative z-10 container mx-auto px-6 py-12 md:py-24 flex flex-col items-center justify-center min-h-screen">
