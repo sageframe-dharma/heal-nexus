@@ -45,32 +45,17 @@ export function ServiceNode({
       onMouseLeave={() => onHover(null)}
       data-testid={`node-${service}`}
     >
-      {/* Label + Description Box */}
+      {/* Label - Only show when active or related, or always if you prefer. 
+          Design choice: Show on hover to keep it clean? 
+          User asked for "activates when moused over".
+      */}
       <motion.div
         className={cn(
-          "absolute left-1/2 -translate-x-1/2 whitespace-normal pointer-events-none transition-all duration-300",
-          "flex flex-col gap-2 z-50"
+          "absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium shadow-sm pointer-events-none transition-all duration-300",
+          isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
-        style={{
-          top: index < 3 ? 'auto' : '0', // Top nodes go up, bottom nodes go down
-          bottom: index < 3 ? 'auto' : 'undefined',
-          transform: 'translateX(-50%)',
-        }}
-        animate={{
-          opacity: isActive ? 1 : 0,
-          y: isActive ? 0 : (index < 3 ? 10 : -10),
-        }}
-        transition={{ duration: 0.3 }}
       >
-        {/* Service Name Pill */}
-        <div className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium shadow-sm">
-          {service}
-        </div>
-        
-        {/* Description Box */}
-        <div className="px-4 py-3 bg-white/90 backdrop-blur-sm rounded-lg text-xs font-light text-muted-foreground shadow-sm max-w-xs">
-          <p>Discover holistic wellness through personalized somatic practices and embodied healing techniques designed to restore balance and vitality.</p>
-        </div>
+        {service}
       </motion.div>
 
       {/* Circle Container */}

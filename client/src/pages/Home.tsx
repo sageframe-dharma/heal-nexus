@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import portraitImage from "@assets/generated_images/professional_black_and_white_portrait_of_a_woman_healer.png";
 import texture3 from "@assets/sensativechaos3_1766315989988.jpg";
@@ -12,20 +13,31 @@ const SERVICES = [
 ];
 
 export default function Home() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/10">
       
-      {/* Background Texture */}
+      {/* Background Texture with Parallax */}
       <div 
         className="fixed inset-0 pointer-events-none opacity-[0.1] z-0 bg-cover bg-center"
         style={{ 
           backgroundImage: `url(${texture3})`,
-          transform: 'rotate(180deg)'
+          transform: `rotate(180deg) translateY(${scrollY * 0.5}px)`,
         }}
       />
 
       {/* Main Content */}
-      <main className="relative z-10 container mx-auto px-6 py-12 md:py-24 flex flex-col items-center justify-center min-h-screen">
+      <main className="relative z-20 container mx-auto px-6 py-12 md:py-24 flex flex-col items-center justify-center min-h-screen">
         
         {/* Header */}
         <header className="text-center mb-12 md:mb-20 space-y-6 max-w-3xl mx-auto">
