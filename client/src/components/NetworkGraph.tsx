@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ServiceNode } from "./ServiceNode";
+import centralImage from "@assets/sensative_4_1766316400450.jpg";
 
 interface NetworkGraphProps {
   services: string[];
@@ -107,13 +108,55 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
         />
       ))}
 
-      {/* Central "Hub" Text (Optional, fills the empty space) */}
+      {/* Central Hexagon with Image */}
       <motion.div 
-        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center z-0"
-        animate={{ opacity: activeService ? 0.1 : 1 }}
-        transition={{ duration: 0.5 }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-5 pointer-events-none"
+        animate={{ 
+          opacity: activeService ? 0.7 : 0.5,
+          scale: activeService ? 1.05 : 1,
+        }}
+        transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
       >
-         {/* Could put a central logo or name here */}
+        <div 
+          className="w-32 h-32 md:w-40 md:h-40 overflow-hidden relative"
+          style={{
+            clipPath: 'polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%)',
+          }}
+        >
+          <motion.img 
+            src={centralImage}
+            alt="Nancy Turnquist"
+            className="w-full h-full object-cover"
+            animate={{
+              filter: activeService 
+                ? "brightness(1.1) contrast(1.2)" 
+                : "brightness(0.85) contrast(0.95)",
+            }}
+            transition={{ duration: 0.5 }}
+          />
+          
+          {/* Dynamic Glow Pulse modulated by connections */}
+          <motion.div 
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle, rgba(0,0,0,0.3) 0%, transparent 70%)',
+            }}
+            animate={{
+              boxShadow: activeService 
+                ? [
+                    '0 0 0 0px rgba(0,0,0,0.4)',
+                    '0 0 30px 2px rgba(0,0,0,0.2)',
+                    '0 0 0 0px rgba(0,0,0,0.4)',
+                  ]
+                : 'none',
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: activeService ? Infinity : 0,
+              ease: 'easeInOut',
+            }}
+          />
+        </div>
       </motion.div>
     </div>
   );
