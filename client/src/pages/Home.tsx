@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import portraitImage from "@assets/generated_images/professional_black_and_white_portrait_of_a_woman_healer.png";
 import texture3 from "@assets/sensativechaos3_1766315989988.jpg";
@@ -14,6 +15,7 @@ const SERVICES = [
 
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
+  const [activeService, setActiveService] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,11 +28,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/10">
-      
+
       {/* Background Texture with Parallax */}
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none opacity-[0.1] z-0 bg-cover bg-center"
-        style={{ 
+        style={{
           backgroundImage: `url(${texture3})`,
           transform: `rotate(180deg) translateY(${scrollY * 0.5}px)`,
         }}
@@ -38,7 +40,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="relative z-20 container mx-auto px-6 py-12 md:py-24 flex flex-col items-center justify-center min-h-screen">
-        
+
         {/* Header */}
         <header className="text-center mb-12 md:mb-20 space-y-6 max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-primary">
@@ -48,13 +50,31 @@ export default function Home() {
             Multimodal Healer & Bodyworker
           </p>
           <div className="h-px w-24 bg-primary/20 mx-auto mt-8" />
+          <div className="h-7 flex items-center justify-center">
+            <AnimatePresence mode="wait">
+              {activeService && (
+                <motion.span
+                  key={activeService}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="text-xs tracking-widest uppercase text-muted-foreground/60"
+                >
+                  {activeService}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
         </header>
 
         {/* The Graph */}
         <div className="w-full mb-16">
-          <NetworkGraph 
-            services={SERVICES} 
+          <NetworkGraph
+            services={SERVICES}
             image={portraitImage}
+            activeService={activeService}
+            onActiveChange={setActiveService}
           />
         </div>
 
@@ -63,7 +83,7 @@ export default function Home() {
           <p className="text-muted-foreground italic font-serif text-lg">
             "Weaving together somatic wisdom, birth support, and therapeutic healing."
           </p>
-          <button 
+          <button
             className="px-8 py-3 rounded-full border border-primary/20 text-primary hover:bg-primary hover:text-white transition-all duration-300 tracking-wide text-sm font-medium uppercase hover-elevate"
           >
             Connect with Nancy

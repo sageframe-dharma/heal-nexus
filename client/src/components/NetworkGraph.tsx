@@ -6,11 +6,11 @@ import centralImage from "@assets/sensative_4_1766316400450.jpg";
 interface NetworkGraphProps {
   services: string[];
   image: string;
+  activeService: string | null;
+  onActiveChange: (service: string | null) => void;
 }
 
-export function NetworkGraph({ services, image }: NetworkGraphProps) {
-  const [activeService, setActiveService] = useState<string | null>(null);
-  const [wedgeOpacities, setWedgeOpacities] = useState<number[]>(Array(6).fill(0.2));
+export function NetworkGraph({ services, image, activeService, onActiveChange }: NetworkGraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
 
@@ -20,26 +20,14 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
       if (containerRef.current) {
         const { width } = containerRef.current.getBoundingClientRect();
         // Keep it square-ish or proportional, but responsive
-        setDimensions({ width, height: Math.min(width, 600) }); 
+        setDimensions({ width, height: Math.min(width, 600) });
       }
     };
-    
+
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // Generate random opacities for wedges when service is activated
-  useEffect(() => {
-    if (activeService) {
-      const newOpacities = Array(services.length)
-        .fill(0)
-        .map(() => Math.random() * 0.3 + 0.3); // Random between 0.3 and 0.6
-      setWedgeOpacities(newOpacities);
-    } else {
-      setWedgeOpacities(Array(services.length).fill(0.2));
-    }
-  }, [activeService, services.length]);
 
   // Calculate positions in a circle
   const radius = Math.min(dimensions.width, dimensions.height) / 2.5;
@@ -70,44 +58,50 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
   }
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="relative w-full max-w-2xl mx-auto aspect-square flex items-center justify-center"
     >
-      {/* SVG Layer for Connections */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
-        <AnimatePresence>
-          {connections.map((conn) => {
-            const isConnectedToActive = 
-              activeService === conn.from.service || 
-              activeService === conn.to.service;
+      {/* SVG Layer for Connections — sits below nodes */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 10 }}>
+        {connections.map((conn) => {
+          const fromIdx = services.indexOf(conn.from.service);
+          const toIdx = services.indexOf(conn.to.service);
+          const activeIdx = activeService ? services.indexOf(activeService) : -1;
+          const n = services.length;
 
-            const isFaded = activeService && !isConnectedToActive;
-            
-            return (
-              <motion.line
-                key={conn.id}
-                x1={conn.from.x}
-                y1={conn.from.y}
-                x2={conn.to.x}
-                y2={conn.to.y}
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: 1, 
-                  opacity: isConnectedToActive ? 0.8 : isFaded ? 0.02 : 0.04,
-                  strokeWidth: isConnectedToActive ? 2 : 1
-                }}
-                stroke="currentColor"
-                className="text-primary"
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              />
-            );
-          })}
-        </AnimatePresence>
+          // Only the two "skip-one" connections light up (±2 steps = nodes 3 and 5 for node 1)
+          const isHighlighted = activeIdx !== -1 && (
+            (fromIdx === activeIdx && (toIdx === (activeIdx + 2) % n || toIdx === (activeIdx + 4) % n)) ||
+            (toIdx === activeIdx && (fromIdx === (activeIdx + 2) % n || fromIdx === (activeIdx + 4) % n))
+          );
+
+          return (
+            <motion.line
+              key={conn.id}
+              x1={conn.from.x}
+              y1={conn.from.y}
+              x2={conn.to.x}
+              y2={conn.to.y}
+              stroke="white"
+              animate={{
+                opacity: activeIdx === -1 ? 0.15 : (isHighlighted ? 0.85 : 0),
+                strokeWidth: isHighlighted ? 2 : 0.5,
+              }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+            />
+          );
+        })}
       </svg>
 
       {/* Nodes Layer */}
-      {nodes.map((node, i) => (
+      {nodes.map((node, i) => {
+        const activeIndex = activeService ? services.indexOf(activeService) : -1;
+        const isAdjacent = activeIndex !== -1 && (
+          i === (activeIndex + 1) % services.length ||
+          i === (activeIndex - 1 + services.length) % services.length
+        );
+        return (
         <ServiceNode
           key={node.service}
           x={node.x}
@@ -116,13 +110,14 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
           service={node.service}
           image={image}
           isActive={activeService === node.service}
-          isRelated={!!activeService} // Simplify for now: if one is active, others are "related" in the network
-          onHover={setActiveService}
+          isRelated={isAdjacent}
+          onHover={onActiveChange}
         />
-      ))}
+        );
+      })}
 
-      {/* Central Hexagon with Image - Wedge-based Animation */}
-      <motion.div 
+      {/* Central Hexagon with Image + Inner-angle Overlay */}
+      <div
         className="absolute pointer-events-none z-5"
         style={{
           left: centerX,
@@ -132,55 +127,51 @@ export function NetworkGraph({ services, image }: NetworkGraphProps) {
           marginLeft: -radius,
           marginTop: -radius,
         }}
-        animate={{ 
-          // No scale animation
-        }}
-        transition={{ duration: 0 }}
       >
-        <div 
+        <div
           className="overflow-hidden relative w-full h-full"
           style={{
             clipPath: 'polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%)',
           }}
         >
-          {/* 6 Wedge Image Sections - Each with independent opacity */}
-          {nodes.map((node, index) => {
-            const wedgeAngle = (360 / nodes.length);
-            // Wedge is centered between two adjacent nodes
-            const midpointAngle = (wedgeAngle * index) + (wedgeAngle / 2) - 90;
-            const startAngle = midpointAngle - (wedgeAngle / 2);
-            const endAngle = midpointAngle + (wedgeAngle / 2);
-            
-            // Create wedge polygon points - from center point in the hex
-            const wedgePoints = [
-              [50, 50], // center of hex
-              [50 + 50 * Math.cos((startAngle) * Math.PI / 180), 50 + 50 * Math.sin((startAngle) * Math.PI / 180)],
-              [50 + 50 * Math.cos((endAngle) * Math.PI / 180), 50 + 50 * Math.sin((endAngle) * Math.PI / 180)],
-            ];
-            const clipPath = `polygon(${wedgePoints.map(p => `${p[0]}% ${p[1]}%`).join(', ')})`;
-            
-            return (
-              <motion.div
-                key={`wedge-${index}`}
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  clipPath,
-                }}
-                animate={{
-                  opacity: wedgeOpacities[index] || 0.15,
-                }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              >
-                <img 
-                  src={centralImage}
-                  alt="Nancy Turnquist"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            );
-          })}
+          {/* Base image at low opacity */}
+          <img
+            src={centralImage}
+            alt="Nancy Turnquist"
+            className="w-full h-full object-cover"
+            style={{ opacity: 0.22 }}
+          />
+
+          {/* Full-opacity image reveal in inner-angle region — polygon N, N+2, N+3, N+4 */}
+          <AnimatePresence>
+            {activeService && (() => {
+              const hexVerts: [number, number][] = [
+                [50, 0], [93.3, 25], [93.3, 75], [50, 100], [6.7, 75], [6.7, 25]
+              ];
+              const n = services.indexOf(activeService);
+              const pts = [n, (n+2)%6, (n+3)%6, (n+4)%6].map(i => hexVerts[i]);
+              const clipPath = `polygon(${pts.map(p => `${p[0]}% ${p[1]}%`).join(', ')})`;
+              return (
+                <motion.div
+                  key={activeService}
+                  className="absolute inset-0"
+                  style={{ clipPath }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  <img
+                    src={centralImage}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </motion.div>
+              );
+            })()}
+          </AnimatePresence>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
