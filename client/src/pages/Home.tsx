@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import portraitImage from "@assets/generated_images/professional_black_and_white_portrait_of_a_woman_healer.png";
-import texture3 from "@assets/sensativechaos3_1766315989988.jpg";
+import bgVideo from "@assets/background.mp4";
 
 const SERVICES = [
   "Biodynamic Craniosacral Therapy",
@@ -16,6 +16,43 @@ const SERVICES = [
 export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [activeService, setActiveService] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const directionRef = useRef<1 | -1>(1);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const SPEED = 0.2;
+    let lastTime: number | null = null;
+
+    const tick = (now: number) => {
+      if (lastTime !== null && video.duration) {
+        const delta = (now - lastTime) / 1000;
+        const next = video.currentTime + delta * SPEED * directionRef.current;
+        if (next >= video.duration) {
+          video.currentTime = video.duration;
+          directionRef.current = -1;
+        } else if (next <= 0) {
+          video.currentTime = 0;
+          directionRef.current = 1;
+        } else {
+          video.currentTime = next;
+        }
+      }
+      lastTime = now;
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    const start = () => { rafRef.current = requestAnimationFrame(tick); };
+    video.addEventListener("loadedmetadata", start);
+    if (video.readyState >= 1) start();
+
+    return () => {
+      video.removeEventListener("loadedmetadata", start);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,13 +66,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/10">
 
-      {/* Background Texture with Parallax */}
-      <div
-        className="fixed inset-0 pointer-events-none opacity-[0.1] z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${texture3})`,
-          transform: `rotate(180deg) translateY(${scrollY * 0.5}px)`,
-        }}
+      {/* Background Video — ping-pong at 20% speed */}
+      <video
+        ref={videoRef}
+        src={bgVideo}
+        muted
+        playsInline
+        preload="auto"
+        className="fixed inset-0 w-full h-full object-cover pointer-events-none z-0"
+        style={{ opacity: 0.1 }}
       />
 
       {/* Main Content */}
@@ -58,8 +97,8 @@ export default function Home() {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="text-xs tracking-widest uppercase text-muted-foreground/60"
+                  transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="text-lg md:text-xl text-muted-foreground font-light max-w-lg mx-auto leading-relaxed"
                 >
                   {activeService}
                 </motion.span>
