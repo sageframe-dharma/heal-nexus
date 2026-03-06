@@ -87,7 +87,7 @@ export default function Home() {
       />
 
       {/* Main Content */}
-      <main className="relative z-20 container mx-auto px-6 py-4 flex flex-col items-center justify-center h-screen overflow-hidden">
+      <main className="relative z-20 w-full flex flex-col items-center justify-center px-6 py-4" style={{ minHeight: '100svh' }}>
 
         {/* Header */}
         <header className="text-center mb-4 space-y-2 max-w-3xl mx-auto">
@@ -101,19 +101,17 @@ export default function Home() {
         </header>
 
         {/* The Graph */}
-        <div className="w-full flex-1 min-h-0 flex items-center justify-center" style={{ maxHeight: '65vh' }}>
-          <div className="w-full h-full max-w-xl">
+        <div className="w-full shrink-0" style={{ maxWidth: 'min(100%, 560px)' }}>
           <NetworkGraph
             services={SERVICES}
             image={portraitImage}
             activeService={activeService}
             onActiveChange={setActiveService}
           />
-          </div>
         </div>
 
-        {/* Footer / CTA */}
-        <div className="text-center mt-3 shrink-0">
+        {/* Footer / CTA — always outside and below the graph */}
+        <div className="text-center mt-4 mb-2 shrink-0">
           <button
             className="px-6 py-2 rounded-full border border-primary/20 text-primary hover:bg-primary hover:text-white transition-all duration-300 tracking-wide text-xs font-medium uppercase"
           >
