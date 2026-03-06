@@ -37,12 +37,12 @@ export function ServiceNode({
       }}
       transition={{
         scale: {
-          type: "spring",
-          stiffness: 120,
-          damping: 14,
-          delay: isActive ? 0 : isRelated ? 0.18 : 0,
+          type: "tween",
+          duration: isActive ? 1.1 : 0.9,
+          ease: [0.25, 0.46, 0.45, 0.94],
+          delay: isActive ? 0 : isRelated ? 0.35 : 0,
         },
-        opacity: { duration: 0.4, delay: index * 0.08 },
+        opacity: { duration: 0.9, delay: index * 0.12 },
         zIndex: { duration: 0 },
       }}
       onMouseEnter={() => onHover(service)}
@@ -51,22 +51,18 @@ export function ServiceNode({
     >
       {/* Circle Container */}
       <div
-        className={cn(
-          "relative w-24 h-24 rounded-full overflow-hidden border-2 transition-colors duration-500",
-          isActive ? "border-primary shadow-xl" : "border-transparent shadow-md"
-        )}
+        className="relative w-24 h-24 rounded-full overflow-hidden border-0"
       >
-        <img
+        <motion.img
           src={image}
           alt={service}
           className="w-full h-full object-cover"
+          animate={{
+            opacity: isActive ? 1 : 0.38,
+            filter: isActive ? "blur(0px) grayscale(0%)" : "blur(2.5px) grayscale(60%)",
+          }}
+          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
         />
-
-        {/* Overlay for inactive state */}
-        <div className={cn(
-          "absolute inset-0 bg-black/20 transition-opacity duration-500",
-          isActive ? "opacity-0" : "opacity-100"
-        )} />
       </div>
     </motion.div>
   );
