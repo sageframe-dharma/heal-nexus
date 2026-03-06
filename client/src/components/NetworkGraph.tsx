@@ -60,7 +60,7 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
   return (
     <div
       ref={containerRef}
-      className="relative w-full max-w-2xl mx-auto aspect-square flex items-center justify-center"
+      className="relative w-full max-w-xl mx-auto aspect-square flex items-center justify-center"
     >
       {/* SVG Layer for Connections — sits below nodes */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 10 }}>
@@ -88,7 +88,7 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
                 opacity: activeIdx === -1 ? 0.15 : (isHighlighted ? 0.85 : 0),
                 strokeWidth: isHighlighted ? 2 : 0.5,
               }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
+              transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
           );
         })}
@@ -139,7 +139,7 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
             src={centralImage}
             alt="Nancy Turnquist"
             className="w-full h-full object-cover"
-            style={{ opacity: 0.22 }}
+            style={{ opacity: 0.32 }}
           />
 
           {/* Full-opacity image reveal in inner-angle region — polygon N, N+2, N+3, N+4 */}
@@ -159,7 +159,7 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  transition={{ duration: 1.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   <img
                     src={centralImage}
@@ -171,6 +171,36 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
             })()}
           </AnimatePresence>
         </div>
+      </div>
+
+      {/* Service label centered in hex */}
+      <div
+        className="absolute pointer-events-none flex items-center justify-center"
+        style={{
+          left: centerX,
+          top: centerY,
+          width: radius * 1.2,
+          height: radius * 0.5,
+          marginLeft: -radius * 0.6,
+          marginTop: -radius * 0.25,
+          zIndex: 40,
+        }}
+      >
+        <AnimatePresence mode="wait">
+          {activeService && (
+            <motion.span
+              key={activeService}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="text-white text-center font-light leading-snug"
+              style={{ fontSize: 'clamp(0.7rem, 1.4vw, 1rem)', textShadow: '0 1px 8px rgba(0,0,0,0.6)', maxWidth: radius * 1.1 }}
+            >
+              {activeService}
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

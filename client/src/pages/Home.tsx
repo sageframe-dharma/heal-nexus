@@ -17,41 +17,49 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0);
   const [activeService, setActiveService] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const directionRef = useRef<1 | -1>(1);
+  const panDirRef = useRef<1 | -1>(1);
+  const panYRef = useRef(5); // starts below watermark, never goes above 5%
   const rafRef = useRef<number | null>(null);
 
+  // Native playback — smooth GPU-composited rendering
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    const SPEED = 0.2;
+    video.playbackRate = 0.35; // slow but silky smooth
+    video.play().catch(() => {});
+    return () => { video.pause(); };
+  }, []);
+
+  // Separate rAF only for the vertical pan — no seeking, just CSS
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const PAN_SPEED = 0.018;
+    const PAN_MIN = 5;
+    const PAN_MAX = 45;
     let lastTime: number | null = null;
 
     const tick = (now: number) => {
-      if (lastTime !== null && video.duration) {
+      if (lastTime !== null) {
         const delta = (now - lastTime) / 1000;
-        const next = video.currentTime + delta * SPEED * directionRef.current;
-        if (next >= video.duration) {
-          video.currentTime = video.duration;
-          directionRef.current = -1;
-        } else if (next <= 0) {
-          video.currentTime = 0;
-          directionRef.current = 1;
+        const nextPan = panYRef.current + delta * PAN_SPEED * (PAN_MAX - PAN_MIN) * panDirRef.current;
+        if (nextPan >= PAN_MAX) {
+          panYRef.current = PAN_MAX;
+          panDirRef.current = -1;
+        } else if (nextPan <= PAN_MIN) {
+          panYRef.current = PAN_MIN;
+          panDirRef.current = 1;
         } else {
-          video.currentTime = next;
+          panYRef.current = nextPan;
         }
+        video.style.objectPosition = `center ${panYRef.current}%`;
       }
       lastTime = now;
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    const start = () => { rafRef.current = requestAnimationFrame(tick); };
-    video.addEventListener("loadedmetadata", start);
-    if (video.readyState >= 1) start();
-
-    return () => {
-      video.removeEventListener("loadedmetadata", start);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, []);
 
   useEffect(() => {
@@ -71,6 +79,7 @@ export default function Home() {
         ref={videoRef}
         src={bgVideo}
         muted
+        loop
         playsInline
         preload="auto"
         className="fixed inset-0 w-full h-full object-cover pointer-events-none z-0"
@@ -78,52 +87,35 @@ export default function Home() {
       />
 
       {/* Main Content */}
-      <main className="relative z-20 container mx-auto px-6 py-12 md:py-24 flex flex-col items-center justify-center min-h-screen">
+      <main className="relative z-20 container mx-auto px-6 py-4 flex flex-col items-center justify-center h-screen overflow-hidden">
 
         {/* Header */}
-        <header className="text-center mb-12 md:mb-20 space-y-6 max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-primary">
+        <header className="text-center mb-4 space-y-2 max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-light tracking-tight text-primary">
             Nancy Turnquist
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground font-light max-w-lg mx-auto leading-relaxed">
             Multimodal Healer & Bodyworker
           </p>
-          <div className="h-px w-24 bg-primary/20 mx-auto mt-8" />
-          <div className="h-7 flex items-center justify-center">
-            <AnimatePresence mode="wait">
-              {activeService && (
-                <motion.span
-                  key={activeService}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="text-lg md:text-xl text-muted-foreground font-light max-w-lg mx-auto leading-relaxed"
-                >
-                  {activeService}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </div>
+          <div className="h-px w-24 bg-primary/20 mx-auto mt-2" />
         </header>
 
         {/* The Graph */}
-        <div className="w-full mb-16">
+        <div className="w-full flex-1 min-h-0 flex items-center justify-center" style={{ maxHeight: '65vh' }}>
+          <div className="w-full h-full max-w-xl">
           <NetworkGraph
             services={SERVICES}
             image={portraitImage}
             activeService={activeService}
             onActiveChange={setActiveService}
           />
+          </div>
         </div>
 
         {/* Footer / CTA */}
-        <div className="text-center space-y-8 max-w-xl mx-auto">
-          <p className="text-muted-foreground italic font-serif text-lg">
-            "Weaving together somatic wisdom, birth support, and therapeutic healing."
-          </p>
+        <div className="text-center mt-3 shrink-0">
           <button
-            className="px-8 py-3 rounded-full border border-primary/20 text-primary hover:bg-primary hover:text-white transition-all duration-300 tracking-wide text-sm font-medium uppercase hover-elevate"
+            className="px-6 py-2 rounded-full border border-primary/20 text-primary hover:bg-primary hover:text-white transition-all duration-300 tracking-wide text-xs font-medium uppercase"
           >
             Connect with Nancy
           </button>
