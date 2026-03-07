@@ -64,6 +64,7 @@ function MobileServiceContent({ activeService, services }: { activeService: stri
 
 export default function Home() {
   const [activeService, setActiveService] = useState<string | null>(null);
+  const [activeView, setActiveView] = useState<'services' | 'about' | 'book'>('services');
   const videoRef = useRef<HTMLVideoElement>(null);
   const panDirRef = useRef<1 | -1>(1);
   const panYRef = useRef(5);
@@ -110,12 +111,8 @@ export default function Home() {
     return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, []);
 
-  const scrollToConnect = () => {
-    document.getElementById("connect")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <div className="min-h-screen bg-background relative selection:bg-primary/10">
+    <div className="h-screen bg-background relative selection:bg-primary/10 flex flex-col overflow-hidden">
 
       {/* Background Video — cropped top 5% to hide watermark */}
       <div className="fixed inset-0 z-0 overflow-hidden" style={{ top: '-5vh' }}>
@@ -134,10 +131,9 @@ export default function Home() {
       {/* Blue tint overlay */}
       <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(20, 40, 160, 0.32)' }} />
 
-      {/* ───── HERO: Hex Graph + Info Panel ───── */}
-      <section className="relative z-20 w-full px-4 md:px-8 lg:px-12 flex flex-col" style={{ minHeight: '100svh' }}>
-        {/* Header */}
-        <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-6 mt-3 md:mt-10 mb-2 md:mb-4 rounded-xl w-fit mx-auto shrink-0" style={{ background: 'rgba(255,255,255,0.20)' }}>
+      {/* ───── Header + Nav ───── */}
+      <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0">
+        <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl w-fit" style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
             Nancy Turnquist
           </h1>
@@ -146,41 +142,187 @@ export default function Home() {
           </p>
           <div className="h-px w-20 bg-primary/20 mx-auto" />
         </header>
+        <nav className="flex items-center gap-6 md:gap-8 px-5 py-2 mt-1.5 rounded-lg w-fit" style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
+          {(['services', 'about', 'book'] as const).map((v) => (
+            <button
+              key={v}
+              onClick={() => { setActiveView(v); if (v !== 'services') setActiveService(null); }}
+              className={`text-xs md:text-sm font-medium transition-colors tracking-wide uppercase ${activeView === v ? 'text-primary' : 'text-primary/50 hover:text-primary/80'}`}
+            >
+              {v === 'book' ? 'Book' : v.charAt(0).toUpperCase() + v.slice(1)}
+            </button>
+          ))}
+        </nav>
+      </div>
 
-        {/* Desktop: side-by-side */}
-        <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto flex-1 min-h-0">
-          <div className="w-1/2 shrink-0 mt-10" style={{ maxWidth: '520px' }}>
+      {/* ───── Main Content ───── */}
+      <div className="relative z-20 flex-1 min-h-0 w-full px-4 md:px-8 lg:px-12">
+
+        {/* Desktop: graph always left, right panel fades between views */}
+        <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto h-full">
+          <div className="w-1/2 shrink-0" style={{ maxWidth: '520px' }}>
             <NetworkGraph
               services={SERVICE_NAMES}
               image={portraitImage}
               activeService={activeService}
-              onActiveChange={setActiveService}
+              onActiveChange={(s) => { setActiveService(s); if (s) setActiveView('services'); }}
             />
           </div>
           <div className="w-1/2 max-w-md">
-            <ServicePanel
-              activeService={activeService}
-              services={SERVICES}
-            />
+            <AnimatePresence mode="wait">
+              {activeView === 'services' && (
+                <motion.div
+                  key="view-services"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <ServicePanel activeService={activeService} services={SERVICES} />
+                </motion.div>
+              )}
+              {activeView === 'about' && (
+                <motion.div
+                  key="view-about"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
+                    <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">About Nancy</h2>
+                    <div className="h-px w-16 bg-primary/20 mb-6" />
+                    <div className="space-y-4 text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
+                      <p>
+                        Nancy Turnquist is a multimodal healer, bodyworker, and birth professional with over
+                        two decades of experience supporting people through some of life's most profound
+                        transitions. Her practice weaves together craniosacral therapy, somatic healing, yoga
+                        therapy, and birth work into a unified approach rooted in deep listening and presence.
+                      </p>
+                      <p>
+                        Nancy's work begins from a simple premise: your body already knows how to heal. Her
+                        role is to create the conditions — safety, stillness, gentle attention — that allow
+                        that intelligence to emerge. Whether you're navigating chronic pain, preparing for
+                        birth, processing grief, or simply seeking a place to slow down and be held, Nancy
+                        meets you exactly where you are.
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+              {activeView === 'book' && (
+                <motion.div
+                  key="view-book"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <div className="text-center px-5 py-6 rounded-2xl" style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
+                    <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">Begin Your Journey</h2>
+                    <div className="h-px w-16 bg-primary/20 mx-auto mb-6" />
+                    <p className="text-muted-foreground font-light leading-relaxed mb-4 max-w-lg mx-auto text-[0.95rem] md:text-base">
+                      Whether you're ready to book a session or simply have questions about which modality
+                      might be right for you, Nancy would love to hear from you.
+                    </p>
+                    <p className="text-muted-foreground font-light leading-relaxed mb-8 max-w-lg mx-auto text-[0.95rem] md:text-base">
+                      Nancy sees clients both remotely and in person at her Cambridge treatment space.
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                      <a href="#" className="px-8 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 tracking-wide text-sm font-medium">Book a Session</a>
+                      <a href="#" className="px-8 py-3 rounded-full border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300 tracking-wide text-sm font-medium">Get in Touch</a>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Mobile: graph centered, panel is fixed bottom sheet */}
-        <div className="flex md:hidden flex-col items-center justify-start flex-1 min-h-0 pt-3 pb-4">
-          <div className="w-full" style={{ maxWidth: '400px' }}>
-            <NetworkGraph
-              services={SERVICE_NAMES}
-              image={portraitImage}
-              activeService={activeService}
-              onActiveChange={setActiveService}
-            />
-          </div>
+        {/* Mobile: content area fades between views */}
+        <div className="flex md:hidden flex-col items-center h-full pt-6">
+          <AnimatePresence mode="wait">
+            {activeView === 'services' && (
+              <motion.div
+                key="m-services"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="w-full flex-1 min-h-0"
+                style={{ maxWidth: '400px' }}
+              >
+                <NetworkGraph
+                  services={SERVICE_NAMES}
+                  image={portraitImage}
+                  activeService={activeService}
+                  onActiveChange={(s) => { setActiveService(s); if (s) setActiveView('services'); }}
+                />
+              </motion.div>
+            )}
+            {activeView === 'about' && (
+              <motion.div
+                key="m-about"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="w-full px-2"
+              >
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
+                  <h2 className="text-xl font-light text-primary mb-2">About Nancy</h2>
+                  <div className="h-px w-12 bg-primary/20 mb-4" />
+                  <div className="space-y-3 text-muted-foreground font-light leading-relaxed text-sm">
+                    <p>
+                      Nancy Turnquist is a multimodal healer, bodyworker, and birth professional with over
+                      two decades of experience supporting people through some of life's most profound
+                      transitions. Her practice weaves together craniosacral therapy, somatic healing, yoga
+                      therapy, and birth work into a unified approach rooted in deep listening and presence.
+                    </p>
+                    <p>
+                      Nancy's work begins from a simple premise: your body already knows how to heal. Her
+                      role is to create the conditions — safety, stillness, gentle attention — that allow
+                      that intelligence to emerge. Whether you're navigating chronic pain, preparing for
+                      birth, processing grief, or simply seeking a place to slow down and be held, Nancy
+                      meets you exactly where you are.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+            {activeView === 'book' && (
+              <motion.div
+                key="m-book"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="w-full px-2"
+              >
+                <div className="text-center rounded-2xl px-5 py-6" style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
+                  <h2 className="text-xl font-light text-primary mb-2">Begin Your Journey</h2>
+                  <div className="h-px w-12 bg-primary/20 mx-auto mb-4" />
+                  <p className="text-muted-foreground font-light leading-relaxed mb-3 text-sm">
+                    Whether you're ready to book a session or simply have questions about which modality
+                    might be right for you, Nancy would love to hear from you.
+                  </p>
+                  <p className="text-muted-foreground font-light leading-relaxed mb-6 text-sm">
+                    Nancy sees clients both remotely and in person at her Cambridge treatment space.
+                  </p>
+                  <div className="flex flex-col items-center gap-3">
+                    <a href="#" className="px-8 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 tracking-wide text-sm font-medium">Book a Session</a>
+                    <a href="#" className="px-8 py-3 rounded-full border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300 tracking-wide text-sm font-medium">Get in Touch</a>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </section>
+      </div>
 
-      {/* Mobile bottom sheet */}
+      {/* Mobile bottom sheet — services view only */}
       <AnimatePresence>
-        {activeService && (
+        {activeView === 'services' && activeService && (
           <motion.div
             key="mobile-panel"
             initial={{ y: '100%' }}
@@ -190,80 +332,11 @@ export default function Home() {
             className="fixed bottom-0 left-0 right-0 z-50 md:hidden rounded-t-2xl px-5 pt-3 pb-6"
             style={{ background: 'rgba(255, 255, 255, 0.20)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', maxHeight: '45svh' }}
           >
-            {/* Drag handle */}
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
             <MobileServiceContent activeService={activeService} services={SERVICES} />
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* ───── ABOUT ───── */}
-      <section id="about" className="relative z-20 w-full px-6 md:px-12 py-16 md:py-24">
-        <div className="max-w-2xl mx-auto rounded-2xl px-6 md:px-8 py-8" style={{ background: 'rgba(255,255,255,0.20)' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">
-              About Nancy
-            </h2>
-            <div className="h-px w-16 bg-primary/20 mb-6" />
-            <div className="space-y-4 text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
-              <p>
-                Nancy Turnquist is a multimodal healer, bodyworker, and birth professional with over
-                two decades of experience supporting people through some of life's most profound
-                transitions. Her practice weaves together craniosacral therapy, somatic healing, yoga
-                therapy, and birth work into a unified approach rooted in deep listening and
-                presence.
-              </p>
-              <p>
-                Nancy's work begins from a simple premise: your body already knows how to heal. Her
-                role is to create the conditions — safety, stillness, gentle attention — that allow
-                that intelligence to emerge. Whether you're navigating chronic pain, preparing for
-                birth, processing grief, or simply seeking a place to slow down and be held, Nancy
-                meets you exactly where you are.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ───── CONNECT / BOOK ───── */}
-      <section id="connect" className="relative z-20 w-full px-6 md:px-12 py-16 md:py-24">
-        <div className="max-w-2xl mx-auto text-center rounded-2xl px-6 md:px-8 py-8" style={{ background: 'rgba(255,255,255,0.20)' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">
-              Begin Your Journey
-            </h2>
-            <div className="h-px w-16 bg-primary/20 mx-auto mb-6" />
-            <p className="text-muted-foreground font-light leading-relaxed mb-8 max-w-lg mx-auto text-[0.95rem] md:text-base">
-              Whether you're ready to book a session or simply have questions about which modality
-              might be right for you, Nancy would love to hear from you.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href="#"
-                className="px-8 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 tracking-wide text-sm font-medium"
-              >
-                Book a Session
-              </a>
-              <a
-                href="#"
-                className="px-8 py-3 rounded-full border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300 tracking-wide text-sm font-medium"
-              >
-                Get in Touch
-              </a>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
     </div>
   );
