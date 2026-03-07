@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ServiceNode } from "./ServiceNode";
-import centralImage from "@assets/sensative_4_1766316400450.jpg";
+import centralImage from "@assets/pearl.png";
 
 interface NetworkGraphProps {
   services: string[];
@@ -139,7 +139,7 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
             src={centralImage}
             alt="Nancy Turnquist"
             className="w-full h-full object-cover"
-            style={{ opacity: 0.32 }}
+            style={{ opacity: 0.55 }}
           />
 
           {/* Full-opacity image reveal in inner-angle region — polygon N, N+2, N+3, N+4 */}
