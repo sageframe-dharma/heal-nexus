@@ -15,7 +15,7 @@ export function ServicePanel({ activeService, services }: ServicePanelProps) {
   const active = services.find((s) => s.name === activeService);
 
   return (
-    <div className="flex flex-col justify-center h-full px-5 py-6 md:py-6 rounded-2xl" style={{ background: 'rgba(220, 225, 240, 0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+    <div className="flex flex-col justify-center h-full px-5 py-6 md:py-6 rounded-2xl" style={{ background: 'rgba(200, 238, 252, 0.62)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
       <AnimatePresence mode="wait">
         {active ? (
           <motion.div
