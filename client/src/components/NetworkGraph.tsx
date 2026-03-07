@@ -195,7 +195,7 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
               exit={{ opacity: 0 }}
               transition={{ duration: 0.42, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="text-center font-medium leading-snug"
-              style={{ fontSize: 'clamp(0.95rem, 2vw, 1.35rem)', color: 'rgba(210, 215, 240, 0.85)', textShadow: '0 2px 10px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.3)', maxWidth: radius * 1.1, whiteSpace: 'pre-line' }}
+              style={{ fontSize: 'clamp(0.95rem, 2vw, 1.35rem)', color: 'rgba(220, 248, 255, 0.96)', textShadow: '0 2px 8px rgba(55, 0, 80, 0.95), 0 4px 16px rgba(55, 0, 80, 0.8), 0 0 24px rgba(0, 180, 210, 0.55)', maxWidth: radius * 1.1, whiteSpace: 'pre-line' }}
             >
               {activeService}
             </motion.span>
