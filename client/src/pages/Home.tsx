@@ -112,7 +112,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-screen relative selection:bg-primary/10 flex flex-col overflow-hidden" style={{ background: '#1e120c' }}>
+    <div className="h-screen relative selection:bg-primary/10 flex flex-col overflow-hidden" style={{ background: '#0a0e1a' }}>
 
       {/* Background Video — cropped top 5% to hide watermark */}
       <div className="fixed inset-0 z-0 overflow-hidden" style={{ top: '-5vh' }}>
@@ -128,12 +128,12 @@ export default function Home() {
         />
       </div>
 
-      {/* Warm copper wash */}
-      <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(160, 85, 30, 0.42)' }} />
+      {/* Moonlit sea wash */}
+      <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(20, 60, 120, 0.40)' }} />
 
       {/* ───── Header + Nav ───── */}
       <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0">
-        <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl w-fit" style={{ background: 'rgba(250, 243, 235, 0.70)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+        <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl w-fit" style={{ background: 'rgba(220, 225, 240, 0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
             Nancy Turnquist
           </h1>
@@ -142,7 +142,7 @@ export default function Home() {
           </p>
           <div className="h-px w-20 bg-primary/20 mx-auto" />
         </header>
-        <nav className="flex items-center gap-6 md:gap-8 px-5 py-2 mt-1.5 rounded-lg w-fit" style={{ background: 'rgba(250, 243, 235, 0.70)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+        <nav className="flex items-center gap-6 md:gap-8 px-5 py-2 mt-1.5 rounded-lg w-fit" style={{ background: 'rgba(220, 225, 240, 0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
           {(['services', 'about', 'book'] as const).map((v) => (
             <button
               key={v}
@@ -189,7 +189,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(250, 243, 235, 0.70)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(220, 225, 240, 0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                     <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">About Nancy</h2>
                     <div className="h-px w-16 bg-primary/20 mb-6" />
                     <div className="space-y-4 text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
@@ -218,7 +218,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="text-center px-5 py-6 rounded-2xl" style={{ background: 'rgba(250, 243, 235, 0.70)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                  <div className="text-center px-5 py-6 rounded-2xl" style={{ background: 'rgba(220, 225, 240, 0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                     <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">Begin Your Journey</h2>
                     <div className="h-px w-16 bg-primary/20 mx-auto mb-6" />
                     <p className="text-muted-foreground font-light leading-relaxed mb-4 max-w-lg mx-auto text-[0.95rem] md:text-base">
@@ -269,7 +269,7 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(250, 243, 235, 0.70)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(220, 225, 240, 0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                   <h2 className="text-xl font-light text-primary mb-2">About Nancy</h2>
                   <div className="h-px w-12 bg-primary/20 mb-4" />
                   <div className="space-y-3 text-muted-foreground font-light leading-relaxed text-sm">
@@ -299,7 +299,7 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="text-center rounded-2xl px-5 py-6" style={{ background: 'rgba(250, 243, 235, 0.70)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                <div className="text-center rounded-2xl px-5 py-6" style={{ background: 'rgba(220, 225, 240, 0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                   <h2 className="text-xl font-light text-primary mb-2">Begin Your Journey</h2>
                   <div className="h-px w-12 bg-primary/20 mx-auto mb-4" />
                   <p className="text-muted-foreground font-light leading-relaxed mb-3 text-sm">
@@ -330,7 +330,7 @@ export default function Home() {
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 300 }}
             className="fixed bottom-0 left-0 right-0 z-50 md:hidden rounded-t-2xl px-5 pt-3 pb-6"
-            style={{ background: 'rgba(250, 243, 235, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', maxHeight: '45svh' }}
+            style={{ background: 'rgba(220, 225, 240, 0.72)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', maxHeight: '45svh' }}
           >
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
             <MobileServiceContent activeService={activeService} services={SERVICES} />
