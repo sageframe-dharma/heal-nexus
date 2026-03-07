@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import { ServicePanel, type ServiceInfo } from "@/components/ServicePanel";
-import portraitImage from "@assets/generated_images/professional_black_and_white_portrait_of_a_woman_healer.png";
-import doulaImage from "@assets/IMG_2354.JPG";
-import yogaImage from "@assets/nancy-vd.png";
+import portraitImage from "@assets/portrait-default.png";
+import doulaImage from "@assets/photo-doula.jpg";
+import yogaImage from "@assets/photo-yoga.jpg";
 import bgVideo from "@assets/background.mp4";
 
 const SERVICES: ServiceInfo[] = [
