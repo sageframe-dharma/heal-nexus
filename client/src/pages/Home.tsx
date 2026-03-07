@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import { ServicePanel, type ServiceInfo } from "@/components/ServicePanel";
 import portraitImage from "@assets/generated_images/professional_black_and_white_portrait_of_a_woman_healer.png";
@@ -45,6 +45,22 @@ const SERVICES: ServiceInfo[] = [
 ];
 
 const SERVICE_NAMES = SERVICES.map((s) => s.name);
+
+function MobileServiceContent({ activeService, services }: { activeService: string; services: ServiceInfo[] }) {
+  const active = services.find((s) => s.name === activeService);
+  if (!active) return null;
+  return (
+    <div className="overflow-y-auto" style={{ maxHeight: 'calc(45svh - 60px)' }}>
+      <h2 className="text-xl font-light text-primary mb-2 leading-snug">
+        {active.label}
+      </h2>
+      <div className="h-px w-12 bg-primary/20 mb-3" />
+      <p className="text-muted-foreground font-light leading-relaxed text-sm">
+        {active.description}
+      </p>
+    </div>
+  );
+}
 
 export default function Home() {
   const [activeService, setActiveService] = useState<string | null>(null);
@@ -101,38 +117,39 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background relative selection:bg-primary/10">
 
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        src={bgVideo}
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="fixed inset-0 w-full h-full object-cover pointer-events-none z-0"
-        style={{ opacity: 0.18 }}
-      />
+      {/* Background Video — cropped top 5% to hide watermark */}
+      <div className="fixed inset-0 z-0 overflow-hidden" style={{ top: '-5vh' }}>
+        <video
+          ref={videoRef}
+          src={bgVideo}
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover pointer-events-none"
+          style={{ opacity: 0.18, objectPosition: 'center 10%' }}
+        />
+      </div>
 
       {/* Blue tint overlay */}
       <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(20, 40, 160, 0.32)' }} />
 
       {/* ───── HERO: Hex Graph + Info Panel ───── */}
-      <section className="relative z-20 w-full px-4 md:px-8 lg:px-12" style={{ minHeight: '100svh' }}>
+      <section className="relative z-20 w-full px-4 md:px-8 lg:px-12 flex flex-col" style={{ minHeight: '100svh' }}>
         {/* Header */}
-        <header className="text-center space-y-3 px-8 py-6 mt-8 md:mt-10 mb-4 rounded-xl w-fit mx-auto" style={{ background: 'rgba(255,255,255,0.20)' }}>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
+        <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-6 mt-3 md:mt-10 mb-2 md:mb-4 rounded-xl w-fit mx-auto shrink-0" style={{ background: 'rgba(255,255,255,0.20)' }}>
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
             Nancy Turnquist
           </h1>
-          <p className="text-base md:text-lg text-muted-foreground font-light">
+          <p className="text-sm md:text-lg text-muted-foreground font-light">
             Multimodal Healer & Bodyworker
           </p>
           <div className="h-px w-20 bg-primary/20 mx-auto" />
         </header>
 
-        {/* Side-by-side: Graph left, Panel right */}
-        <div className="flex flex-col md:flex-row items-center md:items-center justify-center gap-4 md:gap-8 lg:gap-12 w-full max-w-6xl mx-auto flex-1">
-          {/* Hex Graph */}
-          <div className="w-full md:w-1/2 shrink-0 mt-10" style={{ maxWidth: '520px' }}>
+        {/* Desktop: side-by-side */}
+        <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto flex-1 min-h-0">
+          <div className="w-1/2 shrink-0 mt-10" style={{ maxWidth: '520px' }}>
             <NetworkGraph
               services={SERVICE_NAMES}
               image={portraitImage}
@@ -140,16 +157,45 @@ export default function Home() {
               onActiveChange={setActiveService}
             />
           </div>
-
-          {/* Info Panel */}
-          <div className="w-full md:w-1/2 max-w-md">
+          <div className="w-1/2 max-w-md">
             <ServicePanel
               activeService={activeService}
               services={SERVICES}
             />
           </div>
         </div>
+
+        {/* Mobile: graph centered, panel is fixed bottom sheet */}
+        <div className="flex md:hidden flex-col items-center justify-start flex-1 min-h-0 pt-3 pb-4">
+          <div className="w-full" style={{ maxWidth: '400px' }}>
+            <NetworkGraph
+              services={SERVICE_NAMES}
+              image={portraitImage}
+              activeService={activeService}
+              onActiveChange={setActiveService}
+            />
+          </div>
+        </div>
       </section>
+
+      {/* Mobile bottom sheet */}
+      <AnimatePresence>
+        {activeService && (
+          <motion.div
+            key="mobile-panel"
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+            className="fixed bottom-0 left-0 right-0 z-50 md:hidden rounded-t-2xl px-5 pt-3 pb-6"
+            style={{ background: 'rgba(255, 255, 255, 0.20)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', maxHeight: '45svh' }}
+          >
+            {/* Drag handle */}
+            <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
+            <MobileServiceContent activeService={activeService} services={SERVICES} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ───── ABOUT ───── */}
       <section id="about" className="relative z-20 w-full px-6 md:px-12 py-16 md:py-24">
