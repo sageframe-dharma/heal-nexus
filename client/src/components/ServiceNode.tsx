@@ -6,6 +6,8 @@ interface ServiceNodeProps {
   y: number;
   service: string;
   image: string;
+  objectPosition?: string;
+  imageScale?: number;
   isActive: boolean;
   isRelated: boolean;
   onHover: (service: string | null) => void;
@@ -17,6 +19,8 @@ export function ServiceNode({
   y,
   service,
   image,
+  objectPosition = 'center',
+  imageScale,
   isActive,
   isRelated,
   onHover,
@@ -57,6 +61,7 @@ export function ServiceNode({
           src={image}
           alt={service}
           className="w-full h-full object-cover"
+          style={{ objectPosition, transform: imageScale ? `scale(${imageScale})` : undefined, transformOrigin: 'center' }}
           animate={{
             opacity: isActive ? 1 : 0.38,
             filter: isActive ? "blur(0px) grayscale(0%)" : "blur(2.5px) grayscale(60%)",

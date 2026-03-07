@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import { ServicePanel, type ServiceInfo } from "@/components/ServicePanel";
 import portraitImage from "@assets/generated_images/professional_black_and_white_portrait_of_a_woman_healer.png";
+import doulaImage from "@assets/IMG_2354.JPG";
+import yogaImage from "@assets/nancy-vd.png";
 import bgVideo from "@assets/background.mp4";
 
 const SERVICES: ServiceInfo[] = [
@@ -21,6 +23,7 @@ const SERVICES: ServiceInfo[] = [
   {
     name: "Yoga Therapy",
     label: "Yoga Therapy",
+    image: yogaImage,
     description:
       "Unlike a group yoga class, yoga therapy is tailored specifically to you — your body, your history, your goals. Sessions blend adaptive postures, breathwork, meditation, and mindful movement into a personal practice designed to support healing, build resilience, and deepen your relationship with your body over time.",
   },
@@ -39,12 +42,18 @@ const SERVICES: ServiceInfo[] = [
   {
     name: "Birth, Doula, &\nPostpartum Support",
     label: "Birth, Doula, & Postpartum Support",
+    image: doulaImage,
+    imageScale: 1.3,
+    imagePosition: 'center 28%',
     description:
       "Continuous, nurturing support through pregnancy, labor, birth, and the tender early weeks that follow. As your doula, Nancy provides physical comfort, emotional reassurance, and advocacy — holding space so you can be fully present for one of life's most transformative passages. Postpartum support extends that care into the fourth trimester and beyond.",
   },
 ];
 
 const SERVICE_NAMES = SERVICES.map((s) => s.name);
+const SERVICE_IMAGES = SERVICES.map((s) => s.image ?? portraitImage);
+const SERVICE_IMAGE_SCALES = SERVICES.map((s) => s.imageScale);
+const SERVICE_IMAGE_POSITIONS = SERVICES.map((s) => s.imagePosition);
 
 function MobileServiceContent({ activeService, services }: { activeService: string; services: ServiceInfo[] }) {
   const active = services.find((s) => s.name === activeService);
@@ -129,7 +138,7 @@ export default function Home() {
       </div>
 
       {/* Light aqua-turquoise wash */}
-      <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(0, 185, 190, 0.50)' }} />
+      <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(0, 195, 195, 0.56)' }} />
 
       {/* ───── Header + Nav ───── */}
       <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0">
@@ -164,6 +173,9 @@ export default function Home() {
             <NetworkGraph
               services={SERVICE_NAMES}
               image={portraitImage}
+              images={SERVICE_IMAGES}
+              imageScales={SERVICE_IMAGE_SCALES}
+              imagePositions={SERVICE_IMAGE_POSITIONS}
               activeService={activeService}
               onActiveChange={(s) => { setActiveService(s); if (s) setActiveView('services'); }}
             />
@@ -255,6 +267,9 @@ export default function Home() {
                 <NetworkGraph
                   services={SERVICE_NAMES}
                   image={portraitImage}
+                  images={SERVICE_IMAGES}
+                  imageScales={SERVICE_IMAGE_SCALES}
+                  imagePositions={SERVICE_IMAGE_POSITIONS}
                   activeService={activeService}
                   onActiveChange={(s) => { setActiveService(s); if (s) setActiveView('services'); }}
                 />

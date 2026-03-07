@@ -26,7 +26,7 @@
 
   --font-sans: 'Montserrat', sans-serif;
   --font-serif: 'Cormorant Garamond', serif;
-  
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -36,25 +36,25 @@
   /* Natural, Ethereal Palette based on Ink Wash */
   --background: 40 20% 98%; /* Warm Off-White */
   --foreground: 240 5% 15%; /* Soft Black */
-  
+
   --card: 0 0% 100%;
   --card-foreground: 240 5% 15%;
-  
+
   --popover: 0 0% 100%;
   --popover-foreground: 240 5% 15%;
-  
-  --primary: 240 5% 20%; /* Deep Charcoal */
+
+  --primary: 240 5% 6%; /* Near Black */
   --primary-foreground: 40 20% 98%;
-  
+
   --secondary: 40 10% 92%; /* Stone */
   --secondary-foreground: 240 5% 20%;
-  
+
   --muted: 40 10% 94%;
-  --muted-foreground: 240 4% 40%;
-  
+  --muted-foreground: 240 4% 22%;
+
   --accent: 240 2% 90%;
   --accent-foreground: 240 5% 15%;
-  
+
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
 
@@ -82,7 +82,7 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .glass-panel {
     @apply bg-white/30 backdrop-blur-md border border-white/20;
   }

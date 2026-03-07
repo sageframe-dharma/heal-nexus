@@ -6,11 +6,14 @@ import centralImage from "@assets/pearl.png";
 interface NetworkGraphProps {
   services: string[];
   image: string;
+  images?: string[];
+  imageScales?: (number | undefined)[];
+  imagePositions?: (string | undefined)[];
   activeService: string | null;
   onActiveChange: (service: string | null) => void;
 }
 
-export function NetworkGraph({ services, image, activeService, onActiveChange }: NetworkGraphProps) {
+export function NetworkGraph({ services, image, images, imageScales, imagePositions, activeService, onActiveChange }: NetworkGraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
 
@@ -108,7 +111,9 @@ export function NetworkGraph({ services, image, activeService, onActiveChange }:
           y={node.y}
           index={i}
           service={node.service}
-          image={image}
+          image={images?.[i] ?? image}
+          objectPosition={imagePositions?.[i] ?? 'center'}
+          imageScale={imageScales?.[i]}
           isActive={activeService === node.service}
           isRelated={isAdjacent}
           onHover={onActiveChange}
