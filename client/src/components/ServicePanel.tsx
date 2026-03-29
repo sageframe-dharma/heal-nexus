@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "wouter";
 import type { ServiceInfo } from "@/lib/services";
 
 export type { ServiceInfo };
@@ -46,6 +47,21 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
               {active.description}
             </p>
+            <Link
+              href="/practice"
+              style={{
+                display: "inline-block",
+                marginTop: 18,
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: 13,
+                fontWeight: 500,
+                color: "#C850C0",
+                textDecoration: "none",
+                letterSpacing: "0.2px",
+              }}
+            >
+              Learn more →
+            </Link>
           </motion.div>
         ) : (
           <motion.div

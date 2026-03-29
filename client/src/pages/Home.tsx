@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "wouter";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import { ServicePanel } from "@/components/ServicePanel";
 import type { ServiceInfo } from "@/lib/services";
@@ -36,6 +37,21 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
       <p className="text-muted-foreground font-light leading-relaxed text-sm">
         {active.description}
       </p>
+      <Link
+        href="/practice"
+        style={{
+          display: "inline-block",
+          marginTop: 14,
+          fontFamily: "Montserrat, sans-serif",
+          fontSize: 12,
+          fontWeight: 500,
+          color: "#C850C0",
+          textDecoration: "none",
+          letterSpacing: "0.2px",
+        }}
+      >
+        Learn more →
+      </Link>
     </div>
   );
 }
