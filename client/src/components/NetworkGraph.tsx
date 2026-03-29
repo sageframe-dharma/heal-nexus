@@ -5,12 +5,16 @@ import centralImage from "@assets/pearl.png";
 
 const ACCENT = "#C850C0";
 
-// Hexagon polygon points, flat-top orientation, given center + radius
-function hexPoints(cx: number, cy: number, r: number): string {
-  return Array.from({ length: 6 }, (_, i) => {
-    const angle = (Math.PI / 180) * (60 * i);
-    return `${cx + r * Math.cos(angle)},${cy + r * Math.sin(angle)}`;
-  }).join(" ");
+// Pentagon vertices, point-up orientation
+function pentagonVerts(cx: number, cy: number, r: number): [number, number][] {
+  return Array.from({ length: 5 }, (_, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / 5;
+    return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)] as [number, number];
+  });
+}
+
+function pentagonPoints(cx: number, cy: number, r: number): string {
+  return pentagonVerts(cx, cy, r).map(([x, y]) => `${x},${y}`).join(" ");
 }
 
 interface NetworkGraphProps {
@@ -132,11 +136,11 @@ export function NetworkGraph({
         })}
       </svg>
 
-      {/* SVG overlay — center hex only */}
+      {/* SVG overlay — center pentagon + pentacle */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 11, overflow: "visible" }}>
-        {/* Center hexagon (flat-top, 32px radius) */}
+        {/* Center pentagon (point-up, 32px radius) */}
         <polygon
-          points={hexPoints(centerX, centerY, centerHexRadius)}
+          points={pentagonPoints(centerX, centerY, centerHexRadius)}
           fill={isCenterActive ? ACCENT : isCenterHovered ? ACCENT : "rgba(170, 185, 240, 0.4)"}
           stroke="rgba(170, 185, 240, 0.6)"
           strokeWidth="1"
@@ -150,6 +154,21 @@ export function NetworkGraph({
           onMouseLeave={() => { setIsCenterHovered(false); onCenterHover(false); }}
           onClick={(e) => { e.stopPropagation(); onCenterClick(); }}
         />
+        {/* Inscribed pentacle — connect each vertex to vertex +2 */}
+        {(([[0,2],[1,3],[2,4],[3,0],[4,1]] as [number,number][])).map(([a, b]) => {
+          const verts = pentagonVerts(centerX, centerY, centerHexRadius);
+          return (
+            <line
+              key={`star-${a}-${b}`}
+              x1={verts[a][0]} y1={verts[a][1]}
+              x2={verts[b][0]} y2={verts[b][1]}
+              stroke="white"
+              strokeWidth={0.9}
+              opacity={0.7}
+              style={{ pointerEvents: "none" }}
+            />
+          );
+        })}
       </svg>
 
       {/* Nodes Layer — original geometry */}
