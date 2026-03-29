@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ServiceNode } from "./ServiceNode";
 import centralImage from "@assets/pearl.png";
 
-const SAFFRON = "#D4841A";
+const SAFFRON = "#A855F7";
 
 // Hexagon polygon points, rotated 30° (flat top/bottom), given center + radius
 function hexPoints(cx: number, cy: number, r: number): string {
@@ -115,8 +115,8 @@ export function NetworkGraph({
               y2={conn.to.y}
               stroke={SAFFRON}
               animate={{
-                opacity: isCenterActive ? 0 : activeIdx === -1 ? 0.15 : isHighlighted ? 0.85 : 0,
-                strokeWidth: isHighlighted ? 2.5 : 0.5,
+                opacity: isCenterActive ? 0 : activeIdx === -1 ? 0.35 : isHighlighted ? 0.9 : 0.2,
+                strokeWidth: isHighlighted ? 2.5 : 1,
               }}
               transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
