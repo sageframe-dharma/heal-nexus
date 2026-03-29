@@ -30,7 +30,7 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <h2 className="text-2xl md:text-3xl font-light text-primary mb-3 leading-snug">
-              Human to Human Presence
+              Healing with Presence
             </h2>
             <div className="h-px w-16 bg-primary/20 mb-4" />
             <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">

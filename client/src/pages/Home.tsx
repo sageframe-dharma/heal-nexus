@@ -11,7 +11,7 @@ import somaticImage from "@assets/photo-somatic.jpeg";
 import bcstImage from "@assets/photo-bcst.jpg";
 import bgVideo from "@assets/background.mp4";
 
-const SUBTITLE = "Human to Human Presence";
+const SUBTITLE = "Healing with Presence";
 
 const SERVICES: ServiceInfo[] = [
   {
@@ -70,7 +70,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
   if (isCenterActive && !activeService) {
     return (
       <div className="overflow-y-auto" style={{ maxHeight: 'calc(45svh - 60px)' }}>
-        <h2 className="text-xl font-light text-primary mb-2 leading-snug">Human to Human Presence</h2>
+        <h2 className="text-xl font-light text-primary mb-2 leading-snug">Healing with Presence</h2>
         <div className="h-px w-12 bg-primary/20 mb-3" />
         <p className="text-muted-foreground font-light leading-relaxed text-sm">
           I help people listen to themselves and respond to what they're hearing. People seek support for many reasons — pain, anxiety, preparation for birth, a body carrying more than it can hold, or simply to be understood. I work with what you bring and help create the conditions for you to meet what is ready to happen.
