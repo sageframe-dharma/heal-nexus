@@ -7,6 +7,7 @@ import doulaImage from "@assets/photo-doula.jpg";
 import yogaImage from "@assets/photo-yoga.jpg";
 import ppnImage from "@assets/photo-PPN.png";
 import griefImage from "@assets/photo-grief.png";
+import somaticImage from "@assets/photo-somatic.jpeg";
 import bgVideo from "@assets/background.mp4";
 
 const SUBTITLE = "Whole Human Healing";
@@ -21,6 +22,7 @@ const SERVICES: ServiceInfo[] = [
   {
     name: "Somatic\nTherapy",
     label: "Somatic Therapy",
+    image: somaticImage,
     description:
       "The body holds what the mind hasn't caught up with — old injuries, unfinished responses, things that happened too fast. Somatic therapy explores how the body expresses these experiences, applying mind-body healing to aid with trauma recovery. This work meets that held material where it actually lives: in the tissue, the breath, the nervous system. Through touch, awareness, and movement, I help your body complete what it started.",
   },
