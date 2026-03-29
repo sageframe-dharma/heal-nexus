@@ -9,8 +9,8 @@ const LAVENDER = "rgb(170, 185, 240)";
 const INLINE_NAV_CSS = `
   @media (min-width: 768px) {
     .l2i-outer { height: 100vh; overflow: hidden; display: flex; flex-direction: column; padding-top: clamp(16px, 2vw, 28px); }
-    .l2i-nav { margin: 0 clamp(16px, 4vw, 64px); flex-shrink: 0; }
-    .l2i-content { flex: 1; min-height: 0; overflow: hidden; }
+    .l2i-nav { margin: 0 10vw; flex-shrink: 0; }
+    .l2i-content { flex: 1; min-height: 0; overflow: hidden; border-radius: 16px 16px 0 0; }
   }
   @media (max-width: 767px) {
     .l2i-outer { min-height: 100vh; }
@@ -111,7 +111,7 @@ export function Layout2({ children, contentStyle, inlineNav }: Layout2Props) {
             className="l2i-content"
             style={{
               background: "#f5f2ed",
-              margin: "0 clamp(16px, 4vw, 64px)",
+              margin: "0 10vw",
               color: "#1a1a1e",
               ...contentStyle,
             }}

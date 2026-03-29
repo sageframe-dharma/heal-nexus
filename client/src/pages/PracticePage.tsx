@@ -36,20 +36,20 @@ const RESPONSIVE_CSS = `
     .practice-page {
       height: 100%;
       box-sizing: border-box;
-      padding: 16px 15% 0 10%;
+      padding: 16px 10% 0 10%;
       display: flex;
       flex-direction: column;
     }
     .practice-layout {
       display: flex;
-      gap: 32px;
+      gap: 48px;
       align-items: stretch;
       margin-top: 12px;
       flex: 1;
       min-height: 0;
     }
     .practice-card-col {
-      width: 240px;
+      width: 280px;
       flex-shrink: 0;
       overflow-y: auto;
       min-height: 0;
