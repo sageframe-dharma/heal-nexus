@@ -1,6 +1,6 @@
 import portraitImage from "@assets/portrait-default.png";
 import doulaImage from "@assets/photo-doula.jpg";
-import yogaImage from "@assets/photo-yoga.jpg";
+import yogaImage from "@assets/photo-yoga-lg.jpg";
 import ppnImage from "@assets/photo-PPN.png";
 import griefImage from "@assets/photo-grief.png";
 import somaticImage from "@assets/photo-somatic.jpeg";
