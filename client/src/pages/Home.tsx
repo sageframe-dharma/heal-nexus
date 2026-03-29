@@ -6,6 +6,7 @@ import portraitImage from "@assets/portrait-default.png";
 import doulaImage from "@assets/photo-doula.jpg";
 import yogaImage from "@assets/photo-yoga.jpg";
 import ppnImage from "@assets/photo-PPN.png";
+import griefImage from "@assets/photo-grief.png";
 import bgVideo from "@assets/background.mp4";
 
 const SUBTITLE = "Whole Human Healing";
@@ -49,6 +50,7 @@ const SERVICES: ServiceInfo[] = [
   {
     name: "Grief &\nTransitions",
     label: "Grief, Life Transitions & Integrated Health",
+    image: griefImage,
     description:
       "Some things can't be fixed. They can only be lived through. I work with grief, serious illness, disability, caregiving, dying, and the transitions that change who you are — including supporting families navigating complex medical needs, advocating within systems that see parts but not the whole person, and helping coordinate care across approaches. Grief is communal work. It needs a container, honesty, and someone who understands that the body carries loss just as it carries life.",
   },
