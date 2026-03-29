@@ -31,33 +31,45 @@ function getDetail(key: string): { title: string; paragraphs: string[] } | null 
 }
 
 const RESPONSIVE_CSS = `
-  .practice-page { padding: 48px 15% 48px 10%; }
-  .practice-layout {
-    display: flex;
-    gap: 32px;
-    align-items: flex-start;
-    margin-top: 36px;
+  /* ── Desktop ── */
+  @media (min-width: 768px) {
+    .practice-page {
+      height: 100%;
+      box-sizing: border-box;
+      padding: 16px 15% 0 10%;
+      display: flex;
+      flex-direction: column;
+    }
+    .practice-layout {
+      display: flex;
+      gap: 32px;
+      align-items: stretch;
+      margin-top: 12px;
+      flex: 1;
+      min-height: 0;
+    }
+    .practice-card-col {
+      width: 240px;
+      flex-shrink: 0;
+      overflow-y: auto;
+      min-height: 0;
+    }
+    .practice-detail {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
+      border: 2px solid #C850C0;
+      border-radius: 16px;
+      padding: 36px 40px;
+    }
+    .practice-mobile-detail { display: none; }
   }
-  .practice-card-col {
-    width: 240px;
-    flex-shrink: 0;
-    overflow-y: auto;
-    max-height: calc(100vh - 160px);
-  }
-  .practice-detail {
-    flex: 1;
-    overflow-y: auto;
-    max-height: calc(100vh - 160px);
-    border: 2px solid #C850C0;
-    border-radius: 16px;
-    padding: 36px 40px;
-  }
-  .practice-mobile-detail { display: none; }
 
+  /* ── Mobile ── */
   @media (max-width: 767px) {
     .practice-page { padding: 32px 20px; }
-    .practice-layout { flex-direction: column; margin-top: 20px; gap: 0; }
-    .practice-card-col { width: 100%; max-height: none; overflow-y: visible; }
+    .practice-layout { display: flex; flex-direction: column; margin-top: 20px; gap: 0; }
+    .practice-card-col { width: 100%; overflow-y: visible; }
     .practice-detail { display: none; }
     .practice-mobile-detail { display: block; }
   }
@@ -76,8 +88,8 @@ export default function PracticePage() {
   return (
     <>
       <style>{RESPONSIVE_CSS}</style>
-      {/* contentStyle zeros out Layout2's default padding — .practice-page handles it responsively */}
-      <Layout2 contentStyle={{ padding: 0 }}>
+      {/* contentStyle zeros padding; inlineNav puts nav inside the lavender frame on desktop */}
+      <Layout2 inlineNav contentStyle={{ padding: 0 }}>
         <div className="practice-page">
           {/* Two-column layout */}
           <div className="practice-layout">
