@@ -73,11 +73,13 @@ export function NetworkGraph({
     };
   });
 
-  // All node-to-node connections (6 perimeter + 6 skip-one + 3 opposites = 15 total)
+  // 6 perimeter (diff=1,5) + 6 diagonals (diff=2,4) = 12 lines, none crossing center
   const connections: { id: string; from: typeof nodes[0]; to: typeof nodes[0] }[] = [];
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
-      connections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
+      if (Math.abs(j - i) !== 3) { // exclude center-crossing opposites
+        connections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
+      }
     }
   }
 
