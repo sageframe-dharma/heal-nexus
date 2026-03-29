@@ -79,21 +79,6 @@ export default function PracticePage() {
       {/* contentStyle zeros out Layout2's default padding — .practice-page handles it responsively */}
       <Layout2 contentStyle={{ padding: 0 }}>
         <div className="practice-page">
-          {/* Page heading */}
-          <h1
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 34,
-              fontWeight: 300,
-              color: "#051a1c",
-              lineHeight: 1.2,
-              margin: "0 0 4px 0",
-            }}
-          >
-            Offerings
-          </h1>
-          <div style={{ height: 1, width: 56, background: "rgba(5,26,28,0.15)" }} />
-
           {/* Two-column layout */}
           <div className="practice-layout">
             {/* Card column */}

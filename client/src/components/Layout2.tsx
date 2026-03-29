@@ -1,12 +1,12 @@
 import { Link, useLocation } from "wouter";
 
 const ACCENT = "#C850C0";
-const FROSTED_LAVENDER = "rgba(170, 185, 240, 0.72)";
+const LAVENDER = "rgb(170, 185, 240)";
 
 const NAV_LINKS = [
-  { label: "Practice", href: "/practice" },
-  { label: "About",    href: "/about"    },
-  { label: "Sessions", href: "/sessions" },
+  { label: "Offerings", href: "/practice" },
+  { label: "About",     href: "/about"    },
+  { label: "Sessions",  href: "/sessions" },
 ] as const;
 
 interface Layout2Props {
@@ -18,13 +18,11 @@ export function Layout2({ children, contentStyle }: Layout2Props) {
   const [location] = useLocation();
 
   return (
-    <div style={{ background: FROSTED_LAVENDER, minHeight: "100vh" }}>
+    <div style={{ background: LAVENDER, minHeight: "100vh" }}>
       {/* Sticky nav */}
       <nav
         style={{
-          background: FROSTED_LAVENDER,
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
+          background: LAVENDER,
           padding: "14px 32px",
           position: "sticky",
           top: 0,
@@ -82,12 +80,11 @@ export function Layout2({ children, contentStyle }: Layout2Props) {
         })}
       </nav>
 
-      {/* Content area */}
+      {/* Content area — clamp margin ensures side frames always visible */}
       <div
         style={{
           background: "#f5f2ed",
-          maxWidth: 1200,
-          margin: "0 auto",
+          margin: "0 clamp(16px, 4vw, 64px)",
           minHeight: "calc(100vh - 49px)",
           padding: "48px 56px",
           color: "#1a1a1e",
