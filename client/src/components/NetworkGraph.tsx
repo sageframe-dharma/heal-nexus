@@ -73,11 +73,14 @@ export function NetworkGraph({
     };
   });
 
-  // Original all-to-all connections (for wedge line geometry)
+  // Perimeter (6) + diagonals (6) = 12 node-to-node connections (excludes 3 opposite-crossing lines)
   const connections: { id: string; from: typeof nodes[0]; to: typeof nodes[0] }[] = [];
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
-      connections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
+      const diff = Math.abs(j - i);
+      if (diff !== 3) { // skip opposites (1→4, 2→5, 3→6)
+        connections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
+      }
     }
   }
 
@@ -105,10 +108,6 @@ export function NetworkGraph({
             (toIdx === activeIdx && (fromIdx === (activeIdx + 2) % n || fromIdx === (activeIdx + 4) % n))
           );
 
-          // Perimeter (diff 1 or 5) + diagonals (diff 2 or 4) = 12 lines that illuminate on center click
-          const diff = Math.abs(toIdx - fromIdx);
-          const isPerimOrDiag = diff !== 3; // exclude the 3 opposite-crossing lines (diff=3)
-
           return (
             <motion.line
               key={conn.id}
@@ -116,19 +115,17 @@ export function NetworkGraph({
               y1={conn.from.y}
               x2={conn.to.x}
               y2={conn.to.y}
-              filter={isCenterActive && isPerimOrDiag ? "url(#accent-glow)" : undefined}
+              filter={isCenterActive ? "url(#accent-glow)" : undefined}
               animate={{
-                stroke: isCenterActive && isPerimOrDiag ? ACCENT : "white",
-                opacity: isCenterActive && isPerimOrDiag
+                stroke: isCenterActive ? ACCENT : "white",
+                opacity: isCenterActive
                   ? 0.9
-                  : isCenterActive
-                    ? 0
-                    : isCenterHovered
+                  : isCenterHovered
+                    ? 0.15
+                    : activeIdx === -1
                       ? 0.15
-                      : activeIdx === -1
-                        ? 0.15
-                        : (isHighlighted ? 0.85 : 0),
-                strokeWidth: isCenterActive && isPerimOrDiag
+                      : (isHighlighted ? 0.85 : 0),
+                strokeWidth: isCenterActive
                   ? 4
                   : isHighlighted
                     ? 2
