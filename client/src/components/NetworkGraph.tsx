@@ -73,14 +73,11 @@ export function NetworkGraph({
     };
   });
 
-  // Perimeter (6) + diagonals (6) = 12 node-to-node connections (excludes 3 opposite-crossing lines)
+  // All node-to-node connections (6 perimeter + 6 skip-one + 3 opposites = 15 total)
   const connections: { id: string; from: typeof nodes[0]; to: typeof nodes[0] }[] = [];
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
-      const diff = Math.abs(j - i);
-      if (diff !== 3) { // skip opposites (1→4, 2→5, 3→6)
-        connections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
-      }
+      connections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
     }
   }
 
