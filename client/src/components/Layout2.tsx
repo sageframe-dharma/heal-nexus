@@ -7,15 +7,36 @@ const LAVENDER = "rgb(170, 185, 240)";
 // Desktop: outer is 100vh flex column with lavender top padding, nav gets side margins, content fills remainder
 // Mobile: falls back to sticky full-width nav + scrollable content (same as default Layout2)
 const INLINE_NAV_CSS = `
+  /* ── Desktop: cream box floats with even lavender margin; nav inside cream ── */
   @media (min-width: 768px) {
-    .l2i-outer { height: 100vh; overflow: hidden; display: flex; flex-direction: column; padding-top: clamp(16px, 2vw, 28px); }
-    .l2i-nav { margin: 0 10vw; flex-shrink: 0; }
-    .l2i-content { flex: 1; min-height: 0; overflow: hidden; border-radius: 16px 16px 0 0; }
+    .l2i-outer {
+      height: 100vh;
+      overflow: hidden;
+      box-sizing: border-box;
+      padding: clamp(12px, 1.5vw, 20px);
+    }
+    .l2i-content {
+      height: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+    .l2i-nav { flex-shrink: 0; }
   }
+  /* ── Mobile: 10px lavender margin all around; nav sits inside cream ── */
   @media (max-width: 767px) {
-    .l2i-outer { min-height: 100vh; }
-    .l2i-nav { position: sticky; top: 0; z-index: 100; }
-    .l2i-content { min-height: calc(100vh - 49px); }
+    .l2i-outer {
+      min-height: 100vh;
+      box-sizing: border-box;
+      padding: 10px;
+    }
+    .l2i-content {
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 20px);
+    }
   }
 `;
 
@@ -93,29 +114,30 @@ export function Layout2({ children, contentStyle, inlineNav }: Layout2Props) {
     return (
       <>
         <style>{INLINE_NAV_CSS}</style>
+        {/* Outer lavender frame — uniform padding creates even margin around cream box */}
         <div className="l2i-outer" style={{ background: LAVENDER }}>
-          <nav
-            className="l2i-nav"
-            style={{
-              background: LAVENDER,
-              padding: "14px 32px",
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              gap: 24,
-            }}
-          >
-            {navInner}
-          </nav>
+          {/* Cream box — contains nav + page content as a single floating unit */}
           <div
             className="l2i-content"
             style={{
               background: "#f5f2ed",
-              margin: "0 10vw",
               color: "#1a1a1e",
               ...contentStyle,
             }}
           >
+            <nav
+              className="l2i-nav"
+              style={{
+                background: "#f5f2ed",
+                padding: "14px 32px",
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                gap: 24,
+              }}
+            >
+              {navInner}
+            </nav>
             {children}
           </div>
         </div>

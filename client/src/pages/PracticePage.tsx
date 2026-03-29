@@ -34,22 +34,25 @@ const RESPONSIVE_CSS = `
   /* ── Desktop ── */
   @media (min-width: 768px) {
     .practice-page {
-      height: 100%;
+      /* fills remaining cream height below nav; nav is flex-shrink:0 sibling above */
+      flex: 1;
+      min-height: 0;
       box-sizing: border-box;
-      padding: 16px 10% 0 10%;
+      /* small internal padding — outer lavender handles the frame margin */
+      padding: 16px 28px 28px;
       display: flex;
       flex-direction: column;
     }
     .practice-layout {
       display: flex;
-      gap: 48px;
+      gap: 64px;
       align-items: stretch;
       margin-top: 12px;
       flex: 1;
       min-height: 0;
     }
     .practice-card-col {
-      width: 280px;
+      width: 310px;
       flex-shrink: 0;
       overflow-y: auto;
       min-height: 0;
@@ -67,8 +70,9 @@ const RESPONSIVE_CSS = `
 
   /* ── Mobile ── */
   @media (max-width: 767px) {
-    .practice-page { padding: 32px 20px; }
-    .practice-layout { display: flex; flex-direction: column; margin-top: 20px; gap: 0; }
+    /* nav is inside cream box — reduce top padding accordingly */
+    .practice-page { padding: 20px 16px 32px; }
+    .practice-layout { display: flex; flex-direction: column; margin-top: 16px; gap: 0; }
     .practice-card-col { width: 100%; overflow-y: visible; }
     .practice-detail { display: none; }
     .practice-mobile-detail { display: block; }
