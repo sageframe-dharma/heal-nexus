@@ -103,8 +103,7 @@ export function NetworkGraph({
           const fromIdx = services.indexOf(conn.from.service);
           const toIdx = services.indexOf(conn.to.service);
           const isHighlighted = !isCenterActive && activeIdx !== -1 && (
-            (fromIdx === activeIdx && (toIdx === (activeIdx + 2) % n || toIdx === (activeIdx + 4) % n)) ||
-            (toIdx === activeIdx && (fromIdx === (activeIdx + 2) % n || fromIdx === (activeIdx + 4) % n))
+            fromIdx === activeIdx || toIdx === activeIdx
           );
 
           return (
@@ -117,7 +116,7 @@ export function NetworkGraph({
               stroke={SAFFRON}
               animate={{
                 opacity: isCenterActive ? 0 : activeIdx === -1 ? 0.15 : isHighlighted ? 0.85 : 0,
-                strokeWidth: isHighlighted ? 2 : 0.5,
+                strokeWidth: isHighlighted ? 2.5 : 0.5,
               }}
               transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
