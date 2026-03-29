@@ -116,9 +116,9 @@ export function NetworkGraph({
               y1={conn.from.y}
               x2={conn.to.x}
               y2={conn.to.y}
-              stroke={isCenterActive && isPerimOrDiag ? ACCENT : "white"}
               filter={isCenterActive && isPerimOrDiag ? "url(#accent-glow)" : undefined}
               animate={{
+                stroke: isCenterActive && isPerimOrDiag ? ACCENT : "white",
                 opacity: isCenterActive && isPerimOrDiag
                   ? 0.9
                   : isCenterActive
