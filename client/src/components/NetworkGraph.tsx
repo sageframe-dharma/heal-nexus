@@ -73,15 +73,17 @@ export function NetworkGraph({
     };
   });
 
-  // 6 perimeter (diff=1,5) + 6 diagonals (diff=2,4) = 12 lines, none crossing center
-  const connections: { id: string; from: typeof nodes[0]; to: typeof nodes[0] }[] = [];
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      if (Math.abs(j - i) !== 3) { // exclude center-crossing opposites
-        connections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
-      }
-    }
-  }
+  // 12 explicit connections: 6 perimeter + 6 diagonals, nothing crossing center
+  // Node indices: 0=top, 1=upper-right, 2=lower-right, 3=bottom, 4=lower-left, 5=upper-left
+  const linePairs: [number, number][] = [
+    // Perimeter (6): each node to its neighbors
+    [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0],
+    // Diagonals (6): each node to +2 and +4 (skip-one neighbors)
+    [0, 2], [1, 3], [2, 4], [3, 5], [4, 0], [5, 1],
+  ];
+
+  const activeIdx = activeService ? services.indexOf(activeService) : -1;
+  const n = services.length;
 
   return (
     <div
@@ -95,25 +97,20 @@ export function NetworkGraph({
             <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor={ACCENT} floodOpacity="0.6" />
           </filter>
         </defs>
-        {connections.map((conn) => {
-          const fromIdx = services.indexOf(conn.from.service);
-          const toIdx = services.indexOf(conn.to.service);
-          const activeIdx = activeService ? services.indexOf(activeService) : -1;
-          const n = services.length;
-
-          // Only the two "skip-one" connections light up (±2 steps = nodes 3 and 5 for node 1)
+        {linePairs.map(([a, b]) => {
+          // Wedge highlight: the two skip-one lines from the active node
           const isHighlighted = !isCenterHovered && !isCenterActive && activeIdx !== -1 && (
-            (fromIdx === activeIdx && (toIdx === (activeIdx + 2) % n || toIdx === (activeIdx + 4) % n)) ||
-            (toIdx === activeIdx && (fromIdx === (activeIdx + 2) % n || fromIdx === (activeIdx + 4) % n))
+            (a === activeIdx && (b === (activeIdx + 2) % n || b === (activeIdx + 4) % n)) ||
+            (b === activeIdx && (a === (activeIdx + 2) % n || a === (activeIdx + 4) % n))
           );
 
           return (
             <motion.line
-              key={conn.id}
-              x1={conn.from.x}
-              y1={conn.from.y}
-              x2={conn.to.x}
-              y2={conn.to.y}
+              key={`${a}-${b}`}
+              x1={nodes[a].x}
+              y1={nodes[a].y}
+              x2={nodes[b].x}
+              y2={nodes[b].y}
               filter={isCenterActive ? "url(#accent-glow)" : undefined}
               animate={{
                 stroke: isCenterActive ? ACCENT : "white",
