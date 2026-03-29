@@ -148,7 +148,7 @@ export function NetworkGraph({
           }}
           onMouseEnter={() => { setIsCenterHovered(true); onCenterHover(true); }}
           onMouseLeave={() => { setIsCenterHovered(false); onCenterHover(false); }}
-          onClick={onCenterClick}
+          onClick={(e) => { e.stopPropagation(); onCenterClick(); }}
         />
       </svg>
 

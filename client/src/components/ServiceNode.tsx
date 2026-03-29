@@ -64,7 +64,7 @@ export function ServiceNode({
       }}
       onMouseEnter={() => onHover(service)}
       onMouseLeave={() => onHover(null)}
-      onClick={() => onSelect(service)}
+      onClick={(e) => { e.stopPropagation(); onSelect(service); }}
       data-testid={`node-${service}`}
     >
       <div className="relative w-24 h-24 rounded-full overflow-hidden border-0">

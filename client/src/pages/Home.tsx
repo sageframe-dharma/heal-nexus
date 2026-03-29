@@ -221,7 +221,7 @@ export default function Home() {
       <div className="relative z-20 flex-1 min-h-0 w-full px-4 md:px-8 lg:px-12">
 
         {/* Desktop: graph always left, right panel fades between views */}
-        <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto h-full" onClick={e => e.stopPropagation()}>
+        <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto h-full">
           <div className="w-1/2 shrink-0" style={{ maxWidth: '520px' }}>
             <NetworkGraph
               services={SERVICE_NAMES}
@@ -238,7 +238,7 @@ export default function Home() {
               onCenterHover={handleCenterHover}
             />
           </div>
-          <div className="w-1/2 max-w-md">
+          <div className="w-1/2 max-w-md" onClick={e => e.stopPropagation()}>
             <AnimatePresence mode="wait">
               {activeView === 'practice' && (
                 <motion.div
@@ -327,7 +327,7 @@ export default function Home() {
         </div>
 
         {/* Mobile: content area fades between views */}
-        <div className="flex md:hidden flex-col items-center h-full pt-6" onClick={e => e.stopPropagation()}>
+        <div className="flex md:hidden flex-col items-center h-full pt-6">
           <AnimatePresence mode="wait">
             {activeView === 'practice' && (
               <motion.div
@@ -364,7 +364,7 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }} onClick={e => e.stopPropagation()}>
                   <h2 className="text-xl font-light text-primary mb-2">About Nancy</h2>
                   <div className="h-px w-12 bg-primary/20 mb-4" />
                   <div className="space-y-3 text-muted-foreground font-light leading-relaxed text-sm">
@@ -394,7 +394,7 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="text-center rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                <div className="text-center rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }} onClick={e => e.stopPropagation()}>
                   <h2 className="text-xl font-light text-primary mb-2">Begin Your Journey</h2>
                   <div className="h-px w-12 bg-primary/20 mx-auto mb-4" />
                   <p className="text-muted-foreground font-light leading-relaxed mb-3 text-sm">
@@ -420,7 +420,7 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }} onClick={e => e.stopPropagation()}>
                   <h2 className="text-xl font-light text-primary mb-2">Resources</h2>
                   <div className="h-px w-12 bg-primary/20 mb-4" />
                   <p className="text-muted-foreground font-light leading-relaxed text-sm">
