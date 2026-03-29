@@ -83,7 +83,6 @@ export function NetworkGraph({
   }
 
   const activeIdx = activeService ? services.indexOf(activeService) : -1;
-  const n = services.length;
 
   return (
     <div
@@ -98,55 +97,55 @@ export function NetworkGraph({
           </filter>
         </defs>
 
-        {/* Background web — node-to-node lines */}
-        {webConnections.map((conn) => {
-          const fromIdx = services.indexOf(conn.from.service);
-          const toIdx = services.indexOf(conn.to.service);
-          const isHighlighted = !isCenterActive && activeIdx !== -1 && (
-            fromIdx === activeIdx || toIdx === activeIdx
-          );
+        {/* Background web — node-to-node lines, always visible, fade on center click */}
+        {webConnections.map((conn) => (
+          <motion.line
+            key={conn.id}
+            x1={conn.from.x}
+            y1={conn.from.y}
+            x2={conn.to.x}
+            y2={conn.to.y}
+            stroke={SAFFRON}
+            animate={{
+              opacity: isCenterActive ? 0 : 0.35,
+              strokeWidth: 1,
+            }}
+            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+          />
+        ))}
 
+        {/* Spoke lines — illuminate white on node hover/select, accent+glow on center click */}
+        {spokes.map(({ id, node, index }) => {
+          const isActiveSpoke = index === activeIdx;
           return (
             <motion.line
-              key={conn.id}
-              x1={conn.from.x}
-              y1={conn.from.y}
-              x2={conn.to.x}
-              y2={conn.to.y}
-              stroke={SAFFRON}
-              animate={{
-                opacity: isCenterActive ? 0 : activeIdx === -1 ? 0.35 : isHighlighted ? 0.9 : 0.2,
-                strokeWidth: isHighlighted ? 2.5 : 1,
+              key={id}
+              x1={centerX}
+              y1={centerY}
+              x2={node.x}
+              y2={node.y}
+              filter={isCenterActive ? "url(#saffron-glow)" : undefined}
+              animate={isCenterActive ? {
+                stroke: SAFFRON,
+                opacity: 0.9,
+                strokeWidth: 3,
+              } : isActiveSpoke ? {
+                stroke: "white",
+                opacity: 0.85,
+                strokeWidth: 1.5,
+              } : {
+                stroke: "white",
+                opacity: 0.12,
+                strokeWidth: 0.5,
               }}
-              transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{
+                duration: 0.5,
+                ease: [0.25, 0.46, 0.45, 0.94],
+                delay: isCenterActive ? index * 0.04 : 0,
+              }}
             />
           );
         })}
-
-        {/* Spoke lines — center to each node, illuminate saffron on center click */}
-        {spokes.map(({ id, node, index }) => (
-          <motion.line
-            key={id}
-            x1={centerX}
-            y1={centerY}
-            x2={node.x}
-            y2={node.y}
-            animate={isCenterActive ? {
-              stroke: SAFFRON,
-              opacity: 0.8,
-              strokeWidth: 1.5,
-            } : {
-              stroke: "white",
-              opacity: activeIdx === -1 ? 0.12 : 0,
-              strokeWidth: 0.5,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-              delay: isCenterActive ? index * 0.04 : 0,
-            }}
-          />
-        ))}
 
         {/* Center hexagon (flat-top, 32px radius) */}
         <polygon
@@ -167,30 +166,24 @@ export function NetworkGraph({
       </svg>
 
       {/* Nodes layer */}
-      {nodes.map((node, i) => {
-        const isAdjacent = activeIdx !== -1 && (
-          i === (activeIdx + 1) % n ||
-          i === (activeIdx - 1 + n) % n
-        );
-        return (
-          <ServiceNode
-            key={node.service}
-            x={node.x}
-            y={node.y}
-            index={i}
-            service={node.service}
-            image={images?.[i] ?? image}
-            objectPosition={imagePositions?.[i] ?? 'center'}
-            imageScale={imageScales?.[i]}
-            isActive={activeService === node.service}
-            isSelected={selectedService === node.service}
-            isRelated={isAdjacent}
-            isCenterActive={isCenterActive}
-            onHover={onActiveChange}
-            onSelect={onSelectChange}
-          />
-        );
-      })}
+      {nodes.map((node, i) => (
+        <ServiceNode
+          key={node.service}
+          x={node.x}
+          y={node.y}
+          index={i}
+          service={node.service}
+          image={images?.[i] ?? image}
+          objectPosition={imagePositions?.[i] ?? 'center'}
+          imageScale={imageScales?.[i]}
+          isActive={activeService === node.service}
+          isSelected={selectedService === node.service}
+          isRelated={false}
+          isCenterActive={isCenterActive}
+          onHover={onActiveChange}
+          onSelect={onSelectChange}
+        />
+      ))}
 
       {/* Central hexagon image + wedge overlay */}
       <div
