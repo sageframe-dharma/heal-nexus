@@ -48,7 +48,7 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
               {active.description}
             </p>
             <Link
-              href="/practice"
+              href="/offerings"
               style={{
                 display: "inline-block",
                 marginTop: 18,

@@ -38,7 +38,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         {active.description}
       </p>
       <Link
-        href="/practice"
+        href="/offerings"
         style={{
           display: "inline-block",
           marginTop: 14,

@@ -4,7 +4,7 @@ const ACCENT = "#C850C0";
 const LAVENDER = "rgb(170, 185, 240)";
 
 const NAV_LINKS = [
-  { label: "Offerings", href: "/practice" },
+  { label: "Offerings", href: "/offerings" },
   { label: "About",     href: "/about"    },
   { label: "Sessions",  href: "/sessions" },
 ] as const;
@@ -32,7 +32,7 @@ export function Layout2({ children, contentStyle }: Layout2Props) {
           gap: 24,
         }}
       >
-        {/* Back link — pushes nav items right */}
+        {/* Back link */}
         <Link
           href="/"
           style={{
@@ -41,7 +41,6 @@ export function Layout2({ children, contentStyle }: Layout2Props) {
             fontSize: 13,
             fontWeight: 400,
             textDecoration: "none",
-            marginRight: "auto",
             transition: "color 0.2s ease",
           }}
           onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#051a1c"; }}
@@ -49,6 +48,14 @@ export function Layout2({ children, contentStyle }: Layout2Props) {
         >
           ← Back to Home
         </Link>
+
+        {/* Typemark — absolutely centered in the nav */}
+        <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}>
+          <img src="/favicon.svg" alt="typemark" style={{ height: 32, width: 32, display: "block" }} />
+        </div>
+
+        {/* Spacer pushes nav items to the right, matching the back link width */}
+        <div style={{ flex: 1 }} />
 
         {/* Nav items */}
         {NAV_LINKS.map(({ label, href }) => {
