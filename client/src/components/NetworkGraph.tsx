@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ServiceNode } from "./ServiceNode";
 import centralImage from "@assets/pearl.png";
 
-const ACCENT = "#A855F7";
+const ACCENT = "#C850C0";
 
 // Hexagon polygon points, flat-top orientation, given center + radius
 function hexPoints(cx: number, cy: number, r: number): string {
