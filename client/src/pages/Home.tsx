@@ -106,6 +106,13 @@ export default function Home() {
     setSelectedNode(null);
     setHoveredNode(null);
   };
+  const handleCenterHover = (hovered: boolean) => {
+    if (hovered) {
+      setHoveredNode(null);
+      setSelectedNode(null);
+      setIsCenterActive(false);
+    }
+  };
   const videoRef = useRef<HTMLVideoElement>(null);
   const panDirRef = useRef<1 | -1>(1);
   const panYRef = useRef(5);
@@ -221,6 +228,7 @@ export default function Home() {
               onActiveChange={handleNodeHover}
               onSelectChange={handleNodeSelect}
               onCenterClick={handleCenterClick}
+              onCenterHover={handleCenterHover}
             />
           </div>
           <div className="w-1/2 max-w-md">
@@ -336,6 +344,7 @@ export default function Home() {
                   onActiveChange={handleNodeHover}
                   onSelectChange={handleNodeSelect}
                   onCenterClick={handleCenterClick}
+                  onCenterHover={handleCenterHover}
                 />
               </motion.div>
             )}

@@ -25,6 +25,7 @@ interface NetworkGraphProps {
   onActiveChange: (service: string | null) => void;
   onSelectChange: (service: string) => void;
   onCenterClick: () => void;
+  onCenterHover: (hovered: boolean) => void;
 }
 
 export function NetworkGraph({
@@ -39,6 +40,7 @@ export function NetworkGraph({
   onActiveChange,
   onSelectChange,
   onCenterClick,
+  onCenterHover,
 }: NetworkGraphProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 600, height: 600 });
@@ -85,7 +87,12 @@ export function NetworkGraph({
       className="relative w-full max-w-xl mx-auto aspect-square flex items-center justify-center"
     >
       {/* SVG Layer for Connections — original wedge geometry, sits below nodes */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 10 }}>
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 10, overflow: "visible" }}>
+        <defs>
+          <filter id="accent-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor={ACCENT} floodOpacity="0.6" />
+          </filter>
+        </defs>
         {connections.map((conn) => {
           const fromIdx = services.indexOf(conn.from.service);
           const toIdx = services.indexOf(conn.to.service);
@@ -93,10 +100,14 @@ export function NetworkGraph({
           const n = services.length;
 
           // Only the two "skip-one" connections light up (±2 steps = nodes 3 and 5 for node 1)
-          const isHighlighted = activeIdx !== -1 && (
+          const isHighlighted = !isCenterHovered && !isCenterActive && activeIdx !== -1 && (
             (fromIdx === activeIdx && (toIdx === (activeIdx + 2) % n || toIdx === (activeIdx + 4) % n)) ||
             (toIdx === activeIdx && (fromIdx === (activeIdx + 2) % n || fromIdx === (activeIdx + 4) % n))
           );
+
+          // Perimeter (diff 1 or 5) + diagonals (diff 2 or 4) = 12 lines that illuminate on center click
+          const diff = Math.abs(toIdx - fromIdx);
+          const isPerimOrDiag = diff !== 3; // exclude the 3 opposite-crossing lines (diff=3)
 
           return (
             <motion.line
@@ -105,10 +116,21 @@ export function NetworkGraph({
               y1={conn.from.y}
               x2={conn.to.x}
               y2={conn.to.y}
-              stroke="white"
+              stroke={isCenterActive && isPerimOrDiag ? ACCENT : "white"}
+              filter={isCenterActive && isPerimOrDiag ? "url(#accent-glow)" : undefined}
               animate={{
-                opacity: isCenterActive ? 0 : activeIdx === -1 ? 0.15 : (isHighlighted ? 0.85 : 0),
-                strokeWidth: isHighlighted ? 2 : 0.5,
+                opacity: isCenterHovered
+                  ? 0.15
+                  : isCenterActive
+                    ? (isPerimOrDiag ? 0.9 : 0)
+                    : activeIdx === -1
+                      ? 0.15
+                      : (isHighlighted ? 0.85 : 0),
+                strokeWidth: isCenterActive && isPerimOrDiag
+                  ? 4
+                  : isHighlighted
+                    ? 2
+                    : 0.5,
               }}
               transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
             />
@@ -116,39 +138,8 @@ export function NetworkGraph({
         })}
       </svg>
 
-      {/* SVG overlay — center hex + center-click illumination spokes (separate layer, never touches wedge lines) */}
+      {/* SVG overlay — center hex only */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 11, overflow: "visible" }}>
-        <defs>
-          <filter id="accent-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor={ACCENT} floodOpacity="0.6" />
-          </filter>
-        </defs>
-
-        {/* 6 illumination spokes — hidden by default, visible only on center click */}
-        {nodes.map((node, i) => (
-          <motion.line
-            key={`illum-${i}`}
-            x1={centerX}
-            y1={centerY}
-            x2={node.x}
-            y2={node.y}
-            stroke={ACCENT}
-            filter={isCenterActive ? "url(#accent-glow)" : undefined}
-            animate={isCenterActive ? {
-              opacity: 0.9,
-              strokeWidth: 3,
-            } : {
-              opacity: 0,
-              strokeWidth: 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-              delay: isCenterActive ? i * 0.04 : 0,
-            }}
-          />
-        ))}
-
         {/* Center hexagon (flat-top, 32px radius) */}
         <polygon
           points={hexPoints(centerX, centerY, centerHexRadius)}
@@ -161,8 +152,8 @@ export function NetworkGraph({
             pointerEvents: "all",
             transition: "fill 0.3s ease, filter 0.3s ease",
           }}
-          onMouseEnter={() => setIsCenterHovered(true)}
-          onMouseLeave={() => setIsCenterHovered(false)}
+          onMouseEnter={() => { setIsCenterHovered(true); onCenterHover(true); }}
+          onMouseLeave={() => { setIsCenterHovered(false); onCenterHover(false); }}
           onClick={onCenterClick}
         />
       </svg>
