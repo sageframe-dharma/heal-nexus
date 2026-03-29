@@ -114,6 +114,12 @@ export default function Home() {
       setSelectedNode(null);
     }
   };
+  const handleBackgroundClick = () => {
+    setHoveredNode(null);
+    setSelectedNode(null);
+    setIsCenterActive(false);
+    setActiveView('practice');
+  };
   const videoRef = useRef<HTMLVideoElement>(null);
   const panDirRef = useRef<1 | -1>(1);
   const panYRef = useRef(5);
@@ -161,7 +167,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-screen relative selection:bg-primary/10 flex flex-col overflow-hidden" style={{ background: '#051a1c' }}>
+    <div className="h-screen relative selection:bg-primary/10 flex flex-col overflow-hidden" style={{ background: '#051a1c' }} onClick={handleBackgroundClick}>
 
       {/* Background Video — cropped top 5% to hide watermark */}
       <div className="fixed inset-0 z-0 overflow-hidden" style={{ top: '-5vh' }}>
@@ -181,7 +187,7 @@ export default function Home() {
       <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(0, 195, 195, 0.56)' }} />
 
       {/* ───── Header + Nav ───── */}
-      <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0">
+      <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0" onClick={e => e.stopPropagation()}>
         <div className="flex flex-col items-stretch w-fit gap-1.5">
           <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
@@ -215,7 +221,7 @@ export default function Home() {
       <div className="relative z-20 flex-1 min-h-0 w-full px-4 md:px-8 lg:px-12">
 
         {/* Desktop: graph always left, right panel fades between views */}
-        <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto h-full">
+        <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto h-full" onClick={e => e.stopPropagation()}>
           <div className="w-1/2 shrink-0" style={{ maxWidth: '520px' }}>
             <NetworkGraph
               services={SERVICE_NAMES}
@@ -321,7 +327,7 @@ export default function Home() {
         </div>
 
         {/* Mobile: content area fades between views */}
-        <div className="flex md:hidden flex-col items-center h-full pt-6">
+        <div className="flex md:hidden flex-col items-center h-full pt-6" onClick={e => e.stopPropagation()}>
           <AnimatePresence mode="wait">
             {activeView === 'practice' && (
               <motion.div
