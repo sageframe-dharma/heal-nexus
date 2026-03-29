@@ -114,7 +114,7 @@ export function NetworkGraph({
               y1={conn.from.y}
               x2={conn.to.x}
               y2={conn.to.y}
-              stroke="white"
+              stroke={SAFFRON}
               animate={{
                 opacity: isCenterActive ? 0 : activeIdx === -1 ? 0.15 : isHighlighted ? 0.85 : 0,
                 strokeWidth: isHighlighted ? 2 : 0.5,
@@ -214,7 +214,7 @@ export function NetworkGraph({
             src={centralImage}
             alt=""
             className="w-full h-full object-cover"
-            style={{ opacity: 0.55 }}
+            style={{ opacity: isCenterHovered || isCenterActive ? 1 : 0.55, transition: 'opacity 0.35s ease' }}
           />
           <AnimatePresence>
             {activeService && (() => {
@@ -256,7 +256,7 @@ export function NetworkGraph({
         }}
       >
         <AnimatePresence mode="wait">
-          {activeService && (
+          {activeService && !isCenterHovered && (
             <motion.span
               key={activeService}
               initial={{ opacity: 0 }}
