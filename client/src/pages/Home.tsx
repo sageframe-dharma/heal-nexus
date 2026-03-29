@@ -57,7 +57,18 @@ const SERVICE_IMAGES = SERVICES.map((s) => s.image ?? portraitImage);
 const SERVICE_IMAGE_SCALES = SERVICES.map((s) => s.imageScale);
 const SERVICE_IMAGE_POSITIONS = SERVICES.map((s) => s.imagePosition);
 
-function MobileServiceContent({ activeService, services }: { activeService: string; services: ServiceInfo[] }) {
+function MobileServiceContent({ activeService, isCenterActive, services }: { activeService: string | null; isCenterActive: boolean; services: ServiceInfo[] }) {
+  if (isCenterActive && !activeService) {
+    return (
+      <div className="overflow-y-auto" style={{ maxHeight: 'calc(45svh - 60px)' }}>
+        <h2 className="text-xl font-light text-primary mb-2 leading-snug">Whole Human Healing</h2>
+        <div className="h-px w-12 bg-primary/20 mb-3" />
+        <p className="text-muted-foreground font-light leading-relaxed text-sm">
+          I help people listen to themselves and respond to what they're hearing. People seek support for many reasons — pain, anxiety, preparation for birth, a body carrying more than it can hold, or simply to be understood. I work with what you bring and help create the conditions for you to meet what is ready to happen.
+        </p>
+      </div>
+    );
+  }
   const active = services.find((s) => s.name === activeService);
   if (!active) return null;
   return (
@@ -205,7 +216,11 @@ export default function Home() {
               imageScales={SERVICE_IMAGE_SCALES}
               imagePositions={SERVICE_IMAGE_POSITIONS}
               activeService={effectiveService}
+              selectedService={selectedNode}
+              isCenterActive={isCenterActive}
               onActiveChange={handleNodeHover}
+              onSelectChange={handleNodeSelect}
+              onCenterClick={handleCenterClick}
             />
           </div>
           <div className="w-1/2 max-w-md">
@@ -218,7 +233,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <ServicePanel activeService={effectiveService} services={SERVICES} />
+                  <ServicePanel activeService={effectiveService} isCenterActive={isCenterActive} services={SERVICES} />
                 </motion.div>
               )}
               {activeView === 'about' && (
@@ -316,7 +331,11 @@ export default function Home() {
                   imageScales={SERVICE_IMAGE_SCALES}
                   imagePositions={SERVICE_IMAGE_POSITIONS}
                   activeService={effectiveService}
+                  selectedService={selectedNode}
+                  isCenterActive={isCenterActive}
                   onActiveChange={handleNodeHover}
+                  onSelectChange={handleNodeSelect}
+                  onCenterClick={handleCenterClick}
                 />
               </motion.div>
             )}
@@ -400,7 +419,7 @@ export default function Home() {
 
       {/* Mobile bottom sheet — services view only */}
       <AnimatePresence>
-        {activeView === 'practice' && !!effectiveService && (
+        {activeView === 'practice' && (!!effectiveService || isCenterActive) && (
           <motion.div
             key="mobile-panel"
             initial={{ y: '100%' }}
@@ -411,7 +430,7 @@ export default function Home() {
             style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', maxHeight: '45svh' }}
           >
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
-            <MobileServiceContent activeService={effectiveService} services={SERVICES} />
+            <MobileServiceContent activeService={effectiveService} isCenterActive={isCenterActive} services={SERVICES} />
           </motion.div>
         )}
       </AnimatePresence>
