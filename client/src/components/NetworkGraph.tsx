@@ -104,30 +104,32 @@ export function NetworkGraph({
             (b === activeIdx && (a === (activeIdx + 2) % n || a === (activeIdx + 4) % n))
           );
 
+          const lineStroke = isCenterActive ? ACCENT : "white";
+          const lineOpacity = isCenterActive
+            ? 0.9
+            : isCenterHovered
+              ? 0.15
+              : activeIdx === -1
+                ? 0.15
+                : (isHighlighted ? 0.85 : 0);
+          const lineWidth = isCenterActive
+            ? 4
+            : isHighlighted
+              ? 2
+              : 0.5;
+
           return (
-            <motion.line
+            <line
               key={`${a}-${b}`}
               x1={nodes[a].x}
               y1={nodes[a].y}
               x2={nodes[b].x}
               y2={nodes[b].y}
+              stroke={lineStroke}
+              opacity={lineOpacity}
+              strokeWidth={lineWidth}
               filter={isCenterActive ? "url(#accent-glow)" : undefined}
-              animate={{
-                stroke: isCenterActive ? ACCENT : "white",
-                opacity: isCenterActive
-                  ? 0.9
-                  : isCenterHovered
-                    ? 0.15
-                    : activeIdx === -1
-                      ? 0.15
-                      : (isHighlighted ? 0.85 : 0),
-                strokeWidth: isCenterActive
-                  ? 4
-                  : isHighlighted
-                    ? 2
-                    : 0.5,
-              }}
-              transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] }}
+              style={{ transition: "stroke 1s, opacity 1s, stroke-width 1s" }}
             />
           );
         })}
