@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#051a1c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a3040;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="strokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00c3c3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#aab9f0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Outer hexagon -->
+  <polygon
+    points="50,6 91,28 91,72 50,94 9,72 9,28"
+    fill="url(#hexGrad)"
+    stroke="url(#strokeGrad)"
+    stroke-width="3"
+    filter="url(#glow)"
+  />
+  <!-- Inner hex ring (small circles at vertices) -->
+  <circle cx="50" cy="13" r="3" fill="#00c3c3" opacity="0.8"/>
+  <circle cx="84" cy="31.5" r="3" fill="#00c3c3" opacity="0.8"/>
+  <circle cx="84" cy="68.5" r="3" fill="#aab9f0" opacity="0.8"/>
+  <circle cx="50" cy="87" r="3" fill="#aab9f0" opacity="0.8"/>
+  <circle cx="16" cy="68.5" r="3" fill="#aab9f0" opacity="0.8"/>
+  <circle cx="16" cy="31.5" r="3" fill="#00c3c3" opacity="0.8"/>
+  <!-- Center dot -->
+  <circle cx="50" cy="50" r="7" fill="none" stroke="#00c3c3" stroke-width="2" opacity="0.9"/>
+  <circle cx="50" cy="50" r="3" fill="#00c3c3" opacity="0.9"/>
+  <!-- Spokes from center to vertex circles -->
+  <line x1="50" y1="50" x2="50" y2="16" stroke="#aab9f0" stroke-width="1" opacity="0.4"/>
+  <line x1="50" y1="50" x2="81" y2="33" stroke="#aab9f0" stroke-width="1" opacity="0.4"/>
+  <line x1="50" y1="50" x2="81" y2="67" stroke="#aab9f0" stroke-width="1" opacity="0.4"/>
+  <line x1="50" y1="50" x2="50" y2="84" stroke="#aab9f0" stroke-width="1" opacity="0.4"/>
+  <line x1="50" y1="50" x2="19" y2="67" stroke="#aab9f0" stroke-width="1" opacity="0.4"/>
+  <line x1="50" y1="50" x2="19" y2="33" stroke="#aab9f0" stroke-width="1" opacity="0.4"/>
+</svg>

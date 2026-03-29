@@ -7,46 +7,48 @@ import doulaImage from "@assets/photo-doula.jpg";
 import yogaImage from "@assets/photo-yoga.jpg";
 import bgVideo from "@assets/background.mp4";
 
+const SUBTITLE = "Whole Human Healing";
+
 const SERVICES: ServiceInfo[] = [
   {
     name: "Biodynamic Craniosacral Therapy",
     label: "Biodynamic Craniosacral Therapy",
     description:
-      "A gentle, hands-on approach that listens to the subtle rhythms of your body to release deep-held tension and support your innate healing intelligence. Sessions create space for the nervous system to settle, allowing physical and emotional patterns to unwind at their own pace. Particularly effective for chronic pain, stress, trauma recovery, and navigating major life transitions.",
+      "Biodynamic Craniosacral Therapy (BCST) is a gentle, non-invasive, hands-on modality that supports the body's inherent health, with particular attention to the nervous system. Sessions are performed fully clothed on a massage table using light, still touch. Rather than treating conditions directly, BCST works with the body's own capacity to restore balance — supporting greater ease and helping to decrease symptoms. This is the core of my work.",
   },
   {
     name: "Somatic\nTherapy",
     label: "Somatic Therapy",
     description:
-      "The body holds the stories the mind can't always tell. Through guided awareness, breathwork, and gentle movement, somatic therapy helps you reconnect with sensation, process stored emotion, and restore a feeling of safety in your own skin. This work meets you wherever you are — no experience necessary, just a willingness to listen inward.",
+      "The body holds what the mind hasn't caught up with — old injuries, unfinished responses, things that happened too fast. Somatic therapy explores how the body expresses these experiences, applying mind-body healing to aid with trauma recovery. This work meets that held material where it actually lives: in the tissue, the breath, the nervous system. Through touch, awareness, and movement, I help your body complete what it started.",
   },
   {
     name: "Yoga Therapy",
     label: "Yoga Therapy",
     image: yogaImage,
     description:
-      "Unlike a group yoga class, yoga therapy is tailored specifically to you — your body, your history, your goals. Sessions blend adaptive postures, breathwork, meditation, and mindful movement into a personal practice designed to support healing, build resilience, and deepen your relationship with your body over time.",
+      "Yoga therapy is the professional, personalized application of yoga techniques — including postures, breathing, and meditation — to improve physical and mental health. It is a tailored, holistic approach used to manage specific conditions like chronic pain, anxiety, and depression. A well-supported pose can change the relationship between your ribs and your lungs, your pelvis and your spine, your nervous system and the world.",
   },
   {
-    name: "Parenting & Family Coaching",
-    label: "Parenting & Family Coaching",
+    name: "Pre- & Perinatal\nPsychology",
+    label: "Pre- & Perinatal Psychology",
     description:
-      "Raising children is a profound practice of its own. Nancy offers compassionate, experience-grounded coaching for parents and families navigating the joys and challenges of early parenthood, sibling dynamics, developmental transitions, and the everyday work of creating a home rooted in connection and presence.",
+      "How we came into the world shapes how we move through it. Pre- and perinatal psychology helps understand the human experience from conception through pregnancy, birth, and the first year of life. It examines how early experiences and consciousness in the womb and during birth shape personality, health, and behavior throughout life. Using tools like womb surrounds, facilitated movement, slow somatic exploration, and group empathy processes, this work helps families resolve early imprints that shape nervous system development, attachment, and lifelong health.",
   },
   {
-    name: "Birth Education",
-    label: "Birth Education",
-    description:
-      "Knowledge transforms the birth experience from something that happens to you into something you actively participate in. These sessions cover the physiology of birth, comfort measures, decision-making frameworks, and partner support — empowering you with clarity and confidence as you prepare to welcome new life.",
-  },
-  {
-    name: "Birth, Doula, &\nPostpartum Support",
-    label: "Birth, Doula, & Postpartum Support",
+    name: "Birth, Doula &\nPostpartum",
+    label: "Birth, Doula & Postpartum Support",
     image: doulaImage,
     imageScale: 1.3,
     imagePosition: 'center 28%',
     description:
-      "Continuous, nurturing support through pregnancy, labor, birth, and the tender early weeks that follow. As your doula, Nancy provides physical comfort, emotional reassurance, and advocacy — holding space so you can be fully present for one of life's most transformative passages. Postpartum support extends that care into the fourth trimester and beyond.",
+      "Birth belongs to a long tradition of women caring for women — midwives, doulas, and communities who understood that how a family is held during this time shapes everything that follows. This work begins well before labor: in the intention to conceive, in the preparation of body and relationship, in the education that turns birth from something that happens to you into something you participate in fully. I offer continuous support through pregnancy, labor, birth, and the tender early postpartum weeks.",
+  },
+  {
+    name: "Grief &\nTransitions",
+    label: "Grief, Life Transitions & Integrated Health",
+    description:
+      "Some things can't be fixed. They can only be lived through. I work with grief, serious illness, disability, caregiving, dying, and the transitions that change who you are — including supporting families navigating complex medical needs, advocating within systems that see parts but not the whole person, and helping coordinate care across approaches. Grief is communal work. It needs a container, honesty, and someone who understands that the body carries loss just as it carries life.",
   },
 ];
 
@@ -72,8 +74,23 @@ function MobileServiceContent({ activeService, services }: { activeService: stri
 }
 
 export default function Home() {
-  const [activeService, setActiveService] = useState<string | null>(null);
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const [isCenterActive, setIsCenterActive] = useState(false);
   const [activeView, setActiveView] = useState<'services' | 'about' | 'book'>('services');
+
+  const effectiveService = selectedNode ?? hoveredNode;
+
+  const handleNodeHover = (service: string | null) => setHoveredNode(service);
+  const handleNodeSelect = (service: string) => {
+    setSelectedNode((prev) => (prev === service ? null : service));
+    setIsCenterActive(false);
+  };
+  const handleCenterClick = () => {
+    setIsCenterActive(true);
+    setSelectedNode(null);
+    setHoveredNode(null);
+  };
   const videoRef = useRef<HTMLVideoElement>(null);
   const panDirRef = useRef<1 | -1>(1);
   const panYRef = useRef(5);
@@ -147,7 +164,7 @@ export default function Home() {
             Nancy Turnquist
           </h1>
           <p className="text-sm md:text-lg text-muted-foreground font-light">
-            Multimodal Healer & Bodyworker
+            {SUBTITLE}
           </p>
           <div className="h-px w-20 bg-primary/20 mx-auto" />
         </header>
@@ -155,7 +172,12 @@ export default function Home() {
           {(['services', 'about', 'book'] as const).map((v) => (
             <button
               key={v}
-              onClick={() => { setActiveView(v); if (v !== 'services') setActiveService(null); }}
+              onClick={() => {
+                setActiveView(v);
+                setHoveredNode(null);
+                setSelectedNode(null);
+                setIsCenterActive(false);
+              }}
               className={`text-xs md:text-sm font-medium transition-colors tracking-wide uppercase ${activeView === v ? 'text-primary' : 'text-primary/50 hover:text-primary/80'}`}
             >
               {v === 'book' ? 'Book' : v.charAt(0).toUpperCase() + v.slice(1)}
@@ -176,8 +198,8 @@ export default function Home() {
               images={SERVICE_IMAGES}
               imageScales={SERVICE_IMAGE_SCALES}
               imagePositions={SERVICE_IMAGE_POSITIONS}
-              activeService={activeService}
-              onActiveChange={(s) => { setActiveService(s); if (s) setActiveView('services'); }}
+              activeService={effectiveService}
+              onActiveChange={handleNodeHover}
             />
           </div>
           <div className="w-1/2 max-w-md">
@@ -190,7 +212,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <ServicePanel activeService={activeService} services={SERVICES} />
+                  <ServicePanel activeService={effectiveService} services={SERVICES} />
                 </motion.div>
               )}
               {activeView === 'about' && (
@@ -270,8 +292,8 @@ export default function Home() {
                   images={SERVICE_IMAGES}
                   imageScales={SERVICE_IMAGE_SCALES}
                   imagePositions={SERVICE_IMAGE_POSITIONS}
-                  activeService={activeService}
-                  onActiveChange={(s) => { setActiveService(s); if (s) setActiveView('services'); }}
+                  activeService={effectiveService}
+                  onActiveChange={handleNodeHover}
                 />
               </motion.div>
             )}
@@ -337,7 +359,7 @@ export default function Home() {
 
       {/* Mobile bottom sheet — services view only */}
       <AnimatePresence>
-        {activeView === 'services' && activeService && (
+        {activeView === 'services' && !!effectiveService && (
           <motion.div
             key="mobile-panel"
             initial={{ y: '100%' }}
@@ -348,7 +370,7 @@ export default function Home() {
             style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', maxHeight: '45svh' }}
           >
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
-            <MobileServiceContent activeService={activeService} services={SERVICES} />
+            <MobileServiceContent activeService={effectiveService} services={SERVICES} />
           </motion.div>
         )}
       </AnimatePresence>
