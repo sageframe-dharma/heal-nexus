@@ -77,14 +77,18 @@ export default function Home() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [isCenterActive, setIsCenterActive] = useState(false);
-  const [activeView, setActiveView] = useState<'services' | 'about' | 'book'>('services');
+  const [activeView, setActiveView] = useState<'practice' | 'about' | 'sessions' | 'resources'>('practice');
 
   const effectiveService = selectedNode ?? hoveredNode;
 
-  const handleNodeHover = (service: string | null) => setHoveredNode(service);
+  const handleNodeHover = (service: string | null) => {
+    setHoveredNode(service);
+    if (service) setActiveView('practice');
+  };
   const handleNodeSelect = (service: string) => {
     setSelectedNode((prev) => (prev === service ? null : service));
     setIsCenterActive(false);
+    setActiveView('practice');
   };
   const handleCenterClick = () => {
     setIsCenterActive(true);
@@ -159,31 +163,33 @@ export default function Home() {
 
       {/* ───── Header + Nav ───── */}
       <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0">
-        <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl w-fit" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
-            Nancy Turnquist
-          </h1>
-          <p className="text-sm md:text-lg text-muted-foreground font-light">
-            {SUBTITLE}
-          </p>
-          <div className="h-px w-20 bg-primary/20 mx-auto" />
-        </header>
-        <nav className="flex items-center gap-6 md:gap-8 px-5 py-2 mt-1.5 rounded-lg w-fit" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-          {(['services', 'about', 'book'] as const).map((v) => (
-            <button
-              key={v}
-              onClick={() => {
-                setActiveView(v);
-                setHoveredNode(null);
-                setSelectedNode(null);
-                setIsCenterActive(false);
-              }}
-              className={`text-xs md:text-sm font-medium transition-colors tracking-wide uppercase ${activeView === v ? 'text-primary' : 'text-primary/50 hover:text-primary/80'}`}
-            >
-              {v === 'book' ? 'Book' : v.charAt(0).toUpperCase() + v.slice(1)}
-            </button>
-          ))}
-        </nav>
+        <div className="flex flex-col items-stretch w-fit gap-1.5">
+          <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
+              Nancy Turnquist
+            </h1>
+            <p className="text-sm md:text-lg text-muted-foreground font-light">
+              {SUBTITLE}
+            </p>
+            <div className="h-px w-20 bg-primary/20 mx-auto" />
+          </header>
+          <nav className="flex items-center justify-center gap-4 md:gap-6 px-5 py-2 rounded-lg" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+            {(['practice', 'about', 'sessions', 'resources'] as const).map((v) => (
+              <button
+                key={v}
+                onClick={() => {
+                  setActiveView(v);
+                  setHoveredNode(null);
+                  setSelectedNode(null);
+                  setIsCenterActive(false);
+                }}
+                className={`text-xs md:text-sm font-medium transition-colors tracking-wide uppercase ${activeView === v ? 'text-primary' : 'text-primary/50 hover:text-primary/80'}`}
+              >
+                {v === 'practice' ? 'Practice' : v === 'sessions' ? 'Sessions' : v.charAt(0).toUpperCase() + v.slice(1)}
+              </button>
+            ))}
+          </nav>
+        </div>
       </div>
 
       {/* ───── Main Content ───── */}
@@ -204,7 +210,7 @@ export default function Home() {
           </div>
           <div className="w-1/2 max-w-md">
             <AnimatePresence mode="wait">
-              {activeView === 'services' && (
+              {activeView === 'practice' && (
                 <motion.div
                   key="view-services"
                   initial={{ opacity: 0, y: 12 }}
@@ -244,9 +250,9 @@ export default function Home() {
                   </div>
                 </motion.div>
               )}
-              {activeView === 'book' && (
+              {activeView === 'sessions' && (
                 <motion.div
-                  key="view-book"
+                  key="view-sessions"
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
@@ -269,6 +275,23 @@ export default function Home() {
                   </div>
                 </motion.div>
               )}
+              {activeView === 'resources' && (
+                <motion.div
+                  key="view-resources"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                    <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">Resources</h2>
+                    <div className="h-px w-16 bg-primary/20 mb-6" />
+                    <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
+                      A curated collection of resources for current clients. Contact Nancy for access.
+                    </p>
+                  </div>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
         </div>
@@ -276,9 +299,9 @@ export default function Home() {
         {/* Mobile: content area fades between views */}
         <div className="flex md:hidden flex-col items-center h-full pt-6">
           <AnimatePresence mode="wait">
-            {activeView === 'services' && (
+            {activeView === 'practice' && (
               <motion.div
-                key="m-services"
+                key="m-practice"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -327,9 +350,9 @@ export default function Home() {
                 </div>
               </motion.div>
             )}
-            {activeView === 'book' && (
+            {activeView === 'sessions' && (
               <motion.div
-                key="m-book"
+                key="m-sessions"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
@@ -353,13 +376,31 @@ export default function Home() {
                 </div>
               </motion.div>
             )}
+            {activeView === 'resources' && (
+              <motion.div
+                key="m-resources"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="w-full px-2"
+              >
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                  <h2 className="text-xl font-light text-primary mb-2">Resources</h2>
+                  <div className="h-px w-12 bg-primary/20 mb-4" />
+                  <p className="text-muted-foreground font-light leading-relaxed text-sm">
+                    A curated collection of resources for current clients. Contact Nancy for access.
+                  </p>
+                </div>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </div>
 
       {/* Mobile bottom sheet — services view only */}
       <AnimatePresence>
-        {activeView === 'services' && !!effectiveService && (
+        {activeView === 'practice' && !!effectiveService && (
           <motion.div
             key="mobile-panel"
             initial={{ y: '100%' }}
