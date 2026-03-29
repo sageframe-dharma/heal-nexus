@@ -92,11 +92,6 @@ export function NetworkGraph({
     >
       {/* SVG Layer for Connections — original wedge geometry, sits below nodes */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 10, overflow: "visible" }}>
-        <defs>
-          <filter id="accent-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor={ACCENT} floodOpacity="0.6" />
-          </filter>
-        </defs>
         {linePairs.map(([a, b]) => {
           // Wedge highlight: the two skip-one lines from the active node
           const isHighlighted = !isCenterHovered && !isCenterActive && activeIdx !== -1 && (
@@ -128,8 +123,10 @@ export function NetworkGraph({
               stroke={lineStroke}
               opacity={lineOpacity}
               strokeWidth={lineWidth}
-              filter={isCenterActive ? "url(#accent-glow)" : undefined}
-              style={{ transition: "stroke 1s, opacity 1s, stroke-width 1s" }}
+              style={{
+                transition: "stroke 1s, opacity 1s, stroke-width 1s, filter 1s",
+                filter: isCenterActive ? `drop-shadow(0 0 6px ${ACCENT})` : "none",
+              }}
             />
           );
         })}
@@ -143,11 +140,11 @@ export function NetworkGraph({
           fill={isCenterActive ? ACCENT : isCenterHovered ? ACCENT : "rgba(170, 185, 240, 0.4)"}
           stroke="rgba(170, 185, 240, 0.6)"
           strokeWidth="1"
-          filter={isCenterActive || isCenterHovered ? "url(#accent-glow)" : undefined}
           style={{
             cursor: "pointer",
             pointerEvents: "all",
             transition: "fill 0.3s ease, filter 0.3s ease",
+            filter: isCenterActive || isCenterHovered ? `drop-shadow(0 0 6px ${ACCENT})` : "none",
           }}
           onMouseEnter={() => { setIsCenterHovered(true); onCenterHover(true); }}
           onMouseLeave={() => { setIsCenterHovered(false); onCenterHover(false); }}
