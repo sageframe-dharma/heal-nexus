@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Layout2 } from "@/components/Layout2";
 import { SERVICES } from "@/lib/services";
+import waterImage from "@assets/water.png";
 
 const ACCENT = "#C850C0";
+const OFFERINGS_KEY = "__offerings__";
 
 const INTRO_PARAGRAPHS = [
   "You don't need to know which modality is right for you. That's my job.",
@@ -15,15 +17,46 @@ const INTRO_PARAGRAPHS = [
   "I don't promise outcomes and I don't have an agenda for yours. I meet what is ready to happen and I support you in responding to your own knowing.",
 ];
 
-// Responsive styles injected once — avoids Tailwind breakpoint class conflicts with inline styles
+// Unified card list: Offerings first, then the 6 modality services
+const ALL_CARDS = [
+  { key: OFFERINGS_KEY, label: "Offerings", image: waterImage as string, imagePosition: "center" as string | undefined },
+  ...SERVICES.map((s) => ({ key: s.name, label: s.label, image: s.image ?? "", imagePosition: s.imagePosition })),
+];
+
+function getDetail(key: string): { title: string; paragraphs: string[] } | null {
+  if (key === OFFERINGS_KEY) return { title: "What a Session Looks Like", paragraphs: INTRO_PARAGRAPHS };
+  const svc = SERVICES.find((s) => s.name === key);
+  if (!svc) return null;
+  return { title: svc.label, paragraphs: (svc.experienceText || svc.description).split("\n\n") };
+}
+
 const RESPONSIVE_CSS = `
-  .practice-layout { display: flex; gap: 32px; align-items: flex-start; }
-  .practice-card-col { width: 280px; flex-shrink: 0; overflow-y: auto; max-height: calc(100vh - 160px); }
-  .practice-detail { flex: 1; overflow-y: auto; max-height: calc(100vh - 160px); padding-left: 8px; }
+  .practice-page { padding: 48px 15% 48px 10%; }
+  .practice-layout {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    margin-top: 36px;
+  }
+  .practice-card-col {
+    width: 240px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
+  }
+  .practice-detail {
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 160px);
+    border: 2px solid #C850C0;
+    border-radius: 16px;
+    padding: 36px 40px;
+  }
   .practice-mobile-detail { display: none; }
 
   @media (max-width: 767px) {
-    .practice-layout { flex-direction: column; gap: 0; }
+    .practice-page { padding: 32px 20px; }
+    .practice-layout { flex-direction: column; margin-top: 20px; gap: 0; }
     .practice-card-col { width: 100%; max-height: none; overflow-y: visible; }
     .practice-detail { display: none; }
     .practice-mobile-detail { display: block; }
@@ -31,257 +64,188 @@ const RESPONSIVE_CSS = `
 `;
 
 export default function PracticePage() {
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
-  const [expandedCard, setExpandedCard] = useState<string | null>(null);
-  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  // Offerings is selected by default — detail panel always shows something
+  const [selectedCard, setSelectedCard] = useState<string>(OFFERINGS_KEY);
 
-  const selected = SERVICES.find((s) => s.name === selectedCard);
+  const detail = getDetail(selectedCard);
 
-  const handleCardClick = (name: string) => {
-    if (name === selectedCard) {
-      setSelectedCard(null);
-      setExpandedCard(null);
-    } else {
-      setSelectedCard(name);
-      setExpandedCard(name);
-    }
+  const handleCardClick = (key: string) => {
+    setSelectedCard(key);
   };
 
   return (
     <>
       <style>{RESPONSIVE_CSS}</style>
-      <Layout2>
-        {/* Page title */}
-        <h1
-          style={{
-            fontFamily: "'Cormorant Garamond', serif",
-            fontSize: 36,
-            fontWeight: 300,
-            color: "#051a1c",
-            lineHeight: 1.2,
-            marginTop: 0,
-            marginBottom: 12,
-          }}
-        >
-          Offerings
-        </h1>
-        <div style={{ height: 1, width: 64, background: "rgba(5,26,28,0.15)", marginBottom: 36 }} />
-
-        {/* Intro section */}
-        <div style={{ marginBottom: 52 }}>
-          <h2
+      {/* contentStyle zeros out Layout2's default padding — .practice-page handles it responsively */}
+      <Layout2 contentStyle={{ padding: 0 }}>
+        <div className="practice-page">
+          {/* Page heading */}
+          <h1
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 24,
+              fontSize: 34,
               fontWeight: 300,
               color: "#051a1c",
-              lineHeight: 1.3,
-              marginTop: 0,
-              marginBottom: 22,
+              lineHeight: 1.2,
+              margin: "0 0 4px 0",
             }}
           >
-            What a Session Looks Like
-          </h2>
-          {INTRO_PARAGRAPHS.map((p, i) => (
-            <p
-              key={i}
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: 15,
-                fontWeight: 400,
-                color: "#3a3a40",
-                lineHeight: 1.7,
-                marginTop: 0,
-                marginBottom: 16,
-              }}
-            >
-              {p}
-            </p>
-          ))}
-        </div>
+            Offerings
+          </h1>
+          <div style={{ height: 1, width: 56, background: "rgba(5,26,28,0.15)" }} />
 
-        {/* Card + detail layout */}
-        <div className="practice-layout">
-          {/* Card column */}
-          <div className="practice-card-col">
-            {SERVICES.map((service) => {
-              const isActive = selectedCard === service.name;
-              const isHovered = hoveredCard === service.name;
-              const isExpanded = expandedCard === service.name;
-              const experienceParagraphs = (service.experienceText || service.description).split("\n\n");
+          {/* Two-column layout */}
+          <div className="practice-layout">
+            {/* Card column */}
+            <div className="practice-card-col">
+              {ALL_CARDS.map(({ key, label, image, imagePosition }) => {
+                const isActive = selectedCard === key;
+                const cardDetail = getDetail(key);
 
-              return (
-                <div key={service.name} style={{ marginBottom: 12 }}>
-                  {/* Card */}
-                  <div
-                    onClick={() => handleCardClick(service.name)}
-                    onMouseEnter={() => setHoveredCard(service.name)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{
-                      background: isActive ? "#faf8f5" : "#ffffff",
-                      border: "1px solid rgba(5,26,28,0.08)",
-                      borderLeft: isActive
-                        ? `3px solid ${ACCENT}`
-                        : "1px solid rgba(5,26,28,0.08)",
-                      borderRadius: 12,
-                      overflow: "hidden",
-                      cursor: "pointer",
-                      transition: "border-color 0.2s ease, box-shadow 0.2s ease",
-                      boxShadow:
-                        isHovered && !isActive ? "0 2px 8px rgba(5,26,28,0.06)" : "none",
-                    }}
-                  >
-                    {/* Image */}
+                return (
+                  <div key={key} style={{ marginBottom: 8 }}>
+                    {/* Card: label on top, image sliver below */}
                     <div
+                      onClick={() => handleCardClick(key)}
                       style={{
-                        height: isActive || isHovered ? 180 : 120,
+                        border: "1px solid rgba(5,26,28,0.10)",
+                        borderLeft: isActive
+                          ? `3px solid ${ACCENT}`
+                          : "1px solid rgba(5,26,28,0.10)",
+                        borderRadius: 10,
                         overflow: "hidden",
-                        transition: "height 0.3s ease",
-                        flexShrink: 0,
+                        cursor: "pointer",
+                        background: "#ffffff",
+                        transition: "box-shadow 0.2s ease",
                       }}
                     >
-                      {service.image ? (
-                        <img
-                          src={service.image}
-                          alt={service.label}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            objectPosition: service.imagePosition ?? "center",
-                            display: "block",
-                            transform: service.imageScale
-                              ? `scale(${service.imageScale})`
-                              : undefined,
-                            transformOrigin: "center center",
-                          }}
-                        />
-                      ) : null}
-                    </div>
-                    {/* Label */}
-                    <div style={{ padding: "12px 16px" }}>
-                      <p
-                        style={{
-                          fontFamily: "'Cormorant Garamond', serif",
-                          fontSize: 18,
-                          fontWeight: isActive ? 400 : 300,
-                          color: isActive ? ACCENT : "#051a1c",
-                          lineHeight: 1.3,
-                          margin: 0,
-                          transition: "color 0.2s ease",
-                        }}
-                      >
-                        {service.label}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Mobile inline expanded detail */}
-                  {isExpanded && (
-                    <div
-                      className="practice-mobile-detail"
-                      style={{
-                        padding: "20px 20px 24px",
-                        background: "#faf8f5",
-                        borderRadius: "0 0 12px 12px",
-                        borderLeft: `3px solid ${ACCENT}`,
-                        borderRight: "1px solid rgba(5,26,28,0.08)",
-                        borderBottom: "1px solid rgba(5,26,28,0.08)",
-                        marginTop: -12,
-                      }}
-                    >
-                      <h2
-                        style={{
-                          fontFamily: "'Cormorant Garamond', serif",
-                          fontSize: 22,
-                          fontWeight: 300,
-                          color: "#051a1c",
-                          lineHeight: 1.3,
-                          marginTop: 12,
-                          marginBottom: 16,
-                        }}
-                      >
-                        {service.label}
-                      </h2>
-                      {experienceParagraphs.map((para, i) => (
+                      {/* Label */}
+                      <div style={{ padding: "12px 16px" }}>
                         <p
-                          key={i}
                           style={{
-                            fontFamily: "Montserrat, sans-serif",
-                            fontSize: 14,
-                            fontWeight: 400,
-                            color: "#3a3a40",
-                            lineHeight: 1.7,
-                            marginTop: 0,
-                            marginBottom: 14,
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontSize: 17,
+                            fontWeight: isActive ? 400 : 300,
+                            color: isActive ? ACCENT : "#051a1c",
+                            margin: 0,
+                            lineHeight: 1.3,
+                            transition: "color 0.2s ease",
                           }}
                         >
-                          {para}
+                          {label}
                         </p>
-                      ))}
+                      </div>
+                      {/* Image sliver → full on active */}
+                      <div
+                        style={{
+                          height: isActive ? 220 : 4,
+                          overflow: "hidden",
+                          transition: "height 300ms ease",
+                        }}
+                      >
+                        {image && (
+                          <img
+                            src={image}
+                            alt={label}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              objectPosition: imagePosition ?? "center",
+                              display: "block",
+                            }}
+                          />
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
 
-          {/* Desktop detail area */}
-          <div className="practice-detail">
-            {selected ? (
-              <>
-                <h2
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: 28,
-                    fontWeight: 300,
-                    color: "#051a1c",
-                    lineHeight: 1.3,
-                    marginTop: 0,
-                    marginBottom: 20,
-                  }}
-                >
-                  {selected.label}
-                </h2>
-                <div
-                  style={{
-                    height: 1,
-                    width: 48,
-                    background: `${ACCENT}55`,
-                    marginBottom: 24,
-                  }}
-                />
-                {(selected.experienceText || selected.description).split("\n\n").map((para, i) => (
-                  <p
-                    key={i}
+                    {/* Mobile: inline detail accordion below card */}
+                    {isActive && cardDetail && (
+                      <div
+                        className="practice-mobile-detail"
+                        style={{
+                          padding: "20px 20px 24px",
+                          background: "transparent",
+                          borderLeft: `3px solid ${ACCENT}`,
+                          borderRight: "1px solid rgba(5,26,28,0.08)",
+                          borderBottom: "1px solid rgba(5,26,28,0.08)",
+                          borderRadius: "0 0 10px 10px",
+                        }}
+                      >
+                        <h2
+                          style={{
+                            fontFamily: "'Cormorant Garamond', serif",
+                            fontSize: 20,
+                            fontWeight: 300,
+                            color: "#051a1c",
+                            lineHeight: 1.3,
+                            margin: "0 0 14px 0",
+                          }}
+                        >
+                          {cardDetail.title}
+                        </h2>
+                        {cardDetail.paragraphs.map((p, i) => (
+                          <p
+                            key={i}
+                            style={{
+                              fontFamily: "Montserrat, sans-serif",
+                              fontSize: 14,
+                              color: "#3a3a40",
+                              lineHeight: 1.7,
+                              margin: "0 0 12px 0",
+                            }}
+                          >
+                            {p}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Desktop detail panel — orchid border, no fill */}
+            <div className="practice-detail">
+              {detail ? (
+                <>
+                  <h2
                     style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: 15,
-                      fontWeight: 400,
-                      color: "#3a3a40",
-                      lineHeight: 1.7,
-                      marginTop: 0,
-                      marginBottom: 20,
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: 26,
+                      fontWeight: 300,
+                      color: "#051a1c",
+                      lineHeight: 1.3,
+                      margin: "0 0 18px 0",
                     }}
                   >
-                    {para}
-                  </p>
-                ))}
-              </>
-            ) : (
-              <p
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: 15,
-                  fontWeight: 400,
-                  color: "#9a9aa0",
-                  lineHeight: 1.7,
-                  marginTop: 4,
-                }}
-              >
-                Click a practice area to learn more.
-              </p>
-            )}
+                    {detail.title}
+                  </h2>
+                  <div
+                    style={{
+                      height: 1,
+                      width: 48,
+                      background: `${ACCENT}55`,
+                      marginBottom: 22,
+                    }}
+                  />
+                  {detail.paragraphs.map((p, i) => (
+                    <p
+                      key={i}
+                      style={{
+                        fontFamily: "Montserrat, sans-serif",
+                        fontSize: 15,
+                        color: "#3a3a40",
+                        lineHeight: 1.7,
+                        margin: "0 0 18px 0",
+                      }}
+                    >
+                      {p}
+                    </p>
+                  ))}
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
       </Layout2>
