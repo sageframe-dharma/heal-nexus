@@ -1,65 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NetworkGraph } from "@/components/NetworkGraph";
-import { ServicePanel, type ServiceInfo } from "@/components/ServicePanel";
-import portraitImage from "@assets/portrait-default.png";
-import doulaImage from "@assets/photo-doula.jpg";
-import yogaImage from "@assets/photo-yoga.jpg";
-import ppnImage from "@assets/photo-PPN.png";
-import griefImage from "@assets/photo-grief.png";
-import somaticImage from "@assets/photo-somatic.jpeg";
-import bcstImage from "@assets/photo-bcst.jpg";
+import { ServicePanel } from "@/components/ServicePanel";
+import type { ServiceInfo } from "@/lib/services";
+import { SERVICES, portraitImage } from "@/lib/services";
 import bgVideo from "@assets/background.mp4";
 
 const SUBTITLE = "Healing with Presence";
-
-const SERVICES: ServiceInfo[] = [
-  {
-    name: "Biodynamic Craniosacral Therapy",
-    label: "Biodynamic Craniosacral Therapy",
-    image: bcstImage,
-    imagePosition: 'top',
-    description:
-      "Biodynamic Craniosacral Therapy (BCST) is a gentle, non-invasive, hands-on modality that supports the body's inherent health, with particular attention to the nervous system. Sessions are performed fully clothed on a massage table using light, still touch. Rather than treating conditions directly, BCST works with the body's own capacity to restore balance — supporting greater ease and helping to decrease symptoms. This is the core of my work.",
-  },
-  {
-    name: "Somatic\nTherapy",
-    label: "Somatic Therapy",
-    image: somaticImage,
-    description:
-      "The body holds what the mind hasn't caught up with — old injuries, unfinished responses, things that happened too fast. Somatic therapy explores how the body expresses these experiences, applying mind-body healing to aid with trauma recovery. This work meets that held material where it actually lives: in the tissue, the breath, the nervous system. Through touch, awareness, and movement, I help your body complete what it started.",
-  },
-  {
-    name: "Yoga Therapy",
-    label: "Yoga Therapy",
-    image: yogaImage,
-    description:
-      "Yoga therapy is the professional, personalized application of yoga techniques — including postures, breathing, and meditation — to improve physical and mental health. It is a tailored, holistic approach used to manage specific conditions like chronic pain, anxiety, and depression. A well-supported pose can change the relationship between your ribs and your lungs, your pelvis and your spine, your nervous system and the world.",
-  },
-  {
-    name: "Pre- & Perinatal\nPsychology",
-    label: "Pre- & Perinatal Psychology",
-    image: ppnImage,
-    description:
-      "How we came into the world shapes how we move through it. Pre- and perinatal psychology helps understand the human experience from conception through pregnancy, birth, and the first year of life. It examines how early experiences and consciousness in the womb and during birth shape personality, health, and behavior throughout life. Using tools like womb surrounds, facilitated movement, slow somatic exploration, and group empathy processes, this work helps families resolve early imprints that shape nervous system development, attachment, and lifelong health.",
-  },
-  {
-    name: "Birth, Doula &\nPostpartum",
-    label: "Birth, Doula & Postpartum Support",
-    image: doulaImage,
-    imageScale: 1.3,
-    imagePosition: 'center 28%',
-    description:
-      "Birth belongs to a long tradition of women caring for women — midwives, doulas, and communities who understood that how a family is held during this time shapes everything that follows. This work begins well before labor: in the intention to conceive, in the preparation of body and relationship, in the education that turns birth from something that happens to you into something you participate in fully. I offer continuous support through pregnancy, labor, birth, and the tender early postpartum weeks.",
-  },
-  {
-    name: "Grief &\nTransitions",
-    label: "Grief, Life Transitions & Integrated Health",
-    image: griefImage,
-    description:
-      "Some things can't be fixed. They can only be lived through. I work with grief, serious illness, disability, caregiving, dying, and the transitions that change who you are — including supporting families navigating complex medical needs, advocating within systems that see parts but not the whole person, and helping coordinate care across approaches. Grief is communal work. It needs a container, honesty, and someone who understands that the body carries loss just as it carries life.",
-  },
-];
 
 const SERVICE_NAMES = SERVICES.map((s) => s.name);
 const SERVICE_IMAGES = SERVICES.map((s) => s.image ?? portraitImage);
@@ -217,7 +164,7 @@ export default function Home() {
                 }}
                 className={`text-xs md:text-sm font-medium transition-colors tracking-wide uppercase ${activeView === v ? 'text-primary' : 'text-primary/50 hover:text-primary/80'}`}
               >
-                {v === 'practice' ? 'Practice' : v === 'sessions' ? 'Sessions' : v.charAt(0).toUpperCase() + v.slice(1)}
+                {v === 'practice' ? 'Offerings' : v === 'sessions' ? 'Sessions' : v.charAt(0).toUpperCase() + v.slice(1)}
               </button>
             ))}
           </nav>

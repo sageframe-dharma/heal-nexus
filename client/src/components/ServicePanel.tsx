@@ -1,13 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
+import type { ServiceInfo } from "@/lib/services";
 
-export interface ServiceInfo {
-  name: string;
-  label: string;
-  description: string;
-  image?: string;
-  imageScale?: number;
-  imagePosition?: string;
-}
+export type { ServiceInfo };
 
 interface ServicePanelProps {
   activeService: string | null;
@@ -62,11 +56,11 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             transition={{ duration: 0.4 }}
           >
             <h2 className="text-2xl md:text-3xl font-light text-primary mb-3 leading-snug">
-              Explore
+              Explore Offerings
             </h2>
             <div className="h-px w-16 bg-primary/20 mb-4" />
             <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base italic">
-              Explore a modality to learn more, or click the center to see how they connect.
+              Click an image to explore, or click the center to see how they connect.
             </p>
           </motion.div>
         )}
