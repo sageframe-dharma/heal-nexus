@@ -8,6 +8,7 @@ import yogaImage from "@assets/photo-yoga.jpg";
 import ppnImage from "@assets/photo-PPN.png";
 import griefImage from "@assets/photo-grief.png";
 import somaticImage from "@assets/photo-somatic.jpeg";
+import bcstImage from "@assets/photo-bcst.jpg";
 import bgVideo from "@assets/background.mp4";
 
 const SUBTITLE = "Whole Human Healing";
@@ -16,6 +17,8 @@ const SERVICES: ServiceInfo[] = [
   {
     name: "Biodynamic Craniosacral Therapy",
     label: "Biodynamic Craniosacral Therapy",
+    image: bcstImage,
+    imagePosition: 'top',
     description:
       "Biodynamic Craniosacral Therapy (BCST) is a gentle, non-invasive, hands-on modality that supports the body's inherent health, with particular attention to the nervous system. Sessions are performed fully clothed on a massage table using light, still touch. Rather than treating conditions directly, BCST works with the body's own capacity to restore balance — supporting greater ease and helping to decrease symptoms. This is the core of my work.",
   },
