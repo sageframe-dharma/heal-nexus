@@ -162,9 +162,9 @@ export function NetworkGraph({
               key={`star-${a}-${b}`}
               x1={verts[a][0]} y1={verts[a][1]}
               x2={verts[b][0]} y2={verts[b][1]}
-              stroke="white"
+              stroke="rgba(170, 185, 240, 0.6)"
               strokeWidth={0.9}
-              opacity={0.7}
+              opacity={0.5}
               style={{ pointerEvents: "none" }}
             />
           );
