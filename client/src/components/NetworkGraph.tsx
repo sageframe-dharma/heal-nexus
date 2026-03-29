@@ -119,13 +119,15 @@ export function NetworkGraph({
               stroke={isCenterActive && isPerimOrDiag ? ACCENT : "white"}
               filter={isCenterActive && isPerimOrDiag ? "url(#accent-glow)" : undefined}
               animate={{
-                opacity: isCenterHovered
-                  ? 0.15
+                opacity: isCenterActive && isPerimOrDiag
+                  ? 0.9
                   : isCenterActive
-                    ? (isPerimOrDiag ? 0.9 : 0)
-                    : activeIdx === -1
+                    ? 0
+                    : isCenterHovered
                       ? 0.15
-                      : (isHighlighted ? 0.85 : 0),
+                      : activeIdx === -1
+                        ? 0.15
+                        : (isHighlighted ? 0.85 : 0),
                 strokeWidth: isCenterActive && isPerimOrDiag
                   ? 4
                   : isHighlighted

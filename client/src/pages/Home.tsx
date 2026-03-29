@@ -110,7 +110,6 @@ export default function Home() {
     if (hovered) {
       setHoveredNode(null);
       setSelectedNode(null);
-      setIsCenterActive(false);
     }
   };
   const videoRef = useRef<HTMLVideoElement>(null);
