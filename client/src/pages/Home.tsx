@@ -5,6 +5,7 @@ import { ServicePanel, type ServiceInfo } from "@/components/ServicePanel";
 import portraitImage from "@assets/portrait-default.png";
 import doulaImage from "@assets/photo-doula.jpg";
 import yogaImage from "@assets/photo-yoga.jpg";
+import ppnImage from "@assets/photo-PPN.png";
 import bgVideo from "@assets/background.mp4";
 
 const SUBTITLE = "Whole Human Healing";
@@ -32,6 +33,7 @@ const SERVICES: ServiceInfo[] = [
   {
     name: "Pre- & Perinatal\nPsychology",
     label: "Pre- & Perinatal Psychology",
+    image: ppnImage,
     description:
       "How we came into the world shapes how we move through it. Pre- and perinatal psychology helps understand the human experience from conception through pregnancy, birth, and the first year of life. It examines how early experiences and consciousness in the womb and during birth shape personality, health, and behavior throughout life. Using tools like womb surrounds, facilitated movement, slow somatic exploration, and group empathy processes, this work helps families resolve early imprints that shape nervous system development, attachment, and lifelong health.",
   },
