@@ -71,16 +71,7 @@ export function NetworkGraph({
     };
   });
 
-  // Only center-to-node lines (6 spokes) — for the illumination effect
   const spokes = nodes.map((node, i) => ({ id: `spoke-${i}`, node, index: i }));
-
-  // All-to-all non-spoke connections (aesthetic background web)
-  const webConnections = [];
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i + 1; j < nodes.length; j++) {
-      webConnections.push({ id: `${i}-${j}`, from: nodes[i], to: nodes[j] });
-    }
-  }
 
   const activeIdx = activeService ? services.indexOf(activeService) : -1;
 
@@ -96,23 +87,6 @@ export function NetworkGraph({
             <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor={SAFFRON} floodOpacity="0.55" />
           </filter>
         </defs>
-
-        {/* Background web — node-to-node lines, always visible, fade on center click */}
-        {webConnections.map((conn) => (
-          <motion.line
-            key={conn.id}
-            x1={conn.from.x}
-            y1={conn.from.y}
-            x2={conn.to.x}
-            y2={conn.to.y}
-            stroke={SAFFRON}
-            animate={{
-              opacity: isCenterActive ? 0 : 0.35,
-              strokeWidth: 1,
-            }}
-            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          />
-        ))}
 
         {/* Spoke lines — illuminate white on node hover/select, accent+glow on center click */}
         {spokes.map(({ id, node, index }) => {
