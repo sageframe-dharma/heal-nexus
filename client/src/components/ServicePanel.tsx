@@ -61,7 +61,7 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <p className="text-muted-foreground/70 font-light leading-relaxed text-[0.95rem] italic">
+            <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base italic">
               Explore a practice area to learn more, or click the center to see how they connect.
             </p>
           </motion.div>
