@@ -2,8 +2,8 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { Layout2 } from "@/components/Layout2";
 import waterImage from "@assets/water.png";
-import trainingImage from "@assets/about-training.jpg";
-import resourcesChairImage from "@assets/resources-chair.png";
+import resourcesResourcesImage from "@assets/resources-resources.jpg";
+import resourcesClientImage from "@assets/resources-client.png";
 
 const ACCENT = "#C850C0";
 
@@ -17,8 +17,8 @@ interface ResourceCard {
 
 const RESOURCE_CARDS: ResourceCard[] = [
   { key: "mentors",          label: "Mentors",          image: waterImage as string },
-  { key: "resources",        label: "Resources",        image: trainingImage as string },
-  { key: "client-resources", label: "Client Resources", image: resourcesChairImage as string },
+  { key: "resources",        label: "Resources",        image: resourcesResourcesImage as string },
+  { key: "client-resources", label: "Client Resources", image: resourcesClientImage as string },
 ];
 
 // ─── Link helper ─────────────────────────────────────────────────────────────
@@ -134,6 +134,7 @@ function MentorsDetail() {
     <>
       <h2 className="l2-detail-heading">Mentors</h2>
       <hr className="l2-divider" />
+      <p className="l2-body" style={{ marginBottom: 28 }}>These people shaped me. Everything I offer was first offered to me — through their hands, their attention, their willingness to teach. I carry their work with gratitude.</p>
       {MENTORS.map((m) => (
         <div key={m.name} style={{ marginBottom: 28 }}>
           <h3 className="l2-subheading">
