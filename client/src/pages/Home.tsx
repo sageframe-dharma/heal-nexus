@@ -10,7 +10,7 @@ import bgVideo from "@assets/background.mp4";
 const SUBTITLE = "Healing with Presence";
 
 const SERVICE_NAMES = SERVICES.map((s) => s.name);
-const SERVICE_IMAGES = SERVICES.map((s) => s.image ?? portraitImage);
+const SERVICE_IMAGES = SERVICES.map((s) => (s.hexImage ?? s.image) ?? portraitImage);
 const SERVICE_IMAGE_SCALES = SERVICES.map((s) => s.imageScale);
 const SERVICE_IMAGE_POSITIONS = SERVICES.map((s) => s.imagePosition);
 

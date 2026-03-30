@@ -1,5 +1,6 @@
 import portraitImage from "@assets/portrait-default.png";
 import doulaImage from "@assets/photo-doula.jpg";
+import birthImage from "@assets/photo-birth.jpg";
 import yogaImage from "@assets/photo-yoga-lg.jpg";
 import ppnImage from "@assets/photo-PPN.png";
 import griefImage from "@assets/photo-grief.png";
@@ -12,6 +13,8 @@ export interface ServiceInfo {
   description: string; // short panel description (Layer 1)
   experienceText: string; // long experience text (Layer 2 /practice page)
   image?: string;
+  /** Alternate image used on the landing-page hexagon (falls back to image if absent) */
+  hexImage?: string;
   imageScale?: number;
   imagePosition?: string;
 }
@@ -58,6 +61,7 @@ export const SERVICES: ServiceInfo[] = [
     name: "Birth, Doula &\nPostpartum",
     label: "Birth, Doula & Postpartum Support",
     image: doulaImage,
+    hexImage: birthImage,
     imageScale: 1.3,
     imagePosition: "center 28%",
     description:
