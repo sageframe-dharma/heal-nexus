@@ -172,14 +172,29 @@ function ClientResourcesDetail() {
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "healing2025") {
-      setIsAuthenticated(true);
-      setError(false);
-    } else {
+    setLoading(true);
+    setError(false);
+
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        setIsAuthenticated(true);
+      } else {
+        setError(true);
+      }
+    } catch {
       setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -215,6 +230,7 @@ function ClientResourcesDetail() {
           />
           <button
             type="submit"
+            disabled={loading}
             style={{
               background: "#C850C0",
               color: "#ffffff",
@@ -224,13 +240,14 @@ function ClientResourcesDetail() {
               fontFamily: "'Montserrat', sans-serif",
               fontSize: 14,
               fontWeight: 500,
-              cursor: "pointer",
+              cursor: loading ? "not-allowed" : "pointer",
               letterSpacing: "0.3px",
+              opacity: loading ? 0.7 : 1,
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#A03D9A"; }}
+            onMouseEnter={(e) => { if (!loading) e.currentTarget.style.background = "#A03D9A"; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = "#C850C0"; }}
           >
-            Access Resources
+            {loading ? "Checking…" : "Access Resources"}
           </button>
           {error && (
             <p className="l2-meta" style={{ marginTop: 4 }}>
