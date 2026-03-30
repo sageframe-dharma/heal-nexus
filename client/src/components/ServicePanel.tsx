@@ -31,6 +31,21 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
               I help people listen to themselves and respond to what they're hearing. People seek support for many reasons — pain, anxiety, preparation for birth, a body carrying more than it can hold, or simply to be understood. I work with what you bring and help create the conditions for you to meet what is ready to happen. You can come with a clear intention for the work you'd like to do or a curiosity to discover it. I draw on deep experience across modalities and collaborate with you to meet what you need most.
             </p>
+            <Link
+              href="/offerings"
+              style={{
+                display: "inline-block",
+                marginTop: 18,
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: 13,
+                fontWeight: 500,
+                color: "#C850C0",
+                textDecoration: "none",
+                letterSpacing: "0.2px",
+              }}
+            >
+              Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
+            </Link>
           </motion.div>
         ) : active ? (
           <motion.div
@@ -78,6 +93,21 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base italic">
               Click an image to explore, or click the center to see how they connect.
             </p>
+            <Link
+              href="/offerings"
+              style={{
+                display: "inline-block",
+                marginTop: 18,
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: 13,
+                fontWeight: 500,
+                color: "#C850C0",
+                textDecoration: "none",
+                letterSpacing: "0.2px",
+              }}
+            >
+              Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

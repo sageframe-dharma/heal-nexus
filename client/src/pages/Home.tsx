@@ -23,6 +23,21 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         <p className="text-muted-foreground font-light leading-relaxed text-sm">
           I help people listen to themselves and respond to what they're hearing. People seek support for many reasons — pain, anxiety, preparation for birth, a body carrying more than it can hold, or simply to be understood. I work with what you bring and help create the conditions for you to meet what is ready to happen.
         </p>
+        <Link
+          href="/offerings"
+          style={{
+            display: "inline-block",
+            marginTop: 14,
+            fontFamily: "Montserrat, sans-serif",
+            fontSize: 12,
+            fontWeight: 500,
+            color: "#C850C0",
+            textDecoration: "none",
+            letterSpacing: "0.2px",
+          }}
+        >
+          Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
+        </Link>
       </div>
     );
   }
