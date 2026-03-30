@@ -63,7 +63,7 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
               {active.description}
             </p>
             <Link
-              href="/offerings"
+              href={`/offerings?card=${encodeURIComponent(active.name)}`}
               style={{
                 display: "inline-block",
                 marginTop: 18,

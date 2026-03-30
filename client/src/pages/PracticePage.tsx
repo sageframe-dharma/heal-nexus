@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSearch } from "wouter";
 import { Layout2 } from "@/components/Layout2";
 import { SERVICES } from "@/lib/services";
 import waterImage from "@assets/water.png";
@@ -80,8 +81,12 @@ const RESPONSIVE_CSS = `
 `;
 
 export default function PracticePage() {
-  // Offerings is selected by default — detail panel always shows something
-  const [selectedCard, setSelectedCard] = useState<string>(OFFERINGS_KEY);
+  const search = useSearch();
+  const cardParam = new URLSearchParams(search).get("card");
+  const initialCard = cardParam && SERVICES.find(s => s.name === cardParam)
+    ? cardParam
+    : OFFERINGS_KEY;
+  const [selectedCard, setSelectedCard] = useState<string>(initialCard);
 
   const detail = getDetail(selectedCard);
 

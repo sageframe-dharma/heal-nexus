@@ -53,7 +53,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         {active.description}
       </p>
       <Link
-        href="/offerings"
+        href={`/offerings?card=${encodeURIComponent(active.name)}`}
         style={{
           display: "inline-block",
           marginTop: 14,
