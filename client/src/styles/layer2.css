@@ -1,0 +1,313 @@
+/*
+ * layer2.css — Shared styles for all Layer 2 pages
+ * (Offerings, About, Sessions, Resources — any page using Layout2 with inlineNav)
+ *
+ * DO NOT place Home / Layer 1 styles here.
+ *
+ * Import location: Layout2.tsx (single import point — all Layer 2 pages get it automatically)
+ */
+
+/* ─── Layout ─────────────────────────────────────────────────────────── */
+
+/* Desktop */
+@media (min-width: 768px) {
+  .l2-page {
+    flex: 1;
+    min-height: 0;
+    box-sizing: border-box;
+    padding: 16px 28px 28px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .l2-layout {
+    display: flex;
+    gap: 64px;
+    align-items: stretch;
+    margin-top: 12px;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .l2-card-col {
+    width: 310px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .l2-detail {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    border: 2px solid #C850C0;
+    border-radius: 16px;
+    padding: 36px 40px;
+  }
+
+  .l2-mobile-detail {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .l2-page {
+    padding: 20px 16px 32px;
+  }
+
+  .l2-layout {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    gap: 0;
+  }
+
+  .l2-card-col {
+    width: 100%;
+    overflow-y: visible;
+  }
+
+  .l2-detail {
+    display: none;
+  }
+
+  .l2-mobile-detail {
+    display: block;
+  }
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────── */
+
+/* Large heading in the desktop detail panel */
+.l2-detail-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: #051a1c;
+  line-height: 1.3;
+  margin: 0 0 18px 0;
+}
+
+/* Section sub-headings (Training, Community, Lineage cards) */
+.l2-subheading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #051a1c;
+  line-height: 1.3;
+  margin: 24px 0 10px 0;
+}
+
+/* First sub-heading in a section — no extra top margin */
+.l2-subheading:first-child {
+  margin-top: 0;
+}
+
+/* Body text */
+.l2-body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #3a3a40;
+  line-height: 1.7;
+  margin: 0 0 18px 0;
+}
+
+/* Bullet list container */
+.l2-list {
+  margin: 0 0 18px 0;
+  padding-left: 20px;
+}
+
+/* Bullet list item */
+.l2-list li {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #3a3a40;
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+
+/* Lineage chain line (e.g. "Krishnamacharya → BKS Iyengar → ...") */
+.l2-lineage-chain {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: #C850C0;
+  letter-spacing: 0.01em;
+  margin: 0 0 14px 0;
+  display: block;
+}
+
+/* Horizontal rule below detail heading */
+.l2-divider {
+  height: 1px;
+  width: 48px;
+  background: rgba(200, 80, 192, 0.33);
+  margin-bottom: 22px;
+  border: none;
+}
+
+/* Mobile heading in the accordion detail */
+.l2-mobile-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  color: #051a1c;
+  line-height: 1.3;
+  margin: 0 0 14px 0;
+}
+
+/* Mobile body text in the accordion detail */
+.l2-mobile-body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #3a3a40;
+  line-height: 1.7;
+  margin: 0 0 12px 0;
+}
+
+/* ─── Teacher Gallery ────────────────────────────────────────────── */
+
+.l2-teacher-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 4px;
+}
+
+@media (max-width: 767px) {
+  .l2-teacher-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+.l2-teacher-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.l2-teacher-item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.l2-teacher-item:hover img {
+  opacity: 0.82;
+}
+
+/* Small label below photo */
+.l2-meta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #3a3a40;
+  text-align: center;
+  margin: 6px 0 0 0;
+  line-height: 1.4;
+}
+
+/* Orchid link — no underline by default, underline on hover */
+.l2-link {
+  color: #C850C0;
+  text-decoration: none;
+}
+.l2-link:hover {
+  text-decoration: underline;
+}
+
+/* ─── Sessions page — single-column ─────────────────────────────────────────── */
+
+/* Bordered scrollable panel — mirrors .l2-detail for split-layout pages */
+@media (min-width: 768px) {
+  .l2-single-column {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    border: 2px solid #C850C0;
+    border-radius: 16px;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .l2-single-column {
+    /* No border on mobile — content flows naturally */
+  }
+}
+
+.l2-single-col {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 32px 64px;
+}
+
+.l2-single-col section {
+  margin-bottom: 48px;
+}
+
+.l2-banner-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.l2-inline-img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+  margin: 32px 0;
+}
+
+.l2-form-item {
+  margin-bottom: 20px;
+}
+
+.l2-form-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #C850C0;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 4px;
+}
+.l2-form-label:hover {
+  text-decoration: underline;
+}
+
+.l2-contact-row {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a1a1e;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.l2-contact-link {
+  color: #C850C0;
+  text-decoration: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0;
+}
+.l2-contact-link:hover {
+  text-decoration: underline;
+}

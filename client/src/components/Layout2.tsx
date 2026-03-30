@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
+import "@/styles/layer2.css";
 
 const ACCENT = "#C850C0";
 const LAVENDER = "rgb(170, 185, 240)";

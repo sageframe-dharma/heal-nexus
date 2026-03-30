@@ -31,55 +31,6 @@ function getDetail(key: string): { title: string; paragraphs: string[] } | null 
   return { title: svc.label, paragraphs: (svc.experienceText || svc.description).split("\n\n") };
 }
 
-const RESPONSIVE_CSS = `
-  /* ── Desktop ── */
-  @media (min-width: 768px) {
-    .practice-page {
-      /* fills remaining cream height below nav; nav is flex-shrink:0 sibling above */
-      flex: 1;
-      min-height: 0;
-      box-sizing: border-box;
-      /* small internal padding — outer lavender handles the frame margin */
-      padding: 16px 28px 28px;
-      display: flex;
-      flex-direction: column;
-    }
-    .practice-layout {
-      display: flex;
-      gap: 64px;
-      align-items: stretch;
-      margin-top: 12px;
-      flex: 1;
-      min-height: 0;
-    }
-    .practice-card-col {
-      width: 310px;
-      flex-shrink: 0;
-      overflow-y: auto;
-      min-height: 0;
-    }
-    .practice-detail {
-      flex: 1;
-      overflow-y: auto;
-      min-height: 0;
-      border: 2px solid #C850C0;
-      border-radius: 16px;
-      padding: 36px 40px;
-    }
-    .practice-mobile-detail { display: none; }
-  }
-
-  /* ── Mobile ── */
-  @media (max-width: 767px) {
-    /* nav is inside cream box — reduce top padding accordingly */
-    .practice-page { padding: 20px 16px 32px; }
-    .practice-layout { display: flex; flex-direction: column; margin-top: 16px; gap: 0; }
-    .practice-card-col { width: 100%; overflow-y: visible; }
-    .practice-detail { display: none; }
-    .practice-mobile-detail { display: block; }
-  }
-`;
-
 export default function PracticePage() {
   const search = useSearch();
   const cardParam = new URLSearchParams(search).get("card");
@@ -95,164 +46,104 @@ export default function PracticePage() {
   };
 
   return (
-    <>
-      <style>{RESPONSIVE_CSS}</style>
-      {/* contentStyle zeros padding; inlineNav puts nav inside the lavender frame on desktop */}
-      <Layout2 inlineNav contentStyle={{ padding: 0 }}>
-        <div className="practice-page">
-          {/* Two-column layout */}
-          <div className="practice-layout">
-            {/* Card column */}
-            <div className="practice-card-col">
-              {ALL_CARDS.map(({ key, label, image, imagePosition }) => {
-                const isActive = selectedCard === key;
-                const cardDetail = getDetail(key);
+    <Layout2 inlineNav contentStyle={{ padding: 0 }}>
+      <div className="l2-page">
+        <div className="l2-layout">
+          {/* Card column */}
+          <div className="l2-card-col">
+            {ALL_CARDS.map(({ key, label, image }) => {
+              const isActive = selectedCard === key;
+              const cardDetail = getDetail(key);
 
-                return (
-                  <div key={key} style={{ marginBottom: 8 }}>
-                    {/* Card: label on top, image sliver below */}
-                    <div
-                      onClick={() => handleCardClick(key)}
-                      style={{
-                        border: "1px solid rgba(5,26,28,0.10)",
-                        borderLeft: isActive
-                          ? `3px solid ${ACCENT}`
-                          : "1px solid rgba(5,26,28,0.10)",
-                        borderRadius: 10,
-                        overflow: "hidden",
-                        cursor: "pointer",
-                        background: "#ffffff",
-                        transition: "box-shadow 0.2s ease",
-                      }}
-                    >
-                      {/* Label */}
-                      <div style={{ padding: "12px 16px" }}>
-                        <p
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontSize: 17,
-                            fontWeight: isActive ? 400 : 300,
-                            color: isActive ? ACCENT : "#051a1c",
-                            margin: 0,
-                            lineHeight: 1.3,
-                            transition: "color 0.2s ease",
-                          }}
-                        >
-                          {label}
-                        </p>
-                      </div>
-                      {/* Image: 4px sliver when inactive → natural aspect ratio when active */}
-                      <div
-                        style={{
-                          maxHeight: isActive ? 600 : 4,
-                          overflow: "hidden",
-                          transition: "max-height 300ms ease",
-                        }}
-                      >
-                        {image && (
-                          <img
-                            src={image}
-                            alt={label}
-                            style={{
-                              width: "100%",
-                              height: "auto",
-                              display: "block",
-                            }}
-                          />
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Mobile: inline detail accordion below card */}
-                    {isActive && cardDetail && (
-                      <div
-                        className="practice-mobile-detail"
-                        style={{
-                          padding: "20px 20px 24px",
-                          background: "transparent",
-                          borderLeft: `3px solid ${ACCENT}`,
-                          borderRight: "1px solid rgba(5,26,28,0.08)",
-                          borderBottom: "1px solid rgba(5,26,28,0.08)",
-                          borderRadius: "0 0 10px 10px",
-                        }}
-                      >
-                        <h2
-                          style={{
-                            fontFamily: "'Cormorant Garamond', serif",
-                            fontSize: 20,
-                            fontWeight: 300,
-                            color: "#051a1c",
-                            lineHeight: 1.3,
-                            margin: "0 0 14px 0",
-                          }}
-                        >
-                          {cardDetail.title}
-                        </h2>
-                        {cardDetail.paragraphs.map((p, i) => (
-                          <p
-                            key={i}
-                            style={{
-                              fontFamily: "Montserrat, sans-serif",
-                              fontSize: 14,
-                              color: "#3a3a40",
-                              lineHeight: 1.7,
-                              margin: "0 0 12px 0",
-                            }}
-                          >
-                            {p}
-                          </p>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Desktop detail panel — orchid border, no fill */}
-            <div className="practice-detail">
-              {detail ? (
-                <>
-                  <h2
+              return (
+                <div key={key} style={{ marginBottom: 8 }}>
+                  {/* Card: label on top, image sliver below */}
+                  <div
+                    onClick={() => handleCardClick(key)}
                     style={{
-                      fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: 26,
-                      fontWeight: 300,
-                      color: "#051a1c",
-                      lineHeight: 1.3,
-                      margin: "0 0 18px 0",
+                      border: "1px solid rgba(5,26,28,0.10)",
+                      borderLeft: isActive
+                        ? `3px solid ${ACCENT}`
+                        : "1px solid rgba(5,26,28,0.10)",
+                      borderRadius: 10,
+                      overflow: "hidden",
+                      cursor: "pointer",
+                      background: "#ffffff",
+                      transition: "box-shadow 0.2s ease",
                     }}
                   >
-                    {detail.title}
-                  </h2>
-                  <div
-                    style={{
-                      height: 1,
-                      width: 48,
-                      background: `${ACCENT}55`,
-                      marginBottom: 22,
-                    }}
-                  />
-                  {detail.paragraphs.map((p, i) => (
-                    <p
-                      key={i}
+                    {/* Label */}
+                    <div style={{ padding: "12px 16px" }}>
+                      <p
+                        style={{
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontSize: 17,
+                          fontWeight: isActive ? 400 : 300,
+                          color: isActive ? ACCENT : "#051a1c",
+                          margin: 0,
+                          lineHeight: 1.3,
+                          transition: "color 0.2s ease",
+                        }}
+                      >
+                        {label}
+                      </p>
+                    </div>
+                    {/* Image: 4px sliver when inactive → natural aspect ratio when active */}
+                    <div
                       style={{
-                        fontFamily: "Montserrat, sans-serif",
-                        fontSize: 15,
-                        color: "#3a3a40",
-                        lineHeight: 1.7,
-                        margin: "0 0 18px 0",
+                        maxHeight: isActive ? 600 : 4,
+                        overflow: "hidden",
+                        transition: "max-height 300ms ease",
                       }}
                     >
-                      {p}
-                    </p>
-                  ))}
-                </>
-              ) : null}
-            </div>
+                      {image && (
+                        <img
+                          src={image}
+                          alt={label}
+                          style={{ width: "100%", height: "auto", display: "block" }}
+                        />
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Mobile: inline detail accordion below card */}
+                  {isActive && cardDetail && (
+                    <div
+                      className="l2-mobile-detail"
+                      style={{
+                        padding: "20px 20px 24px",
+                        background: "transparent",
+                        borderLeft: `3px solid ${ACCENT}`,
+                        borderRight: "1px solid rgba(5,26,28,0.08)",
+                        borderBottom: "1px solid rgba(5,26,28,0.08)",
+                        borderRadius: "0 0 10px 10px",
+                      }}
+                    >
+                      <h2 className="l2-mobile-heading">{cardDetail.title}</h2>
+                      {cardDetail.paragraphs.map((p, i) => (
+                        <p key={i} className="l2-mobile-body">{p}</p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Desktop detail panel — orchid border, no fill */}
+          <div className="l2-detail">
+            {detail ? (
+              <>
+                <h2 className="l2-detail-heading">{detail.title}</h2>
+                <hr className="l2-divider" />
+                {detail.paragraphs.map((p, i) => (
+                  <p key={i} className="l2-body">{p}</p>
+                ))}
+              </>
+            ) : null}
           </div>
         </div>
-      </Layout2>
-    </>
+      </div>
+    </Layout2>
   );
 }
