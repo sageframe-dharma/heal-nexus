@@ -174,14 +174,14 @@ export default function Home() {
       {/* ───── Header + Nav ───── */}
       <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0" onClick={e => e.stopPropagation()}>
         <div className="flex flex-col items-stretch w-fit gap-1.5">
-          <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight text-primary">
+          <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight">
               Nancy Turnquist
             </h1>
-            <p className="text-sm md:text-lg text-muted-foreground font-light">
+            <div className="h-px w-20 mx-auto" style={{ background: '#C850C0' }} />
+            <p className="text-sm md:text-lg font-light opacity-75">
               {SUBTITLE}
             </p>
-            <div className="h-px w-20 bg-primary/20 mx-auto" />
           </header>
           <nav className="flex items-center justify-center gap-4 md:gap-6 px-5 py-2 rounded-lg" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
             {(['practice', 'about', 'sessions', 'resources'] as const).map((v) => (
@@ -193,7 +193,8 @@ export default function Home() {
                   setSelectedNode(null);
                   setIsCenterActive(false);
                 }}
-                className={`text-xs md:text-sm font-medium transition-colors tracking-wide uppercase ${activeView === v ? 'text-primary' : 'text-primary/50 hover:text-primary/80'}`}
+                className={`text-xs md:text-sm transition-colors tracking-wide uppercase ${activeView === v ? 'font-normal' : 'font-medium text-primary/50 hover:text-primary/80'}`}
+                style={activeView === v ? { color: '#C850C0' } : {}}
               >
                 {v === 'practice' ? 'Offerings' : v === 'sessions' ? 'Sessions' : v.charAt(0).toUpperCase() + v.slice(1)}
               </button>
@@ -244,24 +245,18 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-                    <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">About Nancy</h2>
-                    <div className="h-px w-16 bg-primary/20 mb-6" />
-                    <div className="space-y-4 text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
-                      <p>
-                        Nancy Turnquist is a multimodal healer, bodyworker, and birth professional with over
-                        two decades of experience supporting people through some of life's most profound
-                        transitions. Her practice weaves together craniosacral therapy, somatic healing, yoga
-                        therapy, and birth work into a unified approach rooted in deep listening and presence.
-                      </p>
-                      <p>
-                        Nancy's work begins from a simple premise: your body already knows how to heal. Her
-                        role is to create the conditions — safety, stillness, gentle attention — that allow
-                        that intelligence to emerge. Whether you're navigating chronic pain, preparing for
-                        birth, processing grief, or simply seeking a place to slow down and be held, Nancy
-                        meets you exactly where you are.
-                      </p>
-                    </div>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+                    <h2 className="text-2xl md:text-3xl font-light mb-3">About Nancy</h2>
+                    <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
+                    <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+                      Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist with over two decades of experience in Cambridge, MA.
+                    </p>
+                    <Link
+                      href="/about"
+                      style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
+                    >
+                      Learn more about Nancy →
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -273,20 +268,18 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="text-center px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-                    <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">Begin Your Journey</h2>
-                    <div className="h-px w-16 bg-primary/20 mx-auto mb-6" />
-                    <p className="text-muted-foreground font-light leading-relaxed mb-4 max-w-lg mx-auto text-[0.95rem] md:text-base">
-                      Whether you're ready to book a session or simply have questions about which modality
-                      might be right for you, Nancy would love to hear from you.
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+                    <h2 className="text-2xl md:text-3xl font-light mb-3">Working Together</h2>
+                    <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
+                    <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+                      Nancy sees clients in person at her Cambridge treatment space and online. Sessions are typically 60 to 90 minutes. You don't need to know which modality is right for you — that's her job.
                     </p>
-                    <p className="text-muted-foreground font-light leading-relaxed mb-8 max-w-lg mx-auto text-[0.95rem] md:text-base">
-                      Nancy sees clients both remotely and in person at her Cambridge treatment space.
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                      <a href="#" className="px-8 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 tracking-wide text-sm font-medium">Book a Session</a>
-                      <a href="#" className="px-8 py-3 rounded-full border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300 tracking-wide text-sm font-medium">Get in Touch</a>
-                    </div>
+                    <Link
+                      href="/sessions"
+                      style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
+                    >
+                      Learn more about sessions →
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -298,12 +291,18 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-                    <h2 className="text-2xl md:text-3xl font-light text-primary mb-3">Resources</h2>
-                    <div className="h-px w-16 bg-primary/20 mb-6" />
-                    <p className="text-muted-foreground font-light leading-relaxed text-[0.95rem] md:text-base">
-                      A curated collection of resources for current clients. Contact Nancy for access.
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+                    <h2 className="text-2xl md:text-3xl font-light mb-3">Resources</h2>
+                    <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
+                    <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+                      Explore Nancy's lineage and training traditions, resources related to her offerings, and deeper materials for current clients.
                     </p>
+                    <Link
+                      href="/resources"
+                      style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
+                    >
+                      Explore resources →
+                    </Link>
                   </div>
                 </motion.div>
               )}
@@ -349,24 +348,18 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }} onClick={e => e.stopPropagation()}>
-                  <h2 className="text-xl font-light text-primary mb-2">About Nancy</h2>
-                  <div className="h-px w-12 bg-primary/20 mb-4" />
-                  <div className="space-y-3 text-muted-foreground font-light leading-relaxed text-sm">
-                    <p>
-                      Nancy Turnquist is a multimodal healer, bodyworker, and birth professional with over
-                      two decades of experience supporting people through some of life's most profound
-                      transitions. Her practice weaves together craniosacral therapy, somatic healing, yoga
-                      therapy, and birth work into a unified approach rooted in deep listening and presence.
-                    </p>
-                    <p>
-                      Nancy's work begins from a simple premise: your body already knows how to heal. Her
-                      role is to create the conditions — safety, stillness, gentle attention — that allow
-                      that intelligence to emerge. Whether you're navigating chronic pain, preparing for
-                      birth, processing grief, or simply seeking a place to slow down and be held, Nancy
-                      meets you exactly where you are.
-                    </p>
-                  </div>
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
+                  <h2 className="text-xl font-light mb-2">About Nancy</h2>
+                  <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
+                  <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
+                    Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist with over two decades of experience in Cambridge, MA.
+                  </p>
+                  <Link
+                    href="/about"
+                    style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
+                  >
+                    Learn more about Nancy →
+                  </Link>
                 </div>
               </motion.div>
             )}
@@ -379,20 +372,18 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="text-center rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }} onClick={e => e.stopPropagation()}>
-                  <h2 className="text-xl font-light text-primary mb-2">Begin Your Journey</h2>
-                  <div className="h-px w-12 bg-primary/20 mx-auto mb-4" />
-                  <p className="text-muted-foreground font-light leading-relaxed mb-3 text-sm">
-                    Whether you're ready to book a session or simply have questions about which modality
-                    might be right for you, Nancy would love to hear from you.
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
+                  <h2 className="text-xl font-light mb-2">Working Together</h2>
+                  <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
+                  <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
+                    Nancy sees clients in person at her Cambridge treatment space and online. Sessions are typically 60 to 90 minutes. You don't need to know which modality is right for you — that's her job.
                   </p>
-                  <p className="text-muted-foreground font-light leading-relaxed mb-6 text-sm">
-                    Nancy sees clients both remotely and in person at her Cambridge treatment space.
-                  </p>
-                  <div className="flex flex-col items-center gap-3">
-                    <a href="#" className="px-8 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 tracking-wide text-sm font-medium">Book a Session</a>
-                    <a href="#" className="px-8 py-3 rounded-full border border-primary/20 text-primary hover:bg-primary/10 transition-all duration-300 tracking-wide text-sm font-medium">Get in Touch</a>
-                  </div>
+                  <Link
+                    href="/sessions"
+                    style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
+                  >
+                    Learn more about sessions →
+                  </Link>
                 </div>
               </motion.div>
             )}
@@ -405,12 +396,18 @@ export default function Home() {
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                 className="w-full px-2"
               >
-                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }} onClick={e => e.stopPropagation()}>
-                  <h2 className="text-xl font-light text-primary mb-2">Resources</h2>
-                  <div className="h-px w-12 bg-primary/20 mb-4" />
-                  <p className="text-muted-foreground font-light leading-relaxed text-sm">
-                    A curated collection of resources for current clients. Contact Nancy for access.
+                <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
+                  <h2 className="text-xl font-light mb-2">Resources</h2>
+                  <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
+                  <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
+                    Explore Nancy's lineage and training traditions, resources related to her offerings, and deeper materials for current clients.
                   </p>
+                  <Link
+                    href="/resources"
+                    style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
+                  >
+                    Explore resources →
+                  </Link>
                 </div>
               </motion.div>
             )}
