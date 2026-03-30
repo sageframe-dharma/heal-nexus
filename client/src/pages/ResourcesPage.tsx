@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { Layout2 } from "@/components/Layout2";
-import waterImage from "@assets/water.png";
+import resourcesMentorsImage from "@assets/resources-mentors.jpg";
 import resourcesResourcesImage from "@assets/resources-resources.jpg";
 import resourcesClientImage from "@assets/resources-client.png";
 
@@ -16,7 +16,7 @@ interface ResourceCard {
 }
 
 const RESOURCE_CARDS: ResourceCard[] = [
-  { key: "mentors",          label: "Mentors",          image: waterImage as string },
+  { key: "mentors",          label: "Mentors",          image: resourcesMentorsImage as string },
   { key: "resources",        label: "Resources",        image: resourcesResourcesImage as string },
   { key: "client-resources", label: "Client Resources", image: resourcesClientImage as string },
 ];
