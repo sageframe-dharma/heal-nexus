@@ -13,7 +13,7 @@ const INLINE_NAV_CSS = `
       height: 100vh;
       overflow: hidden;
       box-sizing: border-box;
-      padding: clamp(12px, 1.5vw, 20px);
+      padding: clamp(16px, 2.5vw, 32px);
     }
     .l2i-content {
       height: 100%;
