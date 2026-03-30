@@ -136,12 +136,12 @@ export default function PracticePage() {
                           {label}
                         </p>
                       </div>
-                      {/* Image sliver → full on active */}
+                      {/* Image: 4px sliver when inactive → natural aspect ratio when active */}
                       <div
                         style={{
-                          height: isActive ? 220 : 4,
+                          maxHeight: isActive ? 600 : 4,
                           overflow: "hidden",
-                          transition: "height 300ms ease",
+                          transition: "max-height 300ms ease",
                         }}
                       >
                         {image && (
@@ -150,9 +150,7 @@ export default function PracticePage() {
                             alt={label}
                             style={{
                               width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                              objectPosition: imagePosition ?? "center",
+                              height: "auto",
                               display: "block",
                             }}
                           />
