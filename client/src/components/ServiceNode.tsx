@@ -32,15 +32,15 @@ export function ServiceNode({
   index,
 }: ServiceNodeProps) {
   // Visual precedence: selected > hovered > center-active > idle
-  const imgOpacity = isSelected ? 1 : isActive ? 0.85 : isCenterActive ? 1 : 0.38;
+  const imgOpacity = isSelected ? 1 : isActive ? 0.85 : isCenterActive ? 1 : 0.48;
   const imgFilter = isSelected
     ? "blur(0px) grayscale(0%)"
     : isActive
     ? "blur(0.5px) grayscale(10%)"
     : isCenterActive
     ? "blur(0px) grayscale(0%)"
-    : "blur(2.5px) grayscale(60%)";
-  const scale = isSelected ? 1.12 : isActive ? 1.06 : isRelated ? 1.04 : 1;
+    : "blur(0.8px) grayscale(60%)";
+  const scale = isSelected ? 1.12 : isActive ? 1.08 : isRelated ? 1.04 : 1;
 
   return (
     <motion.div
