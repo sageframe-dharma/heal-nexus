@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ServiceNode } from "./ServiceNode";
-import centralImage from "@assets/pearl.png";
+import centralImage from "@assets/pearl.webp";
 
 const ACCENT = "#C850C0";
 
