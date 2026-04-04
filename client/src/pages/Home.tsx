@@ -444,7 +444,7 @@ export default function Home() {
                     { name: "Somatic\nTherapy",               short: "Somatics" },
                     { name: "Yoga Therapy",                   short: "Yoga" },
                     { name: "Pre- & Perinatal\nPsychology",  short: "PPN" },
-                    { name: "Birth, Doula &\nPostpartum",    short: "Birth" },
+                    { name: "Birth, Babies &\nPostpartum",    short: "Birth" },
                     { name: "Grief &\nTransitions",          short: "Life" },
                   ] as { name: string; short: string }[]).map(({ name, short }) => (
                     <button

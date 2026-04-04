@@ -58,8 +58,8 @@ export const SERVICES: ServiceInfo[] = [
       "This work takes different forms depending on who's in the room.\n\nFor adults, it often begins with curiosity — a sense that something from very early life is running in the background, shaping relationships, reactivity, and the sense of safety. We work somatically, through the body, to meet those early patterns where they live. This isn't about recovering memories. It's about noticing what your system does when it feels certain conditions — closeness, separation, nourishment, overwhelm — and allowing those patterns to settle and reorganize.\n\nFor parents and families, the work is more relational. I support couples preparing for conception and birth — not just logistically but in understanding how their own early experiences will show up in their parenting. I help families communicate, attune, and repair. I work with parents individually when their own material comes up in the process of raising their children, which it always does.\n\nFor families with infants and young children, I draw on the Castellino Training and the BEBA model — approaches that center the baby's experience and treat the whole family as the unit of care.\n\nThis work asks for slowness. Early patterns didn't form in a day and they don't reorganize in one session. But they do reorganize, and when they do, the effect moves through everything.",
   },
   {
-    name: "Birth, Doula &\nPostpartum",
-    label: "Birth, Doula & Postpartum Support",
+    name: "Birth, Babies &\nPostpartum",
+    label: "Birth, Babies, & Postpartum",
     image: doulaImage,
     hexImage: birthImage,
     imageScale: 1.3,

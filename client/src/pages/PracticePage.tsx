@@ -39,7 +39,7 @@ const JUMP_BAR_LABELS: Record<string, string> = {
   "Somatic\nTherapy":              "Somatics",
   "Yoga Therapy":                  "Yoga",
   "Pre- & Perinatal\nPsychology":  "PPN",
-  "Birth, Doula &\nPostpartum":    "Birth",
+  "Birth, Babies &\nPostpartum":    "Birth",
   "Grief &\nTransitions":          "Life",
 };
 
