@@ -23,6 +23,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         <p className="text-muted-foreground font-light leading-relaxed text-sm">
           I help people listen to themselves and respond to what they're hearing. People seek support for many reasons — pain, anxiety, preparation for birth, a body carrying more than it can hold, or simply to be understood. I work with what you bring and help create the conditions for you to meet what is ready to happen.
         </p>
+        {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
         <Link
           href="/offerings"
           style={{
@@ -38,6 +39,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         >
           Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
         </Link>
+        */
       </div>
     );
   }
@@ -52,6 +54,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
       <p className="text-muted-foreground font-light leading-relaxed text-sm">
         {active.description}
       </p>
+      {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
       <Link
         href={`/offerings?card=${encodeURIComponent(active.name)}`}
         style={{
@@ -67,6 +70,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
       >
         Learn more →
       </Link>
+      */
     </div>
   );
 }
@@ -251,12 +255,14 @@ export default function Home() {
                     <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
                       Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist with over two decades of experience in Cambridge, MA.
                     </p>
+                    {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
                     <Link
                       href="/about"
                       style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
                     >
                       Learn more about Nancy →
                     </Link>
+                    */
                   </div>
                 </motion.div>
               )}
@@ -274,12 +280,14 @@ export default function Home() {
                     <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
                       Nancy sees clients in person at her Cambridge treatment space and online. Sessions are typically 60 to 90 minutes. You don't need to know which modality is right for you — that's her job.
                     </p>
+                    {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
                     <Link
                       href="/sessions"
                       style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
                     >
                       Learn more about sessions →
                     </Link>
+                    */
                   </div>
                 </motion.div>
               )}
@@ -297,12 +305,14 @@ export default function Home() {
                     <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
                       Explore Nancy's lineage and training traditions, resources related to her offerings, and deeper materials for current clients.
                     </p>
+                    {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
                     <Link
                       href="/resources"
                       style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
                     >
                       Explore resources →
                     </Link>
+                    */
                   </div>
                 </motion.div>
               )}
@@ -406,12 +416,14 @@ export default function Home() {
                   <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
                     Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist with over two decades of experience in Cambridge, MA.
                   </p>
+                  {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
                   <Link
                     href="/about"
                     style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
                   >
                     Learn more about Nancy →
                   </Link>
+                  */
                 </div>
               </motion.div>
             )}
@@ -430,12 +442,14 @@ export default function Home() {
                   <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
                     Nancy sees clients in person at her Cambridge treatment space and online. Sessions are typically 60 to 90 minutes. You don't need to know which modality is right for you — that's her job.
                   </p>
+                  {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
                   <Link
                     href="/sessions"
                     style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
                   >
                     Learn more about sessions →
                   </Link>
+                  */
                 </div>
               </motion.div>
             )}
@@ -454,12 +468,14 @@ export default function Home() {
                   <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
                     Explore Nancy's lineage and training traditions, resources related to her offerings, and deeper materials for current clients.
                   </p>
+                  {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
                   <Link
                     href="/resources"
                     style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
                   >
                     Explore resources →
                   </Link>
+                  */
                 </div>
               </motion.div>
             )}
