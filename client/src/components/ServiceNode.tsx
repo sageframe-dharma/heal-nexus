@@ -39,7 +39,7 @@ export function ServiceNode({
     ? "blur(0.5px) grayscale(10%)"
     : isCenterActive
     ? "blur(0px) grayscale(0%)"
-    : "blur(0.8px) grayscale(60%)";
+    : "blur(0.2px) grayscale(60%)";
   const scale = isSelected ? 1.12 : isActive ? 1.08 : isRelated ? 1.04 : 1;
 
   return (

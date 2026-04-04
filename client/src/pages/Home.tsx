@@ -75,6 +75,19 @@ function SessionsContent() {
       </p>
 
       <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 400, marginTop: 24, marginBottom: 8, color: '#1a1a1a' }}>
+        Contact Form
+      </h3>
+      <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
+      <a
+        href="https://form.jotform.com/260883853283063"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}
+      >
+        Contact Nancy →
+      </a>
+
+      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 400, marginTop: 24, marginBottom: 8, color: '#1a1a1a' }}>
         New Client Forms
       </h3>
       <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
