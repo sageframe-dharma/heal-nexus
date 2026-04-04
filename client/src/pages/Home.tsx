@@ -82,9 +82,9 @@ function SessionsContent() {
         After your initial conversation with Nancy, new clients are asked to complete an intake form before the first session.
       </p>
       <div className="flex flex-col gap-1">
-        <a href="#" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Client Intake &amp; Consent Form</a>
-        <a href="#" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Adult Release of Liability &amp; Informed Consent</a>
-        <a href="#" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Minor Release of Liability &amp; Informed Consent</a>
+        <a href="#" onClick={e => e.preventDefault()} style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'default', opacity: 0.6 }}>Client Intake &amp; Consent Form <span style={{ fontSize: '0.75rem', fontStyle: 'italic' }}>(coming soon)</span></a>
+        <a href="#" onClick={e => e.preventDefault()} style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'default', opacity: 0.6 }}>Adult Release of Liability &amp; Informed Consent <span style={{ fontSize: '0.75rem', fontStyle: 'italic' }}>(coming soon)</span></a>
+        <a href="#" onClick={e => e.preventDefault()} style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, cursor: 'default', opacity: 0.6 }}>Minor Release of Liability &amp; Informed Consent <span style={{ fontSize: '0.75rem', fontStyle: 'italic' }}>(coming soon)</span></a>
       </div>
 
       <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 400, marginTop: 24, marginBottom: 8, color: '#1a1a1a' }}>
