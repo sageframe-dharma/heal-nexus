@@ -27,7 +27,7 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
               Healing with Presence
             </h2>
             <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
-            <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+            <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 400 }}>
               I work with the body’s own capacity to heal. Through gentle hands-on work, somatic awareness, and deep listening, I help people find relief from pain, resolve held stress and trauma, prepare for birth, and navigate life’s most difficult transitions. Sessions are 60–90 minutes, in person in Cambridge, MA or online. You don’t need to know what you need — that’s my job.
             </p>
           </motion.div>
