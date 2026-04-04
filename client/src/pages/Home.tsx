@@ -39,7 +39,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         >
           Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
         </Link>
-        */
+        */}
       </div>
     );
   }
@@ -70,7 +70,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
       >
         Learn more →
       </Link>
-      */
+      */}
     </div>
   );
 }
@@ -262,7 +262,7 @@ export default function Home() {
                     >
                       Learn more about Nancy →
                     </Link>
-                    */
+                    */}
                   </div>
                 </motion.div>
               )}
@@ -287,7 +287,7 @@ export default function Home() {
                     >
                       Learn more about sessions →
                     </Link>
-                    */
+                    */}
                   </div>
                 </motion.div>
               )}
@@ -312,7 +312,7 @@ export default function Home() {
                     >
                       Explore resources →
                     </Link>
-                    */
+                    */}
                   </div>
                 </motion.div>
               )}
@@ -423,7 +423,7 @@ export default function Home() {
                   >
                     Learn more about Nancy →
                   </Link>
-                  */
+                  */}
                 </div>
               </motion.div>
             )}
@@ -449,7 +449,7 @@ export default function Home() {
                   >
                     Learn more about sessions →
                   </Link>
-                  */
+                  */}
                 </div>
               </motion.div>
             )}
@@ -475,7 +475,7 @@ export default function Home() {
                   >
                     Explore resources →
                   </Link>
-                  */
+                  */}
                 </div>
               </motion.div>
             )}
