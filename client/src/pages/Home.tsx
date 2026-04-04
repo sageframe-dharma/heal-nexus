@@ -51,7 +51,7 @@ function AboutContent() {
         alt="Nancy Turnquist"
         style={{ borderRadius: 12, maxWidth: '100%', marginBottom: 16 }}
       />
-      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 400 }}>
         Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist in Cambridge, MA. She has been in practice since 2000, with training spanning Iyengar yoga therapeutics, biodynamic craniosacral therapy, somatic trauma resolution, and pre- and perinatal psychology. She studied at the Iyengar Institute in Pune, India, trained with some of the leading practitioners in each of her fields, and brings over two decades of hands-on experience to every session. She also speaks fluent Spanish and works with Spanish-speaking clients.
       </p>
     </>
@@ -67,10 +67,10 @@ function SessionsContent() {
 
   return (
     <>
-      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 400 }}>
         You don't need to know which modality is right for you. That's my job.
       </p>
-      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80 mt-3" style={{ fontWeight: 550 }}>
+      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80 mt-3" style={{ fontWeight: 400 }}>
         Sessions are 60–90 minutes, in person at Nancy's treatment space in Cambridge, MA or online. Most work happens on a massage table, where you remain fully clothed, using gentle, listening touch — though sessions may also include seated or standing work, breath, and movement. Online sessions are especially effective for somatic and pre- and perinatal work. Some people come weekly, some come when something is up. There's no prescribed schedule.
       </p>
 
@@ -78,7 +78,7 @@ function SessionsContent() {
         New Client Forms
       </h3>
       <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
-      <p className="text-[0.9rem] opacity-80 mb-3" style={{ fontWeight: 550 }}>
+      <p className="text-[0.9rem] opacity-80 mb-3" style={{ fontWeight: 400 }}>
         After your initial conversation with Nancy, new clients are asked to complete an intake form before the first session.
       </p>
       <div className="flex flex-col gap-1">
@@ -91,7 +91,7 @@ function SessionsContent() {
         Contact
       </h3>
       <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
-      <div className="flex flex-col gap-1.5 text-[0.9rem]" style={{ fontWeight: 550 }}>
+      <div className="flex flex-col gap-1.5 text-[0.9rem]" style={{ fontWeight: 400 }}>
         <a href="tel:6179020849" style={{ color: '#C850C0', textDecoration: 'none' }}>(617) 902-0849</a>
         <button
           onClick={handleEmailClick}
@@ -151,7 +151,7 @@ function ResourcesContent() {
     <>
       <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 400, marginBottom: 8, color: '#1a1a1a' }}>Mentors</h3>
       <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
-      <p className="text-[0.9rem] opacity-80 mb-4" style={{ fontWeight: 550 }}>
+      <p className="text-[0.9rem] opacity-80 mb-4" style={{ fontWeight: 400 }}>
         These people shaped me. Everything I offer was first offered to me — through their hands, their attention, their willingness to teach. I carry their work with gratitude.
       </p>
       {L1_MENTORS.map((m) => (
@@ -162,7 +162,7 @@ function ResourcesContent() {
               : <span style={{ color: '#C850C0' }}>{m.name}</span>
             }
           </p>
-          <p className="text-[0.85rem] opacity-80" style={{ fontWeight: 550 }}>{m.body}</p>
+          <p className="text-[0.85rem] opacity-80" style={{ fontWeight: 400 }}>{m.body}</p>
         </div>
       ))}
 
@@ -172,7 +172,7 @@ function ResourcesContent() {
         <div key={group.heading} style={{ marginBottom: 20 }}>
           <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', fontWeight: 600, marginBottom: 6, color: '#1a1a1a' }}>{group.heading}</p>
           {group.links.map((link) => (
-            <p key={link.href} className="text-[0.85rem] opacity-80 mb-2" style={{ fontWeight: 550 }}>
+            <p key={link.href} className="text-[0.85rem] opacity-80 mb-2" style={{ fontWeight: 400 }}>
               <a href={link.href} target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none' }}>{link.name}</a>
               {" — "}
               {link.description}
@@ -202,11 +202,13 @@ export default function Home() {
     setSelectedNode((prev) => (prev === service ? null : service));
     setIsCenterActive(false);
     setActiveView('practice');
+    setTimeout(() => panelAnchorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
   };
   const handleCenterClick = () => {
     setIsCenterActive(true);
     setSelectedNode(null);
     setHoveredNode(null);
+    setTimeout(() => panelAnchorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
   };
   const handleCenterHover = (hovered: boolean) => {
     if (hovered) {
@@ -224,6 +226,7 @@ export default function Home() {
   const panDirRef = useRef<1 | -1>(1);
   const panYRef = useRef(5);
   const rafRef = useRef<number | null>(null);
+  const panelAnchorRef = useRef<HTMLDivElement>(null);
 
   // Native playback — smooth GPU-composited rendering
   useEffect(() => {
@@ -431,6 +434,8 @@ export default function Home() {
                     onCenterHover={handleCenterHover}
                   />
                 </div>
+                {/* Scroll anchor — sits right below hexagon so nodes snap panel to top */}
+                <div ref={panelAnchorRef} />
                 {/* Offerings quick-select bar — only when a service is active */}
                 {(!!effectiveService || isCenterActive) && <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '0 4px', borderBottom: '1px solid rgba(255,255,255,0.18)', marginBottom: 4 }}>
                   {([

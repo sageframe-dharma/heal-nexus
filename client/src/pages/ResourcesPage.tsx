@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { Layout2 } from "@/components/Layout2";
-import resourcesMentorsImage from "@assets/resources-mentors.webp";
 import resourcesResourcesImage from "@assets/resources-resources.webp";
 import resourcesClientImage from "@assets/resources-client.webp";
 import { JumpBar } from "@/components/JumpBar";
@@ -17,7 +16,6 @@ interface ResourceCard {
 }
 
 const RESOURCE_CARDS: ResourceCard[] = [
-  { key: "mentors",          label: "Mentors",          image: resourcesMentorsImage as string },
   { key: "resources",        label: "Resources",        image: resourcesResourcesImage as string },
   { key: "client-resources", label: "Client Resources", image: resourcesClientImage as string },
 ];
@@ -263,7 +261,6 @@ function ClientResourcesDetail() {
 
 function renderDesktopDetail(key: string): ReactNode {
   switch (key) {
-    case "mentors":          return <MentorsDetail />;
     case "resources":        return <ResourcesDetail />;
     case "client-resources": return <ClientResourcesDetail />;
     default:                 return null;
@@ -272,7 +269,6 @@ function renderDesktopDetail(key: string): ReactNode {
 
 function renderMobileDetail(key: string): ReactNode {
   switch (key) {
-    case "mentors":          return <MentorsDetail />;
     case "resources":        return <ResourcesDetail />;
     case "client-resources": return <ClientResourcesDetail />;
     default:                 return null;
@@ -282,7 +278,7 @@ function renderMobileDetail(key: string): ReactNode {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function ResourcesPage() {
-  const [selectedCard, setSelectedCard] = useState<string>("mentors");
+  const [selectedCard, setSelectedCard] = useState<string>("resources");
 
   const selectAndScroll = (key: string) => {
     setSelectedCard(key);
