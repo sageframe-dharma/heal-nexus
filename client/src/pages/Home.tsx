@@ -150,8 +150,6 @@ const L1_RESOURCE_GROUPS: ResourceGroupItem[] = [
 function ResourcesContent() {
   return (
     <>
-      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 400, marginBottom: 8, color: '#1a1a1a' }}>Resources</h3>
-      <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
       {L1_RESOURCE_GROUPS.map((group) => (
         <div key={group.heading} style={{ marginBottom: 20 }}>
           <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', fontWeight: 600, marginBottom: 6, color: '#1a1a1a' }}>{group.heading}</p>
