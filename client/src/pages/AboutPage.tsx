@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { Layout2 } from "@/components/Layout2";
-import nancyJoyImage from "@assets/nancy-joy.jpg";
-import treatmentRoomImage from "@assets/treatment-room.png";
-import pearlImage from "@assets/pearl.png";
-import lineageImage from "@assets/about-lineage.jpg";
-import aboutTeachersImage from "@assets/about-teachers.jpg";
-import aboutCommunityImage from "@assets/about-community.jpg";
-import aboutTrainingImage from "@assets/about-training.jpg";
-import placeholderTeacher from "@assets/teachers/placeholder.png";
-import sobonfu from "@assets/teachers/sobunfu.jpg";
-import patriciaWalden from "@assets/teachers/patricia.jpg";
-import bksIyengar from "@assets/teachers/iyengar.jpg";
-import rositaArvigo from "@assets/teachers/rosita.jpg";
-import donnaSummerville from "@assets/teachers/donna.jpg";
-import annaChitty from "@assets/teachers/anna.png";
-import maryJackson from "@assets/teachers/mary.jpg";
-import eileenSendry from "@assets/teachers/eileen.png";
-import sharonWheeler from "@assets/teachers/sharon.jpg";
+import nancyJoyImage from "@assets/nancy-joy.webp";
+import pearlImage from "@assets/pearl.webp";
+import lineageImage from "@assets/about-lineage.webp";
+import aboutTeachersImage from "@assets/about-teachers.webp";
+import aboutCommunityImage from "@assets/about-community.webp";
+import aboutTrainingImage from "@assets/about-training.webp";
+import placeholderTeacher from "@assets/teachers/placeholder.webp";
+import sobonfu from "@assets/teachers/sobunfu.webp";
+import patriciaWalden from "@assets/teachers/patricia.webp";
+import bksIyengar from "@assets/teachers/iyengar.webp";
+import rositaArvigo from "@assets/teachers/rosita.webp";
+import donnaSummerville from "@assets/teachers/donna.webp";
+import annaChitty from "@assets/teachers/anna.webp";
+import maryJackson from "@assets/teachers/mary.webp";
+import eileenSendry from "@assets/teachers/eileen.webp";
+import sharonWheeler from "@assets/teachers/sharon.webp";
+import { JumpBar } from "@/components/JumpBar";
 
 const ACCENT = "#C850C0";
 
@@ -490,9 +490,22 @@ function renderMobileDetail(key: string): ReactNode {
 export default function AboutPage() {
   const [selectedCard, setSelectedCard] = useState<string>("about-nancy");
 
+  const selectAndScroll = (key: string) => {
+    setSelectedCard(key);
+    // Defer scroll until after the 300ms accordion image transition
+    setTimeout(() => {
+      document.getElementById(key)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 320);
+  };
+
   return (
     <Layout2 inlineNav contentStyle={{ padding: 0 }}>
       <div className="l2-page">
+        <JumpBar
+          items={ABOUT_CARDS.map((c) => ({ id: c.key, label: c.label }))}
+          selectedId={selectedCard}
+          onSelect={selectAndScroll}
+        />
         <div className="l2-layout">
           {/* Card column */}
           <div className="l2-card-col">
@@ -500,10 +513,10 @@ export default function AboutPage() {
               const isActive = selectedCard === key;
 
               return (
-                <div key={key} style={{ marginBottom: 8 }}>
+                <div key={key} id={key} className="l2-card" style={{ marginBottom: 8 }}>
                   {/* Card */}
                   <div
-                    onClick={() => setSelectedCard(key)}
+                    onClick={() => selectAndScroll(key)}
                     style={{
                       border: "1px solid rgba(5,26,28,0.10)",
                       borderLeft: isActive

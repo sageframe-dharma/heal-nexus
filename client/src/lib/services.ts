@@ -1,11 +1,11 @@
-import portraitImage from "@assets/portrait-default.png";
-import doulaImage from "@assets/photo-doula.jpg";
-import birthImage from "@assets/photo-birth.jpg";
-import yogaImage from "@assets/photo-yoga-lg.jpg";
-import ppnImage from "@assets/photo-PPN.png";
-import griefImage from "@assets/photo-grief.png";
-import somaticImage from "@assets/photo-somatic.jpeg";
-import bcstImage from "@assets/photo-bcst.jpg";
+import portraitImage from "@assets/portrait-default.webp";
+import doulaImage from "@assets/photo-doula.webp";
+import birthImage from "@assets/photo-birth.webp";
+import yogaImage from "@assets/photo-yoga-lg.webp";
+import ppnImage from "@assets/photo-PPN.webp";
+import griefImage from "@assets/photo-grief.webp";
+import somaticImage from "@assets/photo-somatic.webp";
+import bcstImage from "@assets/photo-bcst.webp";
 
 export interface ServiceInfo {
   name: string;        // hexagon node label (may contain \n for line breaks)

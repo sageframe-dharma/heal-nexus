@@ -5,7 +5,7 @@ import { NetworkGraph } from "@/components/NetworkGraph";
 import { ServicePanel } from "@/components/ServicePanel";
 import type { ServiceInfo } from "@/lib/services";
 import { SERVICES, portraitImage } from "@/lib/services";
-import bgVideo from "@assets/background.mp4";
+import bgVideo from "@assets/background-mobile.mp4";
 
 const SUBTITLE = "Healing with Presence";
 
@@ -17,7 +17,7 @@ const SERVICE_IMAGE_POSITIONS = SERVICES.map((s) => s.imagePosition);
 function MobileServiceContent({ activeService, isCenterActive, services }: { activeService: string | null; isCenterActive: boolean; services: ServiceInfo[] }) {
   if (isCenterActive && !activeService) {
     return (
-      <div className="overflow-y-auto" style={{ maxHeight: 'calc(45svh - 60px)' }}>
+      <div>
         <h2 className="text-xl font-light text-primary mb-2 leading-snug">Healing with Presence</h2>
         <div className="h-px w-12 bg-primary/20 mb-3" />
         <p className="text-muted-foreground font-light leading-relaxed text-sm">
@@ -44,7 +44,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
   const active = services.find((s) => s.name === activeService);
   if (!active) return null;
   return (
-    <div className="overflow-y-auto" style={{ maxHeight: 'calc(45svh - 60px)' }}>
+    <div>
       <h2 className="text-xl font-light text-primary mb-2 leading-snug">
         {active.label}
       </h2>
@@ -162,7 +162,7 @@ export default function Home() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           className="w-full h-full object-cover pointer-events-none"
           style={{ opacity: 0.22, objectPosition: 'center 10%' }}
         />
@@ -311,7 +311,7 @@ export default function Home() {
         </div>
 
         {/* Mobile: content area fades between views */}
-        <div className="flex md:hidden flex-col items-center h-full pt-6">
+        <div className="flex md:hidden flex-col items-center overflow-y-auto h-full pt-6">
           <AnimatePresence mode="wait">
             {activeView === 'practice' && (
               <motion.div
@@ -320,23 +320,75 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35 }}
-                className="w-full flex-1 min-h-0"
+                className="w-full flex flex-col pb-6"
                 style={{ maxWidth: '400px' }}
               >
-                <NetworkGraph
-                  services={SERVICE_NAMES}
-                  image={portraitImage}
-                  images={SERVICE_IMAGES}
-                  imageScales={SERVICE_IMAGE_SCALES}
-                  imagePositions={SERVICE_IMAGE_POSITIONS}
-                  activeService={effectiveService}
-                  selectedService={selectedNode}
-                  isCenterActive={isCenterActive}
-                  onActiveChange={handleNodeHover}
-                  onSelectChange={handleNodeSelect}
-                  onCenterClick={handleCenterClick}
-                  onCenterHover={handleCenterHover}
-                />
+                {/* Hexagon — fixed height so it's always fully visible; extra 56px clears the bottom node */}
+                <div style={{ height: 'min(58svh, 436px)', flexShrink: 0, width: '100%', paddingLeft: 8, paddingRight: 8 }}>
+                  <NetworkGraph
+                    services={SERVICE_NAMES}
+                    image={portraitImage}
+                    images={SERVICE_IMAGES}
+                    imageScales={SERVICE_IMAGE_SCALES}
+                    imagePositions={SERVICE_IMAGE_POSITIONS}
+                    activeService={effectiveService}
+                    selectedService={selectedNode}
+                    isCenterActive={isCenterActive}
+                    onActiveChange={handleNodeHover}
+                    onSelectChange={handleNodeSelect}
+                    onCenterClick={handleCenterClick}
+                    onCenterHover={handleCenterHover}
+                  />
+                </div>
+                {/* Offerings quick-select bar — only when a service is active */}
+                {(!!effectiveService || isCenterActive) && <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '0 4px', borderBottom: '1px solid rgba(255,255,255,0.18)', marginBottom: 4 }}>
+                  {([
+                    { name: "__center__",                     short: "Presence" },
+                    { name: "Biodynamic Craniosacral Therapy", short: "BCST" },
+                    { name: "Somatic\nTherapy",               short: "Somatics" },
+                    { name: "Yoga Therapy",                   short: "Yoga" },
+                    { name: "Pre- & Perinatal\nPsychology",  short: "PPN" },
+                    { name: "Birth, Doula &\nPostpartum",    short: "Birth" },
+                    { name: "Grief &\nTransitions",          short: "Life" },
+                  ] as { name: string; short: string }[]).map(({ name, short }) => (
+                    <button
+                      key={name}
+                      onClick={e => { e.stopPropagation(); name === "__center__" ? handleCenterClick() : handleNodeSelect(name); }}
+                      style={{
+                        flex: '1 1 0',
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '8px 2px',
+                        fontFamily: 'Montserrat, sans-serif',
+                        fontSize: 10,
+                        fontWeight: 500,
+                        textAlign: 'center',
+                        color: (name === "__center__" ? isCenterActive : selectedNode === name) ? '#C850C0' : 'rgba(255,255,255,0.75)',
+                        transition: 'color 0.15s ease',
+                      }}
+                    >
+                      {short}
+                    </button>
+                  ))}
+                </div>}
+                {/* Content panel appears below the hexagon, not over it */}
+                <AnimatePresence>
+                  {(!!effectiveService || isCenterActive) && (
+                    <motion.div
+                      key="m-practice-panel"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="w-full rounded-2xl px-5 pt-4 pb-6 mt-4"
+                      style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', minHeight: 180 }}
+                      onClick={e => e.stopPropagation()}
+                    >
+                      <MobileServiceContent activeService={effectiveService} isCenterActive={isCenterActive} services={SERVICES} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )}
             {activeView === 'about' && (
@@ -414,25 +466,6 @@ export default function Home() {
           </AnimatePresence>
         </div>
       </div>
-
-      {/* Mobile bottom sheet — services view only */}
-      <AnimatePresence>
-        {activeView === 'practice' && (!!effectiveService || isCenterActive) && (
-          <motion.div
-            key="mobile-panel"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-50 md:hidden rounded-t-2xl px-5 pt-3 pb-6"
-            style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', maxHeight: '45svh' }}
-          >
-            <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-2" />
-            <MobileServiceContent activeService={effectiveService} isCenterActive={isCenterActive} services={SERVICES} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
     </div>
   );
 }
