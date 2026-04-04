@@ -1,5 +1,4 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "wouter";
 import type { ServiceInfo } from "@/lib/services";
 
 export type { ServiceInfo };
@@ -14,7 +13,7 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
   const active = services.find((s) => s.name === activeService);
 
   return (
-    <div className="flex flex-col justify-center h-full px-5 py-6 md:py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+    <div className="flex flex-col justify-start h-full px-5 py-6 md:py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
       <AnimatePresence mode="wait">
         {isCenterActive && !active ? (
           <motion.div
@@ -29,23 +28,8 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             </h2>
             <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
             <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
-              I help people listen to themselves and respond to what they're hearing. People seek support for many reasons — pain, anxiety, preparation for birth, a body carrying more than it can hold, or simply to be understood. I work with what you bring and help create the conditions for you to meet what is ready to happen. You can come with a clear intention for the work you'd like to do or a curiosity to discover it. I draw on deep experience across modalities and collaborate with you to meet what you need most.
+              I work with the body’s own capacity to heal. Through gentle hands-on work, somatic awareness, and deep listening, I help people find relief from pain, resolve held stress and trauma, prepare for birth, and navigate life’s most difficult transitions. Sessions are 60–90 minutes, in person in Cambridge, MA or online. You don’t need to know what you need — that’s my job.
             </p>
-            <Link
-              href="/offerings"
-              style={{
-                display: "inline-block",
-                marginTop: 18,
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#C850C0",
-                textDecoration: "none",
-                letterSpacing: "0.2px",
-              }}
-            >
-              Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
-            </Link>
           </motion.div>
         ) : active ? (
           <motion.div
@@ -62,21 +46,6 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 350 }}>
               {active.description}
             </p>
-            <Link
-              href={`/offerings?card=${encodeURIComponent(active.name)}`}
-              style={{
-                display: "inline-block",
-                marginTop: 18,
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#C850C0",
-                textDecoration: "none",
-                letterSpacing: "0.2px",
-              }}
-            >
-              Learn more →
-            </Link>
           </motion.div>
         ) : (
           <motion.div
@@ -93,21 +62,6 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
             <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80 italic" style={{ fontWeight: 400 }}>
               Click an image to explore, or click the center to see how they connect.
             </p>
-            <Link
-              href="/offerings"
-              style={{
-                display: "inline-block",
-                marginTop: 18,
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: 13,
-                fontWeight: 500,
-                color: "#C850C0",
-                textDecoration: "none",
-                letterSpacing: "0.2px",
-              }}
-            >
-              Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
-            </Link>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "wouter";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import { ServicePanel } from "@/components/ServicePanel";
 import type { ServiceInfo } from "@/lib/services";
 import { SERVICES, portraitImage } from "@/lib/services";
 import bgVideo from "@assets/background-mobile.mp4";
+import nancyJoyImage from "@assets/nancy-joy.webp";
 
 const SUBTITLE = "Healing with Presence";
 
@@ -21,25 +21,8 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         <h2 className="text-xl font-light text-primary mb-2 leading-snug">Healing with Presence</h2>
         <div className="h-px w-12 bg-primary/20 mb-3" />
         <p className="text-muted-foreground font-light leading-relaxed text-sm">
-          I help people listen to themselves and respond to what they're hearing. People seek support for many reasons — pain, anxiety, preparation for birth, a body carrying more than it can hold, or simply to be understood. I work with what you bring and help create the conditions for you to meet what is ready to happen.
+          I work with the body's own capacity to heal. Through gentle hands-on work, somatic awareness, and deep listening, I help people find relief from pain, resolve held stress and trauma, prepare for birth, and navigate life's most difficult transitions. Sessions are 60–90 minutes, in person in Cambridge, MA or online. You don't need to know what you need — that's my job.
         </p>
-        {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-        <Link
-          href="/offerings"
-          style={{
-            display: "inline-block",
-            marginTop: 14,
-            fontFamily: "Montserrat, sans-serif",
-            fontSize: 12,
-            fontWeight: 500,
-            color: "#C850C0",
-            textDecoration: "none",
-            letterSpacing: "0.2px",
-          }}
-        >
-          Click for <span style={{ textDecoration: "underline" }}>detailed offerings</span>
-        </Link>
-        */}
       </div>
     );
   }
@@ -54,26 +37,154 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
       <p className="text-muted-foreground font-light leading-relaxed text-sm">
         {active.description}
       </p>
-      {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-      <Link
-        href={`/offerings?card=${encodeURIComponent(active.name)}`}
-        style={{
-          display: "inline-block",
-          marginTop: 14,
-          fontFamily: "Montserrat, sans-serif",
-          fontSize: 12,
-          fontWeight: 500,
-          color: "#C850C0",
-          textDecoration: "none",
-          letterSpacing: "0.2px",
-        }}
-      >
-        Learn more →
-      </Link>
-      */}
     </div>
   );
 }
+
+// ─── L1 Panel content components ─────────────────────────────────────────────
+
+function AboutContent() {
+  return (
+    <>
+      <img
+        src={nancyJoyImage}
+        alt="Nancy Turnquist"
+        style={{ borderRadius: 12, maxWidth: '100%', marginBottom: 16 }}
+      />
+      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+        Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist in Cambridge, MA. She has been in practice since 2000, with training spanning Iyengar yoga therapeutics, biodynamic craniosacral therapy, somatic trauma resolution, and pre- and perinatal psychology. She studied at the Iyengar Institute in Pune, India, trained with some of the leading practitioners in each of her fields, and brings over two decades of hands-on experience to every session. She also speaks fluent Spanish and works with Spanish-speaking clients.
+      </p>
+    </>
+  );
+}
+
+function SessionsContent() {
+  const handleEmailClick = () => {
+    const user = 'nancyturnquist';
+    const domain = 'gmail.com';
+    window.location.href = `mailto:${user}@${domain}`;
+  };
+
+  return (
+    <>
+      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
+        You don't need to know which modality is right for you. That's my job.
+      </p>
+      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80 mt-3" style={{ fontWeight: 550 }}>
+        Sessions are 60–90 minutes, in person at Nancy's treatment space in Cambridge, MA or online. Most work happens on a massage table, where you remain fully clothed, using gentle, listening touch — though sessions may also include seated or standing work, breath, and movement. Online sessions are especially effective for somatic and pre- and perinatal work. Some people come weekly, some come when something is up. There's no prescribed schedule.
+      </p>
+
+      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 400, marginTop: 24, marginBottom: 8, color: '#1a1a1a' }}>
+        New Client Forms
+      </h3>
+      <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
+      <p className="text-[0.9rem] opacity-80 mb-3" style={{ fontWeight: 550 }}>
+        After your initial conversation with Nancy, new clients are asked to complete an intake form before the first session.
+      </p>
+      <div className="flex flex-col gap-1">
+        <a href="#" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Client Intake &amp; Consent Form</a>
+        <a href="#" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Adult Release of Liability &amp; Informed Consent</a>
+        <a href="#" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Minor Release of Liability &amp; Informed Consent</a>
+      </div>
+
+      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 400, marginTop: 24, marginBottom: 8, color: '#1a1a1a' }}>
+        Contact
+      </h3>
+      <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
+      <div className="flex flex-col gap-1.5 text-[0.9rem]" style={{ fontWeight: 550 }}>
+        <a href="tel:6179020849" style={{ color: '#C850C0', textDecoration: 'none' }}>(617) 902-0849</a>
+        <button
+          onClick={handleEmailClick}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, textAlign: 'left', color: '#C850C0', fontSize: '0.9rem', fontWeight: 500 }}
+        >
+          Email Nancy
+        </button>
+        <span style={{ color: '#5a5a60' }}>In person: Cambridge, MA</span>
+        <span style={{ color: '#5a5a60' }}>Online: Everywhere</span>
+      </div>
+    </>
+  );
+}
+
+interface MentorItem { name: string; href?: string; body: string; }
+interface ResourceLinkItem { name: string; href: string; description: string; }
+interface ResourceGroupItem { heading: string; links: ResourceLinkItem[]; }
+
+const L1_MENTORS: MentorItem[] = [
+  { name: "Sobonfu Somé (1960–2017)", href: "https://www.sobonfu.com", body: "West African teacher of grief ritual, relationship, and community. Nancy attended grief and relationship rituals with Sobonfu from 2006 until her death. Sobonfu performed a private healing ritual for Nancy on the first anniversary of her daughter Ada's death. This lineage of communal grief work — the understanding that grief needs ritual, that it is inseparable from love, that it belongs to the community and not just the individual — runs through everything Nancy does." },
+  { name: "Anna Chitty", href: "https://www.energyschool.com/about", body: "Nancy's BCST and Blueprint Resonance teacher. Founder of the Colorado School of Energy Studies with her late husband John. Lifetime Achievement Award from the Biodynamic Craniosacral Therapy Association of North America. Over 40 years at the intersection of craniosacral therapy, polarity, and somatic work." },
+  { name: "Mary Jackson", href: "https://birthinconnection.com/", body: "Home birth midwife since 1975. Over 2,500 births. Co-teacher of the Castellino Foundation Training. Integrated PPN and craniosacral work into her midwifery practice." },
+  { name: "Kathy Kain", href: "https://somaticpractice.net/", body: "Nancy's foundational somatic teacher. Senior trainer in Somatic Experiencing. Over 40 years practicing and teaching bodywork and trauma recovery. Author of Nurturing Resilience and The Tao of Trauma." },
+  { name: "Patricia Walden", href: "https://www.patriciawaldenyoga.com/", body: "Nancy's yoga teacher for over twelve years. One of BKS Iyengar's most senior students worldwide. Nancy assisted Patricia 2–3 times per week, learning hands-on adjustment, nervous system tracking, and the depth of the Iyengar therapeutic tradition through daily practice and feedback." },
+  { name: "BKS Iyengar (1918–2014)", href: "https://bksiyengar.com/", body: "Founder of Iyengar yoga. Nancy studied directly with him and his children Geeta and Prashant at the Ramamani Iyengar Memorial Yoga Institute in Pune, India." },
+  { name: "Tami Lynn Kent", href: "https://www.wildfeminine.com/", body: "Author of Wild Feminine and Wild Creative. Holistic pelvic care practitioner whose work on the female body as a creative center informs Nancy's approach to birth, postpartum, and women's health." },
+  { name: "Rosita Arvigo", href: "https://rositaarvigo.com/", body: "Naprapathic physician, herbalist, founder of the Arvigo Techniques of Maya Abdominal Therapy. Nancy trained in both spiritual healing and abdominal massage with Rosita." },
+];
+
+const L1_RESOURCE_GROUPS: ResourceGroupItem[] = [
+  { heading: "Craniosacral Therapy", links: [
+    { name: "Biodynamic Craniosacral Therapy Association of North America", href: "https://www.craniosacraltherapy.org/", description: "professional association and practitioner directory" },
+    { name: "Colorado School of Energy Studies", href: "https://www.energyschool.com/", description: "BCST, polarity, and verbal skills training; articles and handouts freely available" },
+  ]},
+  { heading: "Somatic Therapy", links: [
+    { name: "Somatic Practice — Kathy Kain", href: "https://somaticpractice.net/", description: "training in touch for trauma resolution" },
+    { name: "Co-Regulating Touch Directory", href: "https://coregulatingtouch.com/", description: "practitioner directory for co-regulating touch approaches" },
+  ]},
+  { heading: "Yoga", links: [
+    { name: "IYNAUS", href: "https://iynaus.org/", description: "Iyengar Yoga National Association of the United States — national association, teacher directory, certification" },
+    { name: "International Association of Yoga Therapists (IAYT)", href: "https://www.iayt.org/", description: "credentialing body for yoga therapy" },
+  ]},
+  { heading: "Pre- & Perinatal", links: [
+    { name: "Castellino Training", href: "https://castellinotraining.com/", description: "prenatal and birth therapy training" },
+    { name: "BEBA", href: "https://beba.org/", description: "Building and Enhancing Bonding and Attachment — family clinic for prenatal, birth, and early trauma" },
+    { name: "APPPAH", href: "https://birthpsychology.com/", description: "Association for Prenatal and Perinatal Psychology and Health — professional association for the PPN field" },
+  ]},
+  { heading: "Birth & Postpartum", links: [
+    { name: "Body Ready Method", href: "https://bodyreadymethod.com/", description: "evidence-based preparation for birth" },
+    { name: "La Matrona", href: "https://www.lamatrona.com/", description: "holistic doula and midwifery training" },
+    { name: "Innate Postpartum Care", href: "https://www.innatepostpartumcare.com/", description: "fourth-trimester support model" },
+  ]},
+];
+
+function ResourcesContent() {
+  return (
+    <>
+      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 400, marginBottom: 8, color: '#1a1a1a' }}>Mentors</h3>
+      <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
+      <p className="text-[0.9rem] opacity-80 mb-4" style={{ fontWeight: 550 }}>
+        These people shaped me. Everything I offer was first offered to me — through their hands, their attention, their willingness to teach. I carry their work with gratitude.
+      </p>
+      {L1_MENTORS.map((m) => (
+        <div key={m.name} style={{ marginBottom: 20 }}>
+          <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', fontWeight: 600, marginBottom: 4 }}>
+            {m.href
+              ? <a href={m.href} target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none' }}>{m.name}</a>
+              : <span style={{ color: '#C850C0' }}>{m.name}</span>
+            }
+          </p>
+          <p className="text-[0.85rem] opacity-80" style={{ fontWeight: 550 }}>{m.body}</p>
+        </div>
+      ))}
+
+      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 400, marginTop: 8, marginBottom: 8, color: '#1a1a1a' }}>Resources</h3>
+      <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
+      {L1_RESOURCE_GROUPS.map((group) => (
+        <div key={group.heading} style={{ marginBottom: 20 }}>
+          <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', fontWeight: 600, marginBottom: 6, color: '#1a1a1a' }}>{group.heading}</p>
+          {group.links.map((link) => (
+            <p key={link.href} className="text-[0.85rem] opacity-80 mb-2" style={{ fontWeight: 550 }}>
+              <a href={link.href} target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none' }}>{link.name}</a>
+              {" — "}
+              {link.description}
+            </p>
+          ))}
+        </div>
+      ))}
+    </>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
@@ -249,20 +360,10 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
                     <h2 className="text-2xl md:text-3xl font-light mb-3">About Nancy</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
-                    <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
-                      Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist with over two decades of experience in Cambridge, MA.
-                    </p>
-                    {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-                    <Link
-                      href="/about"
-                      style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
-                    >
-                      Learn more about Nancy →
-                    </Link>
-                    */}
+                    <AboutContent />
                   </div>
                 </motion.div>
               )}
@@ -274,20 +375,10 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
                     <h2 className="text-2xl md:text-3xl font-light mb-3">Working Together</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
-                    <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
-                      Nancy sees clients in person at her Cambridge treatment space and online. Sessions are typically 60 to 90 minutes. You don't need to know which modality is right for you — that's her job.
-                    </p>
-                    {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-                    <Link
-                      href="/sessions"
-                      style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
-                    >
-                      Learn more about sessions →
-                    </Link>
-                    */}
+                    <SessionsContent />
                   </div>
                 </motion.div>
               )}
@@ -299,20 +390,10 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
                     <h2 className="text-2xl md:text-3xl font-light mb-3">Resources</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
-                    <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 550 }}>
-                      Explore Nancy's lineage and training traditions, resources related to her offerings, and deeper materials for current clients.
-                    </p>
-                    {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-                    <Link
-                      href="/resources"
-                      style={{ display: 'inline-block', marginTop: 16, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
-                    >
-                      Explore resources →
-                    </Link>
-                    */}
+                    <ResourcesContent />
                   </div>
                 </motion.div>
               )}
@@ -413,17 +494,7 @@ export default function Home() {
                 <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
                   <h2 className="text-xl font-light mb-2">About Nancy</h2>
                   <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
-                  <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
-                    Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist with over two decades of experience in Cambridge, MA.
-                  </p>
-                  {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-                  <Link
-                    href="/about"
-                    style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
-                  >
-                    Learn more about Nancy →
-                  </Link>
-                  */}
+                  <AboutContent />
                 </div>
               </motion.div>
             )}
@@ -439,17 +510,7 @@ export default function Home() {
                 <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
                   <h2 className="text-xl font-light mb-2">Working Together</h2>
                   <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
-                  <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
-                    Nancy sees clients in person at her Cambridge treatment space and online. Sessions are typically 60 to 90 minutes. You don't need to know which modality is right for you — that's her job.
-                  </p>
-                  {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-                  <Link
-                    href="/sessions"
-                    style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
-                  >
-                    Learn more about sessions →
-                  </Link>
-                  */}
+                  <SessionsContent />
                 </div>
               </motion.div>
             )}
@@ -465,17 +526,7 @@ export default function Home() {
                 <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
                   <h2 className="text-xl font-light mb-2">Resources</h2>
                   <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
-                  <p className="leading-relaxed text-sm opacity-80" style={{ fontWeight: 550 }}>
-                    Explore Nancy's lineage and training traditions, resources related to her offerings, and deeper materials for current clients.
-                  </p>
-                  {/* DISABLED: L1→L2 link removed — re-enable when navigation is restored
-                  <Link
-                    href="/resources"
-                    style={{ display: 'inline-block', marginTop: 14, fontFamily: 'Montserrat, sans-serif', fontSize: 13, fontWeight: 500, color: '#C850C0', textDecoration: 'none', letterSpacing: '0.2px' }}
-                  >
-                    Explore resources →
-                  </Link>
-                  */}
+                  <ResourcesContent />
                 </div>
               </motion.div>
             )}
