@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Layout2 } from "@/components/Layout2";
-import treatmentRoomImage from "@assets/session-treatment-room.png";
-import treatmentImage from "@assets/session-treatment.jpg";
+import treatmentRoomImage from "@assets/session-treatment-room.webp";
+import treatmentImage from "@assets/session-treatment.webp";
 
 const SESSION_PARAGRAPHS = [
   "You don't need to know which modality is right for you. That's my job.",
