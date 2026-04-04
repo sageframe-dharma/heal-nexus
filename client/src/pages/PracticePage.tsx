@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useSearch } from "wouter";
 import { Layout2 } from "@/components/Layout2";
 import { SERVICES } from "@/lib/services";
-import waterImage from "@assets/water.png";
+import waterImage from "@assets/water.webp";
+import { JumpBar } from "@/components/JumpBar";
 
 const ACCENT = "#C850C0";
 const OFFERINGS_KEY = "__offerings__";
@@ -31,6 +32,17 @@ function getDetail(key: string): { title: string; paragraphs: string[] } | null 
   return { title: svc.label, paragraphs: (svc.experienceText || svc.description).split("\n\n") };
 }
 
+// Short labels for the mobile jump bar (service keys contain \n chars)
+const JUMP_BAR_LABELS: Record<string, string> = {
+  [OFFERINGS_KEY]:                 "Offerings",
+  "Biodynamic Craniosacral Therapy": "BCST",
+  "Somatic\nTherapy":              "Somatics",
+  "Yoga Therapy":                  "Yoga",
+  "Pre- & Perinatal\nPsychology":  "PPN",
+  "Birth, Doula &\nPostpartum":    "Birth",
+  "Grief &\nTransitions":          "Life",
+};
+
 export default function PracticePage() {
   const search = useSearch();
   const cardParam = new URLSearchParams(search).get("card");
@@ -43,11 +55,20 @@ export default function PracticePage() {
 
   const handleCardClick = (key: string) => {
     setSelectedCard(key);
+    // Defer scroll until after the 300ms accordion image transition
+    setTimeout(() => {
+      document.getElementById(key)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 320);
   };
 
   return (
     <Layout2 inlineNav contentStyle={{ padding: 0 }}>
       <div className="l2-page">
+        <JumpBar
+          items={ALL_CARDS.map((c) => ({ id: c.key, label: JUMP_BAR_LABELS[c.key] ?? c.label }))}
+          selectedId={selectedCard}
+          onSelect={handleCardClick}
+        />
         <div className="l2-layout">
           {/* Card column */}
           <div className="l2-card-col">
@@ -56,7 +77,7 @@ export default function PracticePage() {
               const cardDetail = getDetail(key);
 
               return (
-                <div key={key} style={{ marginBottom: 8 }}>
+                <div key={key} id={key} className="l2-card" style={{ marginBottom: 8 }}>
                   {/* Card: label on top, image sliver below */}
                   <div
                     onClick={() => handleCardClick(key)}

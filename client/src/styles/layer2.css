@@ -311,3 +311,54 @@
 .l2-contact-link:hover {
   text-decoration: underline;
 }
+
+/* ─── Jump bar (mobile-only, card pages) ─────────────────────────────────── */
+
+/* Hide entirely on desktop */
+@media (min-width: 768px) {
+  .l2-jump-bar { display: none; }
+}
+
+@media (max-width: 767px) {
+  .l2-jump-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #f5f2ed;
+    border-bottom: 1px solid rgba(5, 26, 28, 0.1);
+    /* Bleed edge-to-edge beyond the 16px page padding */
+    margin: 0 -16px;
+  }
+
+  .l2-jump-bar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 8px;
+  }
+
+  .l2-jump-bar-btn {
+    flex: 1 1 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: #5a5a60;
+    letter-spacing: 0.1px;
+    text-align: center;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+  }
+
+  .l2-jump-bar-btn--active {
+    color: #C850C0;
+  }
+
+  /* Scroll-margin so sticky nav + jump bar don't cover the card top */
+  .l2-card {
+    scroll-margin-top: 96px;
+  }
+}

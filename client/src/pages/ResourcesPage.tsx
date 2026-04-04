@@ -1,9 +1,10 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { Layout2 } from "@/components/Layout2";
-import resourcesMentorsImage from "@assets/resources-mentors.jpg";
-import resourcesResourcesImage from "@assets/resources-resources.jpg";
-import resourcesClientImage from "@assets/resources-client.png";
+import resourcesMentorsImage from "@assets/resources-mentors.webp";
+import resourcesResourcesImage from "@assets/resources-resources.webp";
+import resourcesClientImage from "@assets/resources-client.webp";
+import { JumpBar } from "@/components/JumpBar";
 
 const ACCENT = "#C850C0";
 
@@ -283,18 +284,31 @@ function renderMobileDetail(key: string): ReactNode {
 export default function ResourcesPage() {
   const [selectedCard, setSelectedCard] = useState<string>("mentors");
 
+  const selectAndScroll = (key: string) => {
+    setSelectedCard(key);
+    // Defer scroll until after the 300ms accordion image transition
+    setTimeout(() => {
+      document.getElementById(key)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 320);
+  };
+
   return (
     <Layout2 inlineNav contentStyle={{ padding: 0 }}>
       <div className="l2-page">
+        <JumpBar
+          items={RESOURCE_CARDS.map((c) => ({ id: c.key, label: c.label }))}
+          selectedId={selectedCard}
+          onSelect={selectAndScroll}
+        />
         <div className="l2-layout">
           {/* Card column */}
           <div className="l2-card-col">
             {RESOURCE_CARDS.map(({ key, label, image }) => {
               const isActive = selectedCard === key;
               return (
-                <div key={key} style={{ marginBottom: 8 }}>
+                <div key={key} id={key} className="l2-card" style={{ marginBottom: 8 }}>
                   <div
-                    onClick={() => setSelectedCard(key)}
+                    onClick={() => selectAndScroll(key)}
                     style={{
                       border: "1px solid rgba(5,26,28,0.10)",
                       borderLeft: isActive ? `3px solid ${ACCENT}` : "1px solid rgba(5,26,28,0.10)",
