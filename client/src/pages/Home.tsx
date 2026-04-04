@@ -119,20 +119,8 @@ function SessionsContent() {
   );
 }
 
-interface MentorItem { name: string; href?: string; body: string; }
 interface ResourceLinkItem { name: string; href: string; description: string; }
 interface ResourceGroupItem { heading: string; links: ResourceLinkItem[]; }
-
-const L1_MENTORS: MentorItem[] = [
-  { name: "Sobonfu Somé (1960–2017)", href: "https://www.sobonfu.com", body: "West African teacher of grief ritual, relationship, and community. Nancy attended grief and relationship rituals with Sobonfu from 2006 until her death. Sobonfu performed a private healing ritual for Nancy on the first anniversary of her daughter Ada's death. This lineage of communal grief work — the understanding that grief needs ritual, that it is inseparable from love, that it belongs to the community and not just the individual — runs through everything Nancy does." },
-  { name: "Anna Chitty", href: "https://www.energyschool.com/about", body: "Nancy's BCST and Blueprint Resonance teacher. Founder of the Colorado School of Energy Studies with her late husband John. Lifetime Achievement Award from the Biodynamic Craniosacral Therapy Association of North America. Over 40 years at the intersection of craniosacral therapy, polarity, and somatic work." },
-  { name: "Mary Jackson", href: "https://birthinconnection.com/", body: "Home birth midwife since 1975. Over 2,500 births. Co-teacher of the Castellino Foundation Training. Integrated PPN and craniosacral work into her midwifery practice." },
-  { name: "Kathy Kain", href: "https://somaticpractice.net/", body: "Nancy's foundational somatic teacher. Senior trainer in Somatic Experiencing. Over 40 years practicing and teaching bodywork and trauma recovery. Author of Nurturing Resilience and The Tao of Trauma." },
-  { name: "Patricia Walden", href: "https://www.patriciawaldenyoga.com/", body: "Nancy's yoga teacher for over twelve years. One of BKS Iyengar's most senior students worldwide. Nancy assisted Patricia 2–3 times per week, learning hands-on adjustment, nervous system tracking, and the depth of the Iyengar therapeutic tradition through daily practice and feedback." },
-  { name: "BKS Iyengar (1918–2014)", href: "https://bksiyengar.com/", body: "Founder of Iyengar yoga. Nancy studied directly with him and his children Geeta and Prashant at the Ramamani Iyengar Memorial Yoga Institute in Pune, India." },
-  { name: "Tami Lynn Kent", href: "https://www.wildfeminine.com/", body: "Author of Wild Feminine and Wild Creative. Holistic pelvic care practitioner whose work on the female body as a creative center informs Nancy's approach to birth, postpartum, and women's health." },
-  { name: "Rosita Arvigo", href: "https://rositaarvigo.com/", body: "Naprapathic physician, herbalist, founder of the Arvigo Techniques of Maya Abdominal Therapy. Nancy trained in both spiritual healing and abdominal massage with Rosita." },
-];
 
 const L1_RESOURCE_GROUPS: ResourceGroupItem[] = [
   { heading: "Craniosacral Therapy", links: [
@@ -162,24 +150,7 @@ const L1_RESOURCE_GROUPS: ResourceGroupItem[] = [
 function ResourcesContent() {
   return (
     <>
-      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 400, marginBottom: 8, color: '#1a1a1a' }}>Mentors</h3>
-      <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
-      <p className="text-[0.9rem] opacity-80 mb-4" style={{ fontWeight: 400 }}>
-        These people shaped me. Everything I offer was first offered to me — through their hands, their attention, their willingness to teach. I carry their work with gratitude.
-      </p>
-      {L1_MENTORS.map((m) => (
-        <div key={m.name} style={{ marginBottom: 20 }}>
-          <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', fontWeight: 600, marginBottom: 4 }}>
-            {m.href
-              ? <a href={m.href} target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none' }}>{m.name}</a>
-              : <span style={{ color: '#C850C0' }}>{m.name}</span>
-            }
-          </p>
-          <p className="text-[0.85rem] opacity-80" style={{ fontWeight: 400 }}>{m.body}</p>
-        </div>
-      ))}
-
-      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 400, marginTop: 8, marginBottom: 8, color: '#1a1a1a' }}>Resources</h3>
+      <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 22, fontWeight: 400, marginBottom: 8, color: '#1a1a1a' }}>Resources</h3>
       <div className="h-px w-12 mb-3" style={{ background: '#C850C0' }} />
       {L1_RESOURCE_GROUPS.map((group) => (
         <div key={group.heading} style={{ marginBottom: 20 }}>
