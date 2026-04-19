@@ -21,7 +21,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
         <h2 className="text-xl font-light text-primary mb-2 leading-snug">Healing with Presence</h2>
         <div className="h-px w-12 bg-primary/20 mb-3" />
         <p className="text-muted-foreground font-light leading-relaxed text-sm">
-          I work with the body's own capacity to heal. Through gentle hands-on work, somatic awareness, and deep listening, I help people find relief from pain, resolve held stress and trauma, prepare for birth, and navigate life's most difficult transitions. Sessions are 60–90 minutes, in person in Cambridge, MA or online. You don't need to know what you need — that's my job.
+          I work with the body's own capacity to heal. Through gentle hands-on work, somatic awareness, and deep listening, I help people find relief from pain, resolve held stress and trauma, prepare for birth, and navigate life's most difficult transitions. Sessions are 60–90 minutes, in person in Cambridge, MA or online.
         </p>
       </div>
     );
@@ -67,9 +67,6 @@ function SessionsContent() {
 
   return (
     <>
-      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 400 }}>
-        You don't need to know which modality is right for you. That's my job.
-      </p>
       <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80 mt-3" style={{ fontWeight: 400 }}>
         Sessions are 60–90 minutes, in person at Nancy's treatment space in Cambridge, MA or online. Most work happens on a massage table, where you remain fully clothed, using gentle, listening touch — though sessions may also include seated or standing work, breath, and movement. Online sessions are especially effective for somatic and pre- and perinatal work. Some people come weekly, some come when something is up. There's no prescribed schedule.
       </p>
