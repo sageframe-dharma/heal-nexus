@@ -67,7 +67,7 @@ export function ServiceNode({
       onClick={(e) => { e.stopPropagation(); onSelect(service); }}
       data-testid={`node-${service}`}
     >
-      <div className="relative w-24 h-24 rounded-full overflow-hidden border-0">
+      <div className="relative w-24 h-24 rounded-full overflow-hidden border-0" style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}>
         <motion.img
           src={image}
           alt={service}
