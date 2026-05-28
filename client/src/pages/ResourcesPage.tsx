@@ -42,7 +42,7 @@ const MENTORS: Mentor[] = [
   {
     name: "Sobonfu Somé (1960–2017)",
     href: "https://www.sobonfu.com",
-    body: "West African teacher of grief ritual, relationship, and community. Nancy attended grief and relationship rituals with Sobonfu from 2006 until her death. Sobonfu performed a private healing ritual for Nancy on the first anniversary of her daughter Ada's death. This lineage of communal grief work — the understanding that grief needs ritual, that it is inseparable from love, that it belongs to the community and not just the individual — runs through everything Nancy does.",
+    body: "West African teacher of grief ritual, relationship, and community. Nancy attended grief and relationship rituals with Sobonfu from 2006 until her death. Sobonfu performed a private healing ritual for Nancy on the first anniversary of her daughter Ada's death. This lineage of communal grief work—the understanding that grief needs ritual, that it is inseparable from love, that it belongs to the community and not just the individual—runs through everything Nancy does.",
   },
   {
     name: "Anna Chitty",
@@ -97,14 +97,14 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
   {
     heading: "Somatic Therapy",
     links: [
-      { name: "Somatic Practice — Kathy Kain", href: "https://somaticpractice.net/", description: "training in touch for trauma resolution" },
+      { name: "Somatic Practice—Kathy Kain", href: "https://somaticpractice.net/", description: "training in touch for trauma resolution" },
       { name: "Co-Regulating Touch Directory", href: "https://coregulatingtouch.com/", description: "practitioner directory for co-regulating touch approaches" },
     ],
   },
   {
     heading: "Yoga",
     links: [
-      { name: "IYNAUS", href: "https://iynaus.org/", description: "Iyengar Yoga National Association of the United States — national association, teacher directory, certification" },
+      { name: "IYNAUS", href: "https://iynaus.org/", description: "Iyengar Yoga National Association of the United States—national association, teacher directory, certification" },
       { name: "International Association of Yoga Therapists (IAYT)", href: "https://www.iayt.org/", description: "credentialing body for yoga therapy" },
     ],
   },
@@ -112,8 +112,8 @@ const RESOURCE_GROUPS: ResourceGroup[] = [
     heading: "Pre- & Perinatal",
     links: [
       { name: "Castellino Training", href: "https://castellinotraining.com/", description: "prenatal and birth therapy training" },
-      { name: "BEBA", href: "https://beba.org/", description: "Building and Enhancing Bonding and Attachment — family clinic for prenatal, birth, and early trauma" },
-      { name: "APPPAH", href: "https://birthpsychology.com/", description: "Association for Prenatal and Perinatal Psychology and Health — professional association for the PPN field" },
+      { name: "BEBA", href: "https://beba.org/", description: "Building and Enhancing Bonding and Attachment—family clinic for prenatal, birth, and early trauma" },
+      { name: "APPPAH", href: "https://birthpsychology.com/", description: "Association for Prenatal and Perinatal Psychology and Health—professional association for the PPN field" },
     ],
   },
   {
@@ -133,7 +133,7 @@ function MentorsDetail() {
     <>
       <h2 className="l2-detail-heading">Mentors</h2>
       <hr className="l2-divider" />
-      <p className="l2-body" style={{ marginBottom: 28 }}>These people shaped me. Everything I offer was first offered to me — through their hands, their attention, their willingness to teach. I carry their work with gratitude.</p>
+      <p className="l2-body" style={{ marginBottom: 28 }}>These people shaped me. Everything I offer was first offered to me—through their hands, their attention, their willingness to teach. I carry their work with gratitude.</p>
       {MENTORS.map((m) => (
         <div key={m.name} style={{ marginBottom: 28 }}>
           <h3 className="l2-subheading">
@@ -157,7 +157,7 @@ function ResourcesDetail() {
           {group.links.map((link) => (
             <p key={link.href} className="l2-body" style={{ marginBottom: 10 }}>
               <L href={link.href}>{link.name}</L>
-              {" — "}
+              {"—"}
               {link.description}
             </p>
           ))}

@@ -5,12 +5,12 @@ import treatmentImage from "@assets/session-treatment.webp";
 
 const SESSION_PARAGRAPHS = [
   "You don't need to know which modality is right for you. That's my job.",
-  "When we begin working together, we start with a conversation — what's happening in your body, what brought you here, what you're noticing. This might take ten minutes or most of the session, depending on what's needed. Some people arrive knowing exactly what they want to work on. Others aren't sure yet. Both are fine.",
-  "For in-person sessions, I work from a treatment space in my home in Cambridge, MA. It's a quiet, private room. Most hands-on work happens on a massage table — you remain fully clothed and comfortable. I may work at your head, your feet, your sacrum, your belly, or wherever your system draws attention. The touch ranges from very still and light (craniosacral work) to more engaged (somatic or bodywork), depending on what's called for. We may also work seated, standing, or with gentle movement if that's what your body needs.",
-  "I also see people online, and this work can be surprisingly powerful — especially somatic therapy and pre- and perinatal work. Online sessions use guided awareness, breath, movement, and verbal processing. You don't need a treatment table. You need a quiet space where you feel safe, and a willingness to pay attention to what's happening inside.",
+  "When we begin working together, we start with a conversation—what's happening in your body, what brought you here, what you're noticing. This might take ten minutes or most of the session, depending on what's needed. Some people arrive knowing exactly what they want to work on. Others aren't sure yet. Both are fine.",
+  "For in-person sessions, I work from a treatment space in my home in Cambridge, MA. It's a quiet, private room. Most hands-on work happens on a massage table—you remain fully clothed and comfortable. I may work at your head, your feet, your sacrum, your belly, or wherever your system draws attention. The touch ranges from very still and light (craniosacral work) to more engaged (somatic or bodywork), depending on what's called for. We may also work seated, standing, or with gentle movement if that's what your body needs.",
+  "I also see people online, and this work can be surprisingly powerful—especially somatic therapy and pre- and perinatal work. Online sessions use guided awareness, breath, movement, and verbal processing. You don't need a treatment table. You need a quiet space where you feel safe, and a willingness to pay attention to what's happening inside.",
   "Whether in person or online, a session might involve hands-on craniosacral work, somatic awareness, breath, movement, energy work, or simply slowing down enough for you to feel what's actually there. Often it involves several of these, because your body doesn't organize itself into categories and neither do I.",
-  "Sessions are typically 60 to 90 minutes. Some people come weekly. Some come when something is up. There's no prescribed schedule — we find the rhythm that works for you.",
-  "What most people notice first is that they feel heard in a way they haven't before — not just listened to, but perceived. The body responds to that kind of attention. Things start to move that have been stuck. Pain shifts. Sleep changes. Old patterns lose their grip.",
+  "Sessions are typically 60 to 90 minutes. Some people come weekly. Some come when something is up. There's no prescribed schedule—we find the rhythm that works for you.",
+  "What most people notice first is that they feel heard in a way they haven't before—not just listened to, but perceived. The body responds to that kind of attention. Things start to move that have been stuck. Pain shifts. Sleep changes. Old patterns lose their grip.",
   "I don't promise outcomes and I don't have an agenda for yours. I meet what is ready to happen and I support you in responding to your own knowing.",
 ];
 
@@ -46,7 +46,7 @@ export default function SessionsPage() {
         <div className="l2-single-column">
           <div className="l2-single-col">
 
-          {/* Section 1 — Hero banner */}
+          {/* Section 1—Hero banner */}
           <section>
             <img
               src={treatmentRoomImage as string}
@@ -55,7 +55,7 @@ export default function SessionsPage() {
             />
           </section>
 
-          {/* Section 2 — What a Session Looks Like */}
+          {/* Section 2—What a Session Looks Like */}
           <section>
             <h2 className="l2-detail-heading">What a Session Looks Like</h2>
             <hr className="l2-divider" />
@@ -64,7 +64,7 @@ export default function SessionsPage() {
             ))}
           </section>
 
-          {/* Section 3 — Treatment photo */}
+          {/* Section 3—Treatment photo */}
           <section>
             <img
               src={treatmentImage as string}
@@ -73,7 +73,7 @@ export default function SessionsPage() {
             />
           </section>
 
-          {/* Section 4 — Get in Touch / JotForm */}
+          {/* Section 4—Get in Touch / JotForm */}
           <section>
             <h2 className="l2-detail-heading">Get in Touch</h2>
             <hr className="l2-divider" />
@@ -93,7 +93,7 @@ export default function SessionsPage() {
             </div>
           </section>
 
-          {/* Section 5 — New Client Forms */}
+          {/* Section 5—New Client Forms */}
           <section>
             <h2 className="l2-detail-heading">New Client Forms</h2>
             <hr className="l2-divider" />
@@ -117,7 +117,7 @@ export default function SessionsPage() {
             </div>
           </section>
 
-          {/* Section 6 — Contact */}
+          {/* Section 6—Contact */}
           <section>
             <h2 className="l2-detail-heading">Contact</h2>
             <hr className="l2-divider" />

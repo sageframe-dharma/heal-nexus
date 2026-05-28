@@ -6,6 +6,7 @@ import type { ServiceInfo } from "@/lib/services";
 import { SERVICES, portraitImage } from "@/lib/services";
 import bgVideo from "@assets/background-mobile.mp4";
 import nancyJoyImage from "@assets/nancy-joy.webp";
+import treatmentRoomImage from "@assets/session-treatment-room.webp";
 
 const SUBTITLE = "Healing with Presence";
 
@@ -43,7 +44,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
 
 // ─── L1 Panel content components ─────────────────────────────────────────────
 
-function AboutContent() {
+function AboutContent({ onResourcesClick }: { onResourcesClick: () => void }) {
   return (
     <>
       <img
@@ -52,7 +53,14 @@ function AboutContent() {
         style={{ borderRadius: 12, maxWidth: '100%', marginBottom: 16 }}
       />
       <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 400 }}>
-        Nancy Turnquist is a somatic therapist, craniosacral practitioner, yoga therapist, and birth support specialist in Cambridge, MA. She has been in practice since 2000, with training spanning Iyengar yoga therapeutics, biodynamic craniosacral therapy, somatic trauma resolution, and pre- and perinatal psychology. She studied at the Iyengar Institute in Pune, India, trained with some of the leading practitioners in each of her fields, and brings over two decades of hands-on experience to every session. She also speaks fluent Spanish and works with Spanish-speaking clients.
+        Nancy Turnquist (RCST, C-IAYT) is a holistic healing practitioner. She has been in practice since 2000. The modalities she works with include Biodynamic Cranio Sacral Therapy (BCST), Yoga Therapy, somatic trauma resolution, pre and perinatal psychology, and birth and life transition support. She studied at the Iyengar Institute in Pune, India and has trained with some of the leading practitioners in each of her fields (see the{" "}
+        <button
+          onClick={onResourcesClick}
+          style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: '#C850C0', fontSize: 'inherit', fontWeight: 500, textDecoration: 'underline' }}
+        >
+          Resources &amp; Lineage
+        </button>
+        {" "}page). Nancy brings over two decades of hands-on experience to every session. She also speaks fluent Spanish and works with Spanish-speaking clients.
       </p>
     </>
   );
@@ -68,8 +76,14 @@ function SessionsContent() {
   return (
     <>
       <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80 mt-3" style={{ fontWeight: 400 }}>
-        Sessions are 60–90 minutes, in person at Nancy's treatment space in Cambridge, MA or online. Most work happens on a massage table, where you remain fully clothed, using gentle, listening touch — though sessions may also include seated or standing work, breath, and movement. Online sessions are especially effective for somatic and pre- and perinatal work. Some people come weekly, some come when something is up. There's no prescribed schedule.
+        Sessions are 60–90 minutes, in person at Nancy's treatment space in Cambridge, MA or online. Most work happens on a massage table, where you remain fully clothed, using gentle, listening touch—though sessions may also include seated or standing work, breath, and movement. Online sessions can be very effective for most of the modalities that I work with.
       </p>
+
+      <img
+        src={treatmentRoomImage as string}
+        alt="Nancy's treatment room"
+        style={{ width: '100%', borderRadius: 10, marginTop: 20, marginBottom: 4, objectFit: 'cover' }}
+      />
 
       <h3 style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: 20, fontWeight: 400, marginTop: 24, marginBottom: 8, color: '#1a1a1a' }}>
         Contact Form
@@ -125,17 +139,17 @@ const L1_RESOURCE_GROUPS: ResourceGroupItem[] = [
     { name: "Colorado School of Energy Studies", href: "https://www.energyschool.com/", description: "BCST, polarity, and verbal skills training; articles and handouts freely available" },
   ]},
   { heading: "Somatic Therapy", links: [
-    { name: "Somatic Practice — Kathy Kain", href: "https://somaticpractice.net/", description: "training in touch for trauma resolution" },
+    { name: "Somatic Practice—Kathy Kain", href: "https://somaticpractice.net/", description: "training in touch for trauma resolution" },
     { name: "Co-Regulating Touch Directory", href: "https://coregulatingtouch.com/", description: "practitioner directory for co-regulating touch approaches" },
   ]},
   { heading: "Yoga", links: [
-    { name: "IYNAUS", href: "https://iynaus.org/", description: "Iyengar Yoga National Association of the United States — national association, teacher directory, certification" },
+    { name: "IYNAUS", href: "https://iynaus.org/", description: "Iyengar Yoga National Association of the United States—national association, teacher directory, certification" },
     { name: "International Association of Yoga Therapists (IAYT)", href: "https://www.iayt.org/", description: "credentialing body for yoga therapy" },
   ]},
   { heading: "Pre- & Perinatal", links: [
     { name: "Castellino Training", href: "https://castellinotraining.com/", description: "prenatal and birth therapy training" },
-    { name: "BEBA", href: "https://beba.org/", description: "Building and Enhancing Bonding and Attachment — family clinic for prenatal, birth, and early trauma" },
-    { name: "APPPAH", href: "https://birthpsychology.com/", description: "Association for Prenatal and Perinatal Psychology and Health — professional association for the PPN field" },
+    { name: "BEBA", href: "https://beba.org/", description: "Building and Enhancing Bonding and Attachment—family clinic for prenatal, birth, and early trauma" },
+    { name: "APPPAH", href: "https://birthpsychology.com/", description: "Association for Prenatal and Perinatal Psychology and Health—professional association for the PPN field" },
   ]},
   { heading: "Birth & Postpartum", links: [
     { name: "Body Ready Method", href: "https://bodyreadymethod.com/", description: "evidence-based preparation for birth" },
@@ -147,13 +161,16 @@ const L1_RESOURCE_GROUPS: ResourceGroupItem[] = [
 function ResourcesContent() {
   return (
     <>
+      <p className="text-[0.95rem] opacity-80 mb-5" style={{ fontWeight: 400 }}>
+        These links reflect the places I have studied and the communities I recommend.
+      </p>
       {L1_RESOURCE_GROUPS.map((group) => (
         <div key={group.heading} style={{ marginBottom: 20 }}>
           <p style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', fontWeight: 600, marginBottom: 6, color: '#1a1a1a' }}>{group.heading}</p>
           {group.links.map((link) => (
             <p key={link.href} className="text-[0.85rem] opacity-80 mb-2" style={{ fontWeight: 400 }}>
               <a href={link.href} target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none' }}>{link.name}</a>
-              {" — "}
+              {"—"}
               {link.description}
             </p>
           ))}
@@ -207,7 +224,7 @@ export default function Home() {
   const rafRef = useRef<number | null>(null);
   const panelAnchorRef = useRef<HTMLDivElement>(null);
 
-  // Native playback — smooth GPU-composited rendering
+  // Native playback—smooth GPU-composited rendering
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -251,7 +268,7 @@ export default function Home() {
   return (
     <div className="h-screen relative selection:bg-primary/10 flex flex-col overflow-hidden" style={{ background: '#051a1c' }} onClick={handleBackgroundClick}>
 
-      {/* Background Video — cropped top 5% to hide watermark */}
+      {/* Background Video—cropped top 5% to hide watermark */}
       <div className="fixed inset-0 z-0 overflow-hidden" style={{ top: '-5vh' }}>
         <video
           ref={videoRef}
@@ -345,7 +362,7 @@ export default function Home() {
                   <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
                     <h2 className="text-2xl md:text-3xl font-light mb-3">About Nancy</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
-                    <AboutContent />
+                    <AboutContent onResourcesClick={() => setActiveView('resources')} />
                   </div>
                 </motion.div>
               )}
@@ -373,7 +390,7 @@ export default function Home() {
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
-                    <h2 className="text-2xl md:text-3xl font-light mb-3">Resources</h2>
+                    <h2 className="text-2xl md:text-3xl font-light mb-3">Resources & Lineage</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
                     <ResourcesContent />
                   </div>
@@ -396,7 +413,7 @@ export default function Home() {
                 className="w-full flex flex-col pb-6"
                 style={{ maxWidth: '400px' }}
               >
-                {/* Hexagon — fixed height so it's always fully visible; extra 56px clears the bottom node */}
+                {/* Hexagon—fixed height so it's always fully visible; extra 56px clears the bottom node */}
                 <div style={{ height: 'min(58svh, 436px)', flexShrink: 0, width: '100%', paddingLeft: 8, paddingRight: 8 }}>
                   <NetworkGraph
                     services={SERVICE_NAMES}
@@ -413,9 +430,9 @@ export default function Home() {
                     onCenterHover={handleCenterHover}
                   />
                 </div>
-                {/* Scroll anchor — sits right below hexagon so nodes snap panel to top */}
+                {/* Scroll anchor—sits right below hexagon so nodes snap panel to top */}
                 <div ref={panelAnchorRef} />
-                {/* Offerings quick-select bar — only when a service is active */}
+                {/* Offerings quick-select bar—only when a service is active */}
                 {(!!effectiveService || isCenterActive) && <div style={{ display: 'flex', justifyContent: 'space-evenly', padding: '0 4px', borderBottom: '1px solid rgba(255,255,255,0.18)', marginBottom: 4 }}>
                   {([
                     { name: "__center__",                     short: "Presence" },
@@ -508,7 +525,7 @@ export default function Home() {
                 className="w-full px-2"
               >
                 <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
-                  <h2 className="text-xl font-light mb-2">Resources</h2>
+                  <h2 className="text-xl font-light mb-2">Resources & Lineage</h2>
                   <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
                   <ResourcesContent />
                 </div>

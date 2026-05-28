@@ -45,13 +45,13 @@ const ABOUT_CARDS: AboutCard[] = [
   { key: "teachers",    label: "Teachers",            image: aboutTeachersImage as string },
 ];
 
-// ─── Card 1 — flat paragraphs ────────────────────────────────────────────────
+// ─── Card 1—flat paragraphs ────────────────────────────────────────────────
 
 const ABOUT_NANCY_PARAGRAPHS = [
-  "Nancy Turnquist, C-IAYT, RCST, is a biodynamic craniosacral therapist and yoga therapist with over two decades of experience supporting nervous system regulation, trauma integration, and perinatal care. Her table-based sessions use gentle, listening touch to invite deep rest and re-balancing; when helpful, she adds a brief yoga-therapy assessment with tailored breath and movement practices to extend the work beyond the table. Nancy's training spans Iyengar-based yoga therapeutics, Somatic Practice, Alchemical Alignment, and Pre-/perinatal dynamics, and she has worked extensively with women's health, childbirth, grief and life transitions, and family systems — bringing a grounded, trauma-informed, and community-oriented approach to every client in their connection to themselves, their relations and the world around them.",
-  "Nancy helps people listen to themselves and respond to what they're hearing. People come for real things — pain that won't resolve, anxiety that blocks them, preparation for birth, a body that needs help. She works with what you bring and she meets what is ready to happen.",
-  "What's different is how she engages. She isn't imposing a protocol or steering you toward outcomes she's decided are right. What she's built — through thousands of hours of lineage training, somatic work, craniosacral therapy, yoga therapeutics, birth support, grief (both lived and listened to), and a poetry and translation practice — is a quality of presence that allows people to hear themselves. She notices what's happening across physical, emotional, and spiritual dimensions and reflects it back so the person can recognize it and respond from their own knowing. Some people come to pursue a thread. Some people need to rest. She has no agenda for which it is. When someone can actually hear themselves clearly, whatever they choose next has integrity — whether it's action or rest.",
-  "The modalities are part of the offering — and they're what make the space deep enough to hold whatever walks in.",
+  "Nancy Turnquist, C-IAYT, RCST, is a biodynamic craniosacral therapist and yoga therapist with over two decades of experience supporting nervous system regulation, trauma integration, and perinatal care. Her table-based sessions use gentle, listening touch to invite deep rest and re-balancing; when helpful, she adds a brief yoga-therapy assessment with tailored breath and movement practices to extend the work beyond the table. Nancy's training spans Iyengar-based yoga therapeutics, Somatic Practice, Alchemical Alignment, and Pre-/perinatal dynamics, and she has worked extensively with women's health, childbirth, grief and life transitions, and family systems—bringing a grounded, trauma-informed, and community-oriented approach to every client in their connection to themselves, their relations and the world around them.",
+  "Nancy helps people listen to themselves and respond to what they're hearing. People come for real things—pain that won't resolve, anxiety that blocks them, preparation for birth, a body that needs help. She works with what you bring and she meets what is ready to happen.",
+  "What's different is how she engages. She isn't imposing a protocol or steering you toward outcomes she's decided are right. What she's built—through thousands of hours of lineage training, somatic work, craniosacral therapy, yoga therapeutics, birth support, grief (both lived and listened to), and a poetry and translation practice—is a quality of presence that allows people to hear themselves. She notices what's happening across physical, emotional, and spiritual dimensions and reflects it back so the person can recognize it and respond from their own knowing. Some people come to pursue a thread. Some people need to rest. She has no agenda for which it is. When someone can actually hear themselves clearly, whatever they choose next has integrity—whether it's action or rest.",
+  "The modalities are part of the offering—and they're what make the space deep enough to hold whatever walks in.",
 ];
 
 // ─── Structured content helpers ───────────────────────────────────────────────
@@ -90,34 +90,34 @@ const TRAINING_SECTIONS: Section[] = [
   {
     heading: "Certifications & Credentials",
     items: [
-      <><L href="https://www.craniosacraltherapy.org/">RCST</L> — Certified Biodynamic Craniosacral Therapy Practitioner</>,
-      <><L href="https://iynaus.org/">C-IYT</L> — Certified Iyengar Yoga Teacher, Junior Intermediate II Level</>,
-      <><L href="https://www.iayt.org/">C-IAYT</L> — Certified Yoga Therapist (International Association of Yoga Therapists)</>,
+      <><L href="https://www.craniosacraltherapy.org/">RCST</L>—Certified Biodynamic Craniosacral Therapy Practitioner</>,
+      <><L href="https://iynaus.org/">C-IYT</L>—Certified Iyengar Yoga Teacher, Junior Intermediate II Level</>,
+      <><L href="https://www.iayt.org/">C-IAYT</L>—Certified Yoga Therapist (International Association of Yoga Therapists)</>,
       <>Certified <L href="https://bodyreadymethod.com/">Body Ready Method</L> Professional</>,
       <>Certified <L href="https://www.innatepostpartumcare.com/">INNATE Postpartum Care</L> Practitioner</>,
       <>Reiki Master (<L href="https://ihreiki.com/">International House of Reiki</L>)</>,
-      <>The <L href="https://www.lamatrona.com/">Matrona</L> Midwifery Program — Completed</>,
+      <>The <L href="https://www.lamatrona.com/">Matrona</L> Midwifery Program—Completed</>,
       <>Certified <L href="https://www.positivediscipline.com/">Positive Discipline</L> Classroom Educator</>,
     ],
   },
   {
     heading: "Academic",
     items: [
-      <>MA in Literary Translation — <L href="https://www.upf.edu/">Universitat Pompeu Fabra</L>, Barcelona, Spain (2005)</>,
-      <>BA in English Literature (Creative Writing) & Spanish Literature — <L href="https://www.kenyon.edu/">Kenyon College</L>, Magna Cum Laude (1998)</>,
-      <>Interpretation Certificate — <L href="https://www.umb.edu/">UMass Boston</L> (2000)</>,
-      <>Superior Level of Competency in Spanish — <L href="https://www.cervantes.es/">Instituto Cervantes</L></>,
+      <>MA in Literary Translation—<L href="https://www.upf.edu/">Universitat Pompeu Fabra</L>, Barcelona, Spain (2005)</>,
+      <>BA in English Literature (Creative Writing) & Spanish Literature—<L href="https://www.kenyon.edu/">Kenyon College</L>, Magna Cum Laude (1998)</>,
+      <>Interpretation Certificate—<L href="https://www.umb.edu/">UMass Boston</L> (2000)</>,
+      <>Superior Level of Competency in Spanish—<L href="https://www.cervantes.es/">Instituto Cervantes</L></>,
       "Graduate Summer at Universidad Internacional Menendez Pelayo, Santander, Spain (Simmons College), 1999",
-      "Junior Year Abroad — Universidad de la Complutense, Madrid, 1996–1997",
+      "Junior Year Abroad—Universidad de la Complutense, Madrid, 1996–1997",
     ],
   },
   {
     heading: "Biodynamic Craniosacral Therapy",
     items: [
-      <>Biodynamic Craniosacral Therapy Training (700 hours) — <L href="https://www.energyschool.com/">Colorado School of Energy Studies</L> with Anna Chitty, 2022–2024</>,
+      <>Biodynamic Craniosacral Therapy Training (700 hours)—<L href="https://www.energyschool.com/">Colorado School of Energy Studies</L> with Anna Chitty, 2022–2024</>,
 
-      "Biodynamic Principles for Professionals Program — CSES, 2022–2023",
-      "Intro to BCST — Divine Structure School with Kate Klemer, 2021",
+      "Biodynamic Principles for Professionals Program—CSES, 2022–2023",
+      "Intro to BCST—Divine Structure School with Kate Klemer, 2021",
       "Upledger Craniosacral Therapy Foundations, 2009",
       "Weekly craniosacral apprenticeship, 2002–2003",
     ],
@@ -125,12 +125,12 @@ const TRAINING_SECTIONS: Section[] = [
   {
     heading: "Somatic Therapy",
     items: [
-      "Blueprint Resonance Polarity Coaching — Anna Chitty, CSES, 2023–2024",
-      <><L href="https://www.alchemicalalignment.com/">Alchemical Alignment</L> Modules 1–14 — Brigit Viksnins, 2021–2023 (300+ hours, 100 sessions)</>,
-      <>Somatics of Common Complex Emotions — <L href="https://somaticpractice.net/">Kathy Kain</L> & Tony Richardson, 2020</>,
-      <>Somatic Narrative — <L href="https://somaticpractice.net/">Kathy Kain</L>, 2020</>,
-      <>Touch Skills Training — <L href="https://somaticpractice.net/">Kathy Kain</L>, 2018–2019 (three 5-day modules)</>,
-      <>Resilience and Self-Regulation — <L href="https://somaticpractice.net/">Kathy Kain</L>, 2018</>,
+      "Blueprint Resonance Polarity Coaching—Anna Chitty, CSES, 2023–2024",
+      <><L href="https://www.alchemicalalignment.com/">Alchemical Alignment</L> Modules 1–14—Brigit Viksnins, 2021–2023 (300+ hours, 100 sessions)</>,
+      <>Somatics of Common Complex Emotions—<L href="https://somaticpractice.net/">Kathy Kain</L> & Tony Richardson, 2020</>,
+      <>Somatic Narrative—<L href="https://somaticpractice.net/">Kathy Kain</L>, 2020</>,
+      <>Touch Skills Training—<L href="https://somaticpractice.net/">Kathy Kain</L>, 2018–2019 (three 5-day modules)</>,
+      <>Resilience and Self-Regulation—<L href="https://somaticpractice.net/">Kathy Kain</L>, 2018</>,
 
     ],
   },
@@ -138,8 +138,8 @@ const TRAINING_SECTIONS: Section[] = [
     heading: "Yoga Therapy",
     items: [
       <>12+ year apprenticeship/mentorship with <L href="https://www.patriciawaldenyoga.com/">Patricia Walden</L> (assisted 12 hrs/week)</>,
-      <>Iyengar Yoga Teacher Training — <L href="https://www.patriciawaldenyoga.com/">Patricia Walden</L>, 2001–2003 (500 hours)</>,
-      <>Yoga Therapeutics — <L href="https://www.stephaniequirk.com.au/">Stephanie Quirk</L>, 2010–2013 (500 hours)</>,
+      <>Iyengar Yoga Teacher Training—<L href="https://www.patriciawaldenyoga.com/">Patricia Walden</L>, 2001–2003 (500 hours)</>,
+      <>Yoga Therapeutics—<L href="https://www.stephaniequirk.com.au/">Stephanie Quirk</L>, 2010–2013 (500 hours)</>,
       <>3 extended study periods at <L href="https://bksiyengar.com/">RIMYI</L>, Pune, India with BKS Iyengar, Geeta Iyengar, and Prashant Iyengar</>,
 
       "RIMYI Medical Class Assistant, Pune, India (2010, 2011, 2012)",
@@ -165,29 +165,29 @@ const TRAINING_SECTIONS: Section[] = [
   {
     heading: "Pre- and Perinatal & Birth",
     items: [
-      <><L href="https://castellinotraining.com/">Castellino</L> Prenatal and Birth Therapy Training (T17) — Mary Jackson & Tara Blasco, 2024–ongoing (400+ hours)</>,
-      "Sequencing Imprints — Mary Jackson & Tara Blasco, 2022",
+      <><L href="https://castellinotraining.com/">Castellino</L> Prenatal and Birth Therapy Training (T17)—Mary Jackson & Tara Blasco, 2024–ongoing (400+ hours)</>,
+      "Sequencing Imprints—Mary Jackson & Tara Blasco, 2022",
       "Foundations in Prenatal and Perinatal Dynamics, 2021",
-      <><L href="https://bodyreadymethod.com/">Body Ready Method</L> Training — Lindsay McCoy, 2021–2022</>,
+      <><L href="https://bodyreadymethod.com/">Body Ready Method</L> Training—Lindsay McCoy, 2021–2022</>,
       <>Matrona Midwifery Training, 2021–2022 (226 hours coursework + 144 hours study group)</>,
-      <>Holistic Doula Training — <L href="https://www.lamatrona.com/">La Matrona</L>, 2020</>,
+      <>Holistic Doula Training—<L href="https://www.lamatrona.com/">La Matrona</L>, 2020</>,
       <><L href="https://www.innatepostpartumcare.com/">Innate Postpartum Care</L> Doula Training, 2020</>,
       "Womb Surround Process Workshop with Frank Carbone (BEBA), October 2023",
       "Developmental Primitive Reflexes with Kimberly Clark OT, BCST, 2022–2023",
       "The Rainbow Bridge Continuum with Moriah Melin, 2021",
-      "Matriz y Concha — traditional women's health care and the art of the sobada, 2020",
+      "Matriz y Concha—traditional women's health care and the art of the sobada, 2020",
     ],
   },
   {
     heading: "Energy Work & Complementary",
     items: [
-      <>Reiki Master — <L href="https://ihreiki.com/">International House of Reiki</L> (Shoden, Okuden, Shinpiden), 2010–2012</>,
+      <>Reiki Master—<L href="https://ihreiki.com/">International House of Reiki</L> (Shoden, Okuden, Shinpiden), 2010–2012</>,
 
-      "Jin Shin Jyutsu Foundations — Jed Schwartz, 2012",
-      "Introduction to Spiritual Healing & Advanced Spiritual Healing — Rosita Arvigo, 2009–2010",
-      "American Folk Herbal Studies — Gaia School of Healing, 2008–2011 (250 hours)",
-      "Reiki 1–2 — John Harvey Grey Institute",
-      "Mayan Abdominal Massage — Arvigo Institute, 2008",
+      "Jin Shin Jyutsu Foundations—Jed Schwartz, 2012",
+      "Introduction to Spiritual Healing & Advanced Spiritual Healing—Rosita Arvigo, 2009–2010",
+      "American Folk Herbal Studies—Gaia School of Healing, 2008–2011 (250 hours)",
+      "Reiki 1–2—John Harvey Grey Institute",
+      "Mayan Abdominal Massage—Arvigo Institute, 2008",
     ],
   },
 ];
@@ -198,25 +198,25 @@ const COMMUNITY_SECTIONS: Section[] = [
   {
     heading: "Professional Practice",
     items: [
-      "Somatic Therapist, Private Practice — Cambridge, MA, 2014–present",
-      "Doula and Birth Support Specialist — Cambridge, MA, 2002–present",
-      "Yoga Therapy Practitioner — Cambridge, MA, 2000–present",
-      "Student Experience & Logistics Coordinator — Colorado School of Energy Studies & Alchemical Alignment, 2021–present",
-      "Co-Manager and Teacher — BKS Iyengar Yogamala, Boston, MA, 2006–2013",
-      <>Founder & Community Engagement Lead — Dandelion Montessori / <L href="https://wildflowerschools.org/">Wildflower Network</L>, Cambridge, MA, 2015–2018</>,
-      "Spanish-English Interpreter — Freelance, Barcelona & Cambridge, 2000–2006",
-      <>Middle & High School Spanish Teacher — Concord Middle School, <L href="https://www.pingree.org/">The Pingree School</L>, 1998–2001</>,
+      "Somatic Therapist, Private Practice—Cambridge, MA, 2014–present",
+      "Doula and Birth Support Specialist—Cambridge, MA, 2002–present",
+      "Yoga Therapy Practitioner—Cambridge, MA, 2000–present",
+      "Student Experience & Logistics Coordinator—Colorado School of Energy Studies & Alchemical Alignment, 2021–present",
+      "Co-Manager and Teacher—BKS Iyengar Yogamala, Boston, MA, 2006–2013",
+      <>Founder & Community Engagement Lead—Dandelion Montessori / <L href="https://wildflowerschools.org/">Wildflower Network</L>, Cambridge, MA, 2015–2018</>,
+      "Spanish-English Interpreter—Freelance, Barcelona & Cambridge, 2000–2006",
+      <>Middle & High School Spanish Teacher—Concord Middle School, <L href="https://www.pingree.org/">The Pingree School</L>, 1998–2001</>,
     ],
   },
   {
     heading: "Community & Volunteer",
     items: [
-      "Co-Facilitator: Monthly Support Group for Self-Awareness, Meditation & Relational Skills — ongoing",
-      <>Founding Board Member and Clerk Secretary — <L href="https://iyane.org/">IYANE</L> (Iyengar Yoga Association of New England), 2009–2011</>,
-      <>Yoga for At-Risk Moms — <L href="https://www.riversidecc.org/">Riverside Community Care</L>, 2008–2010</>,
-      "Volunteer Yoga Teacher — YMCA Charlestown to Latina Youth, 1999–2000",
+      "Co-Facilitator: Monthly Support Group for Self-Awareness, Meditation & Relational Skills—ongoing",
+      <>Founding Board Member and Clerk Secretary—<L href="https://iyane.org/">IYANE</L> (Iyengar Yoga Association of New England), 2009–2011</>,
+      <>Yoga for At-Risk Moms—<L href="https://www.riversidecc.org/">Riverside Community Care</L>, 2008–2010</>,
+      "Volunteer Yoga Teacher—YMCA Charlestown to Latina Youth, 1999–2000",
       "Regular attendance at Relationship and Grief Rituals with Sobonfu Somé, 2006–2017",
-      "American Folk Herbal Studies and Apprenticeship — Gaia School of Healing, 2008–2011",
+      "American Folk Herbal Studies and Apprenticeship—Gaia School of Healing, 2008–2011",
       "Northeast Montessori Classroom Assistant Training, 2015",
       "Advanced Assistant Training, 2017",
       <>Certified <L href="https://www.positivediscipline.com/">Positive Discipline</L> Classroom Educator, 2016</>,
@@ -224,7 +224,7 @@ const COMMUNITY_SECTIONS: Section[] = [
   },
   {
     heading: "Presentation & Publication",
-    items: [      <><L href="https://iynaus.org/">IYNAUS</L>'s First Regional Conference, Shining Light on New England — Presenter, October 16–18, 2009, Providence, RI</>,      <><L href="https://pubmed.ncbi.nlm.nih.gov/20722471/">Recognized contributor</L>: “Effects of Yoga Versus Walking on Mood, Anxiety, and Brain GABA Levels: A Randomized Controlled MRS Study.” The Journal of Alternative and Complementary Medicine, Volume 16, Number 11, 2010.</>,
+    items: [      <><L href="https://iynaus.org/">IYNAUS</L>'s First Regional Conference, Shining Light on New England—Presenter, October 16–18, 2009, Providence, RI</>,      <><L href="https://pubmed.ncbi.nlm.nih.gov/20722471/">Recognized contributor</L>: “Effects of Yoga Versus Walking on Mood, Anxiety, and Brain GABA Levels: A Randomized Controlled MRS Study.” The Journal of Alternative and Complementary Medicine, Volume 16, Number 11, 2010.</>,
     ],
   },
 ];
@@ -237,7 +237,7 @@ const LINEAGE_SECTIONS: Section[] = [
     chain: "Krishnamacharya → BKS Iyengar → Geeta & Prashant Iyengar → Patricia Walden + Stephanie Quirk → Nancy",
     items: [],
     prose: [
-      "Krishnamacharya is often called the father of modern yoga. BKS Iyengar, who came to his teacher as a sick teenager, spent seventy-five years refining the practice into a method of extraordinary precision. Patricia Walden met Iyengar in 1976 and has returned to Pune every year since — one of his most senior students worldwide. Stephanie Quirk lived and studied at RIMYI for twenty years and became the foremost teacher of Iyengar yoga therapeutics.",
+      "Krishnamacharya is often called the father of modern yoga. BKS Iyengar, who came to his teacher as a sick teenager, spent seventy-five years refining the practice into a method of extraordinary precision. Patricia Walden met Iyengar in 1976 and has returned to Pune every year since—one of his most senior students worldwide. Stephanie Quirk lived and studied at RIMYI for twenty years and became the foremost teacher of Iyengar yoga therapeutics.",
       "Nancy entered this lineage through both Patricia and Stephanie. She trained with Patricia from 2001 to 2003 and then continued as her assistant for twelve years. She completed five hundred hours of therapeutic training with Stephanie. She also went to the source: three extended study periods at RIMYI with BKS, Geeta, and Prashant Iyengar.",
       "What Nancy carries: the understanding that the body responds to precision. That a single posture, held with the right support, can reorganize the relationship between structure and breath, between bone and nerve.",
     ],
@@ -247,8 +247,8 @@ const LINEAGE_SECTIONS: Section[] = [
     chain: "Andrew Taylor Still → William Garner Sutherland → Harold Magoun → Franklyn Sills → Anna & John Chitty (CSES) → Elizabeth Chitty Sandoval → Nancy",
     items: [],
     prose: [
-      "Andrew Taylor Still, a frontier physician who lost three children to spinal meningitis, founded osteopathy in 1874. His student William Garner Sutherland discovered that the cranial bones have subtle, rhythmic motion. Over generations, practitioners moved from mechanical manipulation toward listening — the biodynamic approach. Anna and John Chitty founded the Colorado School of Energy Studies in 1992 and built one of the most respected BCST training programs in North America.",
-      "Nancy completed the full BCST training with Anna — seven hundred hours — and the Blueprint Resonance Polarity Coaching program.",
+      "Andrew Taylor Still, a frontier physician who lost three children to spinal meningitis, founded osteopathy in 1874. His student William Garner Sutherland discovered that the cranial bones have subtle, rhythmic motion. Over generations, practitioners moved from mechanical manipulation toward listening—the biodynamic approach. Anna and John Chitty founded the Colorado School of Energy Studies in 1992 and built one of the most respected BCST training programs in North America.",
+      "Nancy completed the full BCST training with Anna—seven hundred hours—and the Blueprint Resonance Polarity Coaching program.",
       "What Nancy carries: the capacity to perceive the subtle rhythms that organize the body beneath muscular movement, beneath the breath. The understanding that health is already present in the system and the practitioner's job is to listen for it.",
     ],
   },
@@ -258,7 +258,7 @@ const LINEAGE_SECTIONS: Section[] = [
     items: [],
     prose: [
       "The roots of somatic trauma work reach back to Wilhelm Reich, who first proposed that unresolved emotion is held in the body as muscular tension, and to Elsa Gindler, whose sensory awareness practice influenced an entire generation of body-oriented therapists. Peter Levine developed Somatic Experiencing from the observation that traumatic stress lives in the body as an incomplete physiological response.",
-      "Kathy Kain, a senior trainer in Somatic Experiencing with over 40 years of practice, developed Touch Skills and Somatic Narrative — approaches that bring precise, co-regulating touch to trauma resolution work. Nancy trained directly with Kathy across multiple programs.",
+      "Kathy Kain, a senior trainer in Somatic Experiencing with over 40 years of practice, developed Touch Skills and Somatic Narrative—approaches that bring precise, co-regulating touch to trauma resolution work. Nancy trained directly with Kathy across multiple programs.",
       "What Nancy carries: the ability to meet the body's held material without overwhelming it. The understanding that trauma resolution happens through the body, not around it.",
     ],
   },
@@ -278,7 +278,7 @@ const LINEAGE_SECTIONS: Section[] = [
     items: [],
     prose: [
       "The Dagara people of West Africa maintain a tradition of communal grief ritual that has no equivalent in modern Western culture. Sobonfu Somé brought this practice to the West, teaching for decades and offering grief and relationship rituals across the United States and Europe.",
-      "Nancy attended grief and relationship rituals with Sobonfu for eleven years, from 2006 until Sobonfu's death on January 14, 2017 — the first anniversary of Nancy's daughter Ada's death. Sobonfu performed a private healing ritual for Nancy that day.",
+      "Nancy attended grief and relationship rituals with Sobonfu for eleven years, from 2006 until Sobonfu's death on January 14, 2017—the first anniversary of Nancy's daughter Ada's death. Sobonfu performed a private healing ritual for Nancy that day.",
       "What Nancy carries: everything about how she holds grief. The understanding that grief is not a problem to solve but a relationship with what you love. That it is cyclical, not linear. That it belongs to the community.",
     ],
   },
@@ -421,8 +421,8 @@ function renderDesktopDetail(key: string): ReactNode {
         <>
           <h2 className="l2-detail-heading">Lineage</h2>
           <hr className="l2-divider" />
-          <p className="l2-body">Nancy’s work does not come from one place. It comes from many streams — each carried by people who gave their lives to understanding something true about the body, the breath, the spirit, or the conditions under which healing happens. She did not assemble these traditions like a curriculum. She followed what she needed to learn, and each teacher led her to the next.</p>
-          <p className="l2-body">Lineage matters to Nancy because it is how this kind of knowledge actually moves — not through textbooks or certifications, but through relationship. A teacher works with you, sees you, corrects you, and transmits something that cannot be written down. You learn by being in the room. What Nancy carries from her teachers is not technique alone — it is their attention, their way of seeing, their understanding of what it means to be with another person in difficulty. She holds this with deep gratitude for the teachers and ancestors who shaped it, and with the humility to know that what she offers was built by many hands across many lifetimes before it reached hers.</p>
+          <p className="l2-body">Nancy’s work does not come from one place. It comes from many streams—each carried by people who gave their lives to understanding something true about the body, the breath, the spirit, or the conditions under which healing happens. She did not assemble these traditions like a curriculum. She followed what she needed to learn, and each teacher led her to the next.</p>
+          <p className="l2-body">Lineage matters to Nancy because it is how this kind of knowledge actually moves—not through textbooks or certifications, but through relationship. A teacher works with you, sees you, corrects you, and transmits something that cannot be written down. You learn by being in the room. What Nancy carries from her teachers is not technique alone—it is their attention, their way of seeing, their understanding of what it means to be with another person in difficulty. She holds this with deep gratitude for the teachers and ancestors who shaped it, and with the humility to know that what she offers was built by many hands across many lifetimes before it reached hers.</p>
           <SectionBlock sections={LINEAGE_SECTIONS} />
         </>
       );
@@ -468,8 +468,8 @@ function renderMobileDetail(key: string): ReactNode {
       return (
         <>
           <h2 className="l2-mobile-heading">Lineage</h2>
-          <p className="l2-mobile-body">Nancy’s work does not come from one place. It comes from many streams — each carried by people who gave their lives to understanding something true about the body, the breath, the spirit, or the conditions under which healing happens. She did not assemble these traditions like a curriculum. She followed what she needed to learn, and each teacher led her to the next.</p>
-          <p className="l2-mobile-body">Lineage matters to Nancy because it is how this kind of knowledge actually moves — not through textbooks or certifications, but through relationship. A teacher works with you, sees you, corrects you, and transmits something that cannot be written down. You learn by being in the room. What Nancy carries from her teachers is not technique alone — it is their attention, their way of seeing, their understanding of what it means to be with another person in difficulty. She holds this with deep gratitude for the teachers and ancestors who shaped it, and with the humility to know that what she offers was built by many hands across many lifetimes before it reached hers.</p>
+          <p className="l2-mobile-body">Nancy’s work does not come from one place. It comes from many streams—each carried by people who gave their lives to understanding something true about the body, the breath, the spirit, or the conditions under which healing happens. She did not assemble these traditions like a curriculum. She followed what she needed to learn, and each teacher led her to the next.</p>
+          <p className="l2-mobile-body">Lineage matters to Nancy because it is how this kind of knowledge actually moves—not through textbooks or certifications, but through relationship. A teacher works with you, sees you, corrects you, and transmits something that cannot be written down. You learn by being in the room. What Nancy carries from her teachers is not technique alone—it is their attention, their way of seeing, their understanding of what it means to be with another person in difficulty. She holds this with deep gratitude for the teachers and ancestors who shaped it, and with the humility to know that what she offers was built by many hands across many lifetimes before it reached hers.</p>
           <SectionBlock sections={LINEAGE_SECTIONS} />
         </>
       );
