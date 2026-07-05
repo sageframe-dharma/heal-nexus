@@ -106,6 +106,11 @@ export default function SessionsPage() {
               </a>
             </div>
             <div className="l2-form-item">
+              <a href="https://form.jotform.com/261857397336067" target="_blank" rel="noopener noreferrer" className="l2-form-label">
+                Minor Client Intake & Consent Form
+              </a>
+            </div>
+            <div className="l2-form-item">
               <a href="https://form.jotform.com/260884926005057" target="_blank" rel="noopener noreferrer" className="l2-form-label">
                 Adult Release of Liability & Informed Consent
               </a>

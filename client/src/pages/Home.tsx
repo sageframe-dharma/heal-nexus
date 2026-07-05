@@ -107,6 +107,7 @@ function SessionsContent() {
       </p>
       <div className="flex flex-col gap-1">
         <a href="https://form.jotform.com/260885378599077" target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Client Intake &amp; Consent Form</a>
+        <a href="https://form.jotform.com/261857397336067" target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Minor Client Intake &amp; Consent Form</a>
         <a href="https://form.jotform.com/260884926005057" target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Adult Release of Liability &amp; Informed Consent</a>
         <a href="https://form.jotform.com/260884607383163" target="_blank" rel="noopener noreferrer" style={{ color: '#C850C0', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500 }}>Minor Release of Liability &amp; Informed Consent</a>
       </div>
