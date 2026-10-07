@@ -2,13 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NetworkGraph } from "@/components/NetworkGraph";
 import { ServicePanel } from "@/components/ServicePanel";
+import { WelcomeContent } from "@/components/WelcomeContent";
 import type { ServiceInfo } from "@/lib/services";
 import { SERVICES, portraitImage } from "@/lib/services";
 import bgVideo from "@assets/background-mobile.mp4";
 import nancyJoyImage from "@assets/nancy-joy.webp";
 import treatmentRoomImage from "@assets/session-treatment-room.webp";
 
-const SUBTITLE = "Healing with Presence";
+const SUBTITLE = "human.being.";
 
 const SERVICE_NAMES = SERVICES.map((s) => s.name);
 const SERVICE_IMAGES = SERVICES.map((s) => (s.hexImage ?? s.image) ?? portraitImage);
@@ -28,7 +29,7 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
     );
   }
   const active = services.find((s) => s.name === activeService);
-  if (!active) return null;
+  if (!active) return <WelcomeContent />;
   return (
     <div>
       <h2 className="text-xl font-light text-primary mb-2 leading-snug">
@@ -47,21 +48,25 @@ function MobileServiceContent({ activeService, isCenterActive, services }: { act
 function AboutContent({ onResourcesClick }: { onResourcesClick: () => void }) {
   return (
     <>
-      <img
-        src={nancyJoyImage}
-        alt="Nancy Turnquist"
-        style={{ borderRadius: 12, maxWidth: '100%', marginBottom: 16 }}
-      />
       <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 400 }}>
-        Nancy Turnquist (RCST, C-IAYT) is a holistic healing practitioner. She has been in practice since 2000. The modalities she works with include Biodynamic Cranio Sacral Therapy (BCST), Yoga Therapy, somatic trauma resolution, pre and perinatal psychology, and birth and life transition support. She studied at the Iyengar Institute in Pune, India and has trained with some of the leading practitioners in each of her fields (see the{" "}
+        I built this site to share where I have been and what I do. The approaches are a tapestry of experiences, approaches, and modalities that represent the{" "}
         <button
           onClick={onResourcesClick}
           style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, color: '#C850C0', fontSize: 'inherit', fontWeight: 500, textDecoration: 'underline' }}
         >
-          Resources &amp; Lineage
+          lineages I am a part of
         </button>
-        {" "}page). Nancy brings over two decades of hands-on experience to every session. She also speaks fluent Spanish and works with Spanish-speaking clients.
+        . They create a sum greater than the parts and inform my practice. Click on the circles to explore.
       </p>
+      <div className="h-px w-12 md:w-16 mt-6 mb-4" style={{ background: '#C850C0' }} />
+      <p className="leading-relaxed text-[0.95rem] md:text-base opacity-80" style={{ fontWeight: 400 }}>
+        Nancy Turnquist (RCST, C-IAYT) is a holistic healing practitioner. She has been in practice since 2000. The modalities she works with include Biodynamic Cranio Sacral Therapy (BCST), Yoga Therapy, somatic trauma resolution, pre and perinatal psychology, and birth and life transition support. She studied at the Iyengar Institute in Pune, India and has trained with some of the leading practitioners in each of her fields. Nancy brings over two decades of hands-on experience to every session. She also speaks fluent Spanish and works with Spanish-speaking clients.
+      </p>
+      <img
+        src={nancyJoyImage}
+        alt="Nancy Turnquist"
+        style={{ borderRadius: 12, width: '80%', display: 'block', margin: '20px auto 0' }}
+      />
     </>
   );
 }
@@ -279,16 +284,16 @@ export default function Home() {
           playsInline
           preload="metadata"
           className="w-full h-full object-cover pointer-events-none"
-          style={{ opacity: 0.22, objectPosition: 'center 10%' }}
+          style={{ opacity: 0.41, objectPosition: 'center 10%' }}
         />
       </div>
 
-      {/* Light aqua-turquoise wash */}
-      <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(0, 195, 195, 0.56)' }} />
+      {/* Blue background tint */}
+      <div className="fixed inset-0 pointer-events-none z-[1]" style={{ background: 'rgba(45, 138, 185, 0.67)' }} />
 
       {/* ───── Header + Nav ───── */}
       <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0" onClick={e => e.stopPropagation()}>
-        <div className="flex flex-col items-stretch w-fit gap-1.5">
+        <div className="flex flex-col items-stretch w-fit max-w-full px-3 gap-1.5">
           <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight">
               Nancy Turnquist
@@ -296,6 +301,9 @@ export default function Home() {
             <div className="h-px w-20 mx-auto" style={{ background: '#C850C0' }} />
             <p className="text-sm md:text-lg font-light opacity-75">
               {SUBTITLE}
+            </p>
+            <p className="text-xs md:text-sm font-light italic opacity-75">
+              Being human can be hard, being together doesn't have to be.
             </p>
           </header>
           <nav className="flex items-center justify-center gap-4 md:gap-6 px-5 py-2 rounded-lg" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
@@ -311,7 +319,7 @@ export default function Home() {
                 className={`text-xs md:text-sm transition-colors tracking-wide uppercase ${activeView === v ? 'font-normal' : 'font-medium text-primary/50 hover:text-primary/80'}`}
                 style={activeView === v ? { color: '#C850C0' } : {}}
               >
-                {v === 'practice' ? 'Offerings' : v === 'sessions' ? 'Sessions' : v.charAt(0).toUpperCase() + v.slice(1)}
+                {v === 'practice' ? 'Approach' : v === 'sessions' ? 'Sessions' : v.charAt(0).toUpperCase() + v.slice(1)}
               </button>
             ))}
           </nav>
@@ -361,8 +369,6 @@ export default function Home() {
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
-                    <h2 className="text-2xl md:text-3xl font-light mb-3">About Nancy</h2>
-                    <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
                     <AboutContent onResourcesClick={() => setActiveView('resources')} />
                   </div>
                 </motion.div>
@@ -376,7 +382,7 @@ export default function Home() {
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
                   <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
-                    <h2 className="text-2xl md:text-3xl font-light mb-3">Working Together</h2>
+                    <h2 className="text-2xl md:text-3xl font-light mb-3">Presence. Connection. Vitality.</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
                     <SessionsContent />
                   </div>
@@ -467,15 +473,18 @@ export default function Home() {
                 </div>}
                 {/* Content panel appears below the hexagon, not over it */}
                 <AnimatePresence>
-                  {(!!effectiveService || isCenterActive) && (
+                  {(
                     <motion.div
                       key="m-practice-panel"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="w-full rounded-2xl px-5 pt-4 pb-6 mt-4"
-                      style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', minHeight: 180 }}
+                      className="content-scrollbar w-full rounded-2xl px-5 pt-4 pb-6 mt-4"
+                      tabIndex={0}
+                      role="region"
+                      aria-label="Approach"
+                      style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', minHeight: 180, maxHeight: 520, overflowY: 'auto' }}
                       onClick={e => e.stopPropagation()}
                     >
                       <MobileServiceContent activeService={effectiveService} isCenterActive={isCenterActive} services={SERVICES} />
@@ -494,9 +503,7 @@ export default function Home() {
                 className="w-full px-2"
               >
                 <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
-                  <h2 className="text-xl font-light mb-2">About Nancy</h2>
-                  <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
-                  <AboutContent />
+                  <AboutContent onResourcesClick={() => setActiveView('resources')} />
                 </div>
               </motion.div>
             )}
@@ -510,7 +517,7 @@ export default function Home() {
                 className="w-full px-2"
               >
                 <div className="rounded-2xl px-5 py-6" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }} onClick={e => e.stopPropagation()}>
-                  <h2 className="text-xl font-light mb-2">Working Together</h2>
+                  <h2 className="text-xl font-light mb-2">Presence. Connection. Vitality.</h2>
                   <div className="h-px w-12 mb-4" style={{ background: '#C850C0' }} />
                   <SessionsContent />
                 </div>
