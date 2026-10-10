@@ -1392,12 +1392,14 @@ html&gt;body{padding:0}&lt;/style&gt;
 #rv-page .rv-signup p {margin-top:16px;font-size:14px;}
 #rv-page form {margin:0;min-width:0;}
 #rv-page label {display:block;font-size:13px;margin-bottom:9px;}
-#rv-page input {width:100%;min-height:50px;padding:12px 14px;font:400 16px/1.5 Montserrat,sans-serif;border:1px solid #a8bfbd;border-radius:8px;background:#f5f2ed;color:#163537;caret-color:#873981;}
-#rv-page input::placeholder {color:#5a6565;}
-#rv-page .rv-signup input:focus-visible,#rv-page .rv-signup button:focus-visible {outline-color:#e7bce5;}
+#rv-page input,#rv-page textarea {width:100%;min-height:50px;padding:12px 14px;font:400 16px/1.5 Montserrat,sans-serif;border:1px solid #a8bfbd;border-radius:8px;background:#f5f2ed;color:#163537;caret-color:#873981;}
+#rv-page input::placeholder,#rv-page textarea::placeholder {color:#5a6565;}
+#rv-page .rv-signup input:focus-visible,#rv-page .rv-signup textarea:focus-visible,#rv-page .rv-signup button:focus-visible {outline-color:#e7bce5;}
 #rv-page .rv-signup button {margin-top:12px;background:#d8b1d8;color:#302433;width:100%;}
 #rv-page .rv-signup button:hover {background:#e6c5e6;}
 #rv-page .rv-signup .rv-demo {font-size:12px;line-height:1.6;color:#c4d4d2;margin-top:12px;}
+#rv-page .rv-comment-label {margin-top:18px;}
+#rv-page textarea {display:block;min-height:110px;resize:vertical;}
 #rv-page .rv-response:empty {display:none;}
 #rv-page .rv-response {padding-top:5px;color:var(--rv-on-dark);}
 #rv-page footer {padding:22px calc(var(--rv-gutter) + 24px);display:flex;justify-content:space-between;gap:20px;font-size:12px;color:var(--rv-muted);}
@@ -1461,6 +1463,8 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;div&gt;&lt;h2 id=&quot;rv-interest-title&quot;&gt;Join the interest list&lt;/h2&gt;&lt;p&gt;The community is taking shape around this proposed monthly rhythm. Leave your email to receive details about the gatherings, location, and cost as they are confirmed.&lt;/p&gt;&lt;/div&gt;
       &lt;form aria-label=&quot;Interest form demonstration&quot;&gt;
         &lt;label for=&quot;rv-email&quot;&gt;Your email address&lt;/label&gt;&lt;input id=&quot;rv-email&quot; type=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot; placeholder=&quot;you@example.com&quot; required aria-describedby=&quot;rv-demo-note&quot;&gt;
+        &lt;label class=&quot;rv-comment-label&quot; for=&quot;rv-comments&quot;&gt;Anything you’d like Nancy to know? (optional)&lt;/label&gt;
+        &lt;textarea id=&quot;rv-comments&quot; name=&quot;comments&quot; rows=&quot;3&quot; maxlength=&quot;2000&quot; placeholder=&quot;What interests you about the community, or any questions you have.&quot;&gt;&lt;/textarea&gt;
         &lt;button class=&quot;rv-action&quot; type=&quot;button&quot;&gt;I’m interested&lt;/button&gt;
         &lt;p class=&quot;rv-demo&quot; id=&quot;rv-demo-note&quot;&gt;Preview only — this form does not collect or send your email.&lt;/p&gt;
         &lt;p class=&quot;rv-response&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;&lt;/p&gt;
