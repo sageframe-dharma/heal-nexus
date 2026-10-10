@@ -1403,7 +1403,7 @@ html&gt;body{padding:0}&lt;/style&gt;
 #rv-page .rv-response:empty {display:none;}
 #rv-page .rv-response {padding-top:5px;color:var(--rv-on-dark);}
 #rv-page footer {padding:22px calc(var(--rv-gutter) + 24px);display:flex;justify-content:space-between;gap:20px;font-size:12px;color:var(--rv-muted);}
-#rv-page .rv-human {display:block;font:600 28px/1.2 'Cormorant Garamond',Georgia,serif;color:var(--rv-accent);margin-bottom:6px;}
+#rv-page .rv-human {font-size:14px;font-weight:500;color:var(--rv-accent);margin-right:6px;}
 #rv-page[data-density=&quot;compact&quot;] .rv-section {padding-top:28px;padding-bottom:28px;}
 #rv-page[data-density=&quot;compact&quot;] .rv-about {padding-top:4px;}
 @container (max-width:700px) {
@@ -1483,11 +1483,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   root.querySelector(&#x27;form&#x27;).addEventListener(&#x27;submit&#x27;, () =&gt; {
     root.querySelector(&#x27;.rv-response&#x27;).textContent = &#x27;Submitting your interest…&#x27;;
   });
-  root.querySelectorAll(&#x27;a[href^=&quot;#&quot;]&#x27;).forEach(link =&gt; link.addEventListener(&#x27;click&#x27;, event =&gt; {
-    event.preventDefault();
-    const target = root.querySelector(link.getAttribute(&#x27;href&#x27;));
-    if (target) target.scrollIntoView({block:&#x27;start&#x27;,behavior:matchMedia(&#x27;(prefers-reduced-motion: reduce)&#x27;).matches ? &#x27;auto&#x27; : &#x27;smooth&#x27;});
-  }));
+
   const design = {spacing:&#x27;generous&#x27;,portrait:true};
   function renderDesign() {
     root.dataset.density = design.spacing;
@@ -1975,6 +1971,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         globalThis.navigator.userActivation?.isActive === true
       ) {
         globalThis.scrollTo({
+          behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
           top: Math.ceil(
             globalThis.scrollY + frame.getBoundingClientRect().top + top,
           ),
