@@ -1,3 +1,6 @@
-/relational    /relational/index.html   200
-/relational/   /relational/index.html   200
+/relational    /vitality   301
+/relational/   /vitality   301
+/relational/index.html   /vitality   301
+/vitality    /vitality/index.html   200
+/vitality/   /vitality/index.html   200
 /*    /index.html   200
