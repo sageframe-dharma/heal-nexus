@@ -14,7 +14,7 @@ export function ServicePanel({ activeService, isCenterActive, services }: Servic
   const active = services.find((s) => s.name === activeService);
 
   return (
-    <div className="content-scrollbar flex flex-col justify-start h-full px-5 py-6 md:py-6 rounded-2xl" tabIndex={0} role="region" aria-label="Approach" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
+    <div className="content-scrollbar flex flex-col justify-start h-full px-5 py-6 md:py-6 rounded-2xl" tabIndex={0} role="region" aria-label="Approach" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: 'min(520px, 100cqh - 24px)' }}>
       <AnimatePresence mode="wait">
         {isCenterActive && !active ? (
           <motion.div

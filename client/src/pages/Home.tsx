@@ -272,7 +272,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="h-screen relative selection:bg-primary/10 flex flex-col overflow-hidden" style={{ background: '#051a1c' }} onClick={handleBackgroundClick}>
+    <div className="h-screen relative selection:bg-primary/10 flex flex-col overflow-hidden md:overflow-y-auto" style={{ background: '#051a1c' }} onClick={handleBackgroundClick}>
 
       {/* Background Video—cropped top 5% to hide watermark */}
       <div className="fixed inset-0 z-0 overflow-hidden" style={{ top: '-5vh' }}>
@@ -294,7 +294,7 @@ export default function Home() {
       {/* ───── Header + Nav ───── */}
       <div className="relative z-30 w-full flex flex-col items-center pt-3 md:pt-4 pb-3 shrink-0" onClick={e => e.stopPropagation()}>
         <div className="flex flex-col items-stretch w-fit max-w-full px-3 gap-1.5">
-          <header className="text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
+          <header className="home-header text-center space-y-2 md:space-y-3 px-6 py-3 md:px-8 md:py-5 rounded-xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a' }}>
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight">
               Nancy Turnquist
             </h1>
@@ -327,11 +327,11 @@ export default function Home() {
       </div>
 
       {/* ───── Main Content ───── */}
-      <div className="relative z-20 flex-1 min-h-0 w-full px-4 md:px-8 lg:px-12">
+      <div className="home-main relative z-20 flex-1 min-h-0 w-full px-4 md:px-8 lg:px-12">
 
         {/* Desktop: graph always left, right panel fades between views */}
         <div className="hidden md:flex flex-row items-center justify-center gap-8 lg:gap-12 w-full max-w-6xl mx-auto h-full">
-          <div className="w-1/2 shrink-0" style={{ maxWidth: '520px' }}>
+          <div className="w-1/2 shrink-0" style={{ maxWidth: 'min(520px, 100cqh - 24px)' }}>
             <NetworkGraph
               services={SERVICE_NAMES}
               image={portraitImage}
@@ -368,7 +368,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: 'min(520px, 100cqh - 24px)' }}>
                     <AboutContent onResourcesClick={() => setActiveView('resources')} />
                   </div>
                 </motion.div>
@@ -381,7 +381,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: 'min(520px, 100cqh - 24px)' }}>
                     <h2 className="text-2xl md:text-3xl font-light mb-3">Presence. Connection. Vitality.</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
                     <SessionsContent />
@@ -396,7 +396,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: '520px' }}>
+                  <div className="px-5 py-6 rounded-2xl" style={{ background: 'rgba(170, 185, 240, 0.72)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: '#1a1a1a', overflowY: 'auto', maxHeight: 'min(520px, 100cqh - 24px)' }}>
                     <h2 className="text-2xl md:text-3xl font-light mb-3">Resources & Lineage</h2>
                     <div className="h-px w-16 mb-4" style={{ background: '#C850C0' }} />
                     <ResourcesContent />
