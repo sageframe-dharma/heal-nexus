@@ -108,4 +108,19 @@ test.describe("phone 390×844", () => {
     await page.screenshot({ path: `${SCREENS}/${info.project.name}-390x844-babies.png` });
     await expect(page.getByRole("heading", { name: "Craniosacral Therapy For Babies" })).toBeVisible();
   });
+
+  // On the phone the page scrolls; the text panels grow to fit their text
+  // instead of scrolling inside a fixed-height box.
+  test("text panels expand instead of scrolling inside", async ({ page }) => {
+    await openHome(page);
+    const views = ["Approach", "About", "Sessions", "Resources"];
+    for (const view of views) {
+      await page.locator("header + nav").getByRole("button", { name: view }).dispatchEvent("click");
+      await page.waitForTimeout(600);
+      const inner = await page.locator(".rounded-2xl").filter({ visible: true }).evaluateAll((els) =>
+        els.filter((el) => el.scrollHeight > el.clientHeight + 1).length,
+      );
+      expect(inner, `${view} panel scrolls inside`).toBe(0);
+    }
+  });
 });

@@ -484,7 +484,7 @@ export default function Home() {
                       tabIndex={0}
                       role="region"
                       aria-label="Approach"
-                      style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', minHeight: 180, maxHeight: 520, overflowY: 'auto' }}
+                      style={{ background: 'rgba(170, 185, 240, 0.78)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', minHeight: 180 }}
                       onClick={e => e.stopPropagation()}
                     >
                       <MobileServiceContent activeService={effectiveService} isCenterActive={isCenterActive} services={SERVICES} />
