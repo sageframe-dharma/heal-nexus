@@ -1,12 +1,22 @@
 # Heal Nexus — State Memory
 
-_Updated 2026-11-23 for a fresh chat, from current source/history and the Nancy/Vitality conversation. No application code changed during this handoff._
+_Updated 2026-11-23 after the clean multi-page site went to production._
 
 **STATE-SUMMARY**
-- **COMPLETED** — Nancy’s production site and `/vitality` page are deployed. Vitality uses Jotform for email plus optional comments; its mandala links home, section navigation works, and the footer has a subtle inline “human.being.” accent. Later October home-layout work and November state-file work remain intact. HTTP availability and the old-route redirect were rechecked on 2026-11-23.
-- **NEXT** — Confirm the next bounded website task with Andrew; the November 17 proposal to review untracked work and continue home-layout polish remains unapproved.
-- **ACTION ITEMS / BLOCKS** — Jotform notification delivery to Nancy’s inbox remains unverified. Community dates, location, and pricing remain undecided. Untracked `assets/card.ai` and `tools/` are unrelated unfinished work; preserve them. No README. No new build or browser tests were run for this documentation-only handoff.
+- **COMPLETED** — 2026-11-23 the clean multi-page site replaced the hexagon home page in production: Approach (home), About (hexagon window plus bio), Sessions, Relational Vitality (native page, same Jotform), Resources, and a contact form page, in one shell with fade transitions and a phone hamburger menu. The earlier site is kept unchanged under `/archive`, marked noindex; the pre-change state is tagged `v1-hexagon-site`.
+- **NEXT** — Andrew and Nancy review the live site; then rework the parked lineage and teacher-photo content (`client/src/components/LineageSection.tsx`) for the About page.
+- **ACTION ITEMS / BLOCKS** — The rebuilt Vitality interest form has not been submitted end to end (field names and endpoint are tested; no test entry was sent). Jotform notification delivery to Nancy's inbox remains unverified. Open copy question: whether removing Rosita Arvigo also covers the Maya healing line in the parked lineage text. Community dates, location, and pricing remain undecided. The archived Resources page still carries the password gate and `functions/api/auth.ts`. `client/src/lib/queryClient.ts` still fails `tsc` (pre-existing). Untracked `assets/card.ai`, `tools/`, `.impeccable/` are not part of the site. No README.
 - **PROJECT LIFECYCLE** — production
+
+## The clean site (2026-11-23)
+
+- Routes: `/` (Approach), `/about`, `/sessions`, `/vitality`, `/resources`, `/contact` — all in `client/src/pages/CleanSite.tsx`, inside `client/src/components/SiteShell.tsx`, styled by `client/src/styles/site.css` (tokens and measurements taken from the first Vitality page). `App.tsx` mounts them through one regex route so the shell stays mounted between pages.
+- Menu order, decided by Andrew: Approach | About | Sessions | Relational Vitality | Resources. Alone Together (https://alonetogethercommunity.org/) is a footer link, not a menu item. The tagline "human.being." is the home headline and sits in every footer.
+- About: `client/src/components/HexWindow.tsx` holds the original water, tint, hexagon, and panel in an inset window. The background values listed under "Preserve these site decisions" still apply there.
+- Decided against: section scroll-snapping (tried, felt wrong, removed); embedding the long contact Jotform on the home page (it lives on `/contact`).
+- Archive: `/archive`, `/archive/offerings`, `/archive/about`, `/archive/sessions`, `/archive/resources`, `/archive/vitality/` (the static exported page, moved to `client/public/archive/vitality/index.html`). `Layout2.tsx` links stay inside the archive. `client/public/_headers` marks `/archive*` noindex; `/offerings` redirects to the archive; `/relational` still redirects to `/vitality`.
+- Deployment: the Cloudflare Pages project `nancyturnquist` (account "Sageframe") builds from GitHub. A push to `main` is production; any other branch gets a preview URL. `wrangler` needs `CLOUDFLARE_ACCOUNT_ID` set to that account because the login sees several.
+- Tests: `npx playwright test` builds and runs `tests/home-layout.spec.ts` (hexagon home, now at `/archive`) and `tests/clean-site.spec.ts` (new pages, menu, phone menu, form wiring).
 
 ## Resume here
 
@@ -15,7 +25,7 @@ _Updated 2026-11-23 for a fresh chat, from current source/history and the Nancy/
 - Live: https://nancyturnquist.com/ and https://www.nancyturnquist.com/. Vitality: https://nancyturnquist.com/vitality/; `/relational`, `/relational/`, and `/relational/index.html` redirect to it. November 23 HTTP checks returned 200 for both main hosts and Vitality, and followed the old route to Vitality.
 - Stack: Vite/React, with `functions/api/auth.ts` for resource password checking. `npm run build` writes `dist/public`; Cloudflare Pages project is `nancyturnquist`. Use the existing project and deployment pattern, not a new hosting project. No deployment was made during this handoff.
 
-## Vitality page and form
+## Vitality page and form (the archived static page; the live page is the native one above)
 
 - Source: `/Users/atmarcus/Vaults/sageframe-dharma/heal-nexus/client/public/vitality/index.html`; routes in `/Users/atmarcus/Vaults/sageframe-dharma/heal-nexus/client/public/_redirects`.
 - The static page is an exported visualization with HTML encoded inside an iframe’s `data-srcdoc`. Changes to inner content must preserve escaping, CSP, and sandbox permissions. The outer frame resizes to the page’s height.
