@@ -46,7 +46,7 @@ async function isUncovered(loc: Locator): Promise<boolean> {
 }
 
 async function openHome(page: Page) {
-  await page.goto("/");
+  await page.goto("/archive"); // the hexagon home page now lives in the archive
   await page.locator('[data-testid^="node-"]').filter({ visible: true }).first().waitFor();
   await page.waitForTimeout(2000); // node fade-in + scale animations
 }

@@ -80,10 +80,10 @@ const HAMBURGER_CSS = `
 `;
 
 const NAV_LINKS = [
-  { label: "Offerings",  href: "/offerings"  },
-  { label: "About",      href: "/about"      },
-  { label: "Sessions",   href: "/sessions"   },
-  { label: "Resources",  href: "/resources"  },
+  { label: "Offerings",  href: "/archive/offerings"  },
+  { label: "About",      href: "/archive/about"      },
+  { label: "Sessions",   href: "/archive/sessions"   },
+  { label: "Resources",  href: "/archive/resources"  },
 ] as const;
 
 interface Layout2Props {
@@ -129,7 +129,7 @@ export function Layout2({ children, contentStyle, inlineNav }: Layout2Props) {
   const navInner = (
     <>
       <Link
-        href="/"
+        href="/archive"
         style={{
           color: "rgba(5,26,28,0.5)",
           fontFamily: "Montserrat, sans-serif",

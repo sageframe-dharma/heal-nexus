@@ -8,16 +8,24 @@ import PracticePage from "@/pages/PracticePage";
 import AboutPage from "@/pages/AboutPage";
 import SessionsPage from "@/pages/SessionsPage";
 import ResourcesPage from "@/pages/ResourcesPage";
+import CleanSite, { CLEAN_PATHS } from "@/pages/CleanSite";
 import NotFound from "@/pages/not-found";
+
+// Matches "/", "/about", "/sessions" and the rest, with or without a trailing slash.
+const CLEAN_ROUTE = new RegExp(`^(?:${CLEAN_PATHS.map((path) => path.replace(/\/$/, "")).join("|")})/?$`);
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/offerings" component={PracticePage} />
-      <Route path="/about" component={AboutPage} />
-      <Route path="/sessions" component={SessionsPage} />
-      <Route path="/resources" component={ResourcesPage} />
+      {/* The clean site. A single route covers all of its pages, so its shell stays mounted between them. */}
+      <Route path={CLEAN_ROUTE} component={CleanSite} />
+
+      {/* The earlier site, kept as it was. Not linked from the clean site. */}
+      <Route path="/archive" component={Home} />
+      <Route path="/archive/offerings" component={PracticePage} />
+      <Route path="/archive/about" component={AboutPage} />
+      <Route path="/archive/sessions" component={SessionsPage} />
+      <Route path="/archive/resources" component={ResourcesPage} />
       <Route component={NotFound} />
     </Switch>
   );
